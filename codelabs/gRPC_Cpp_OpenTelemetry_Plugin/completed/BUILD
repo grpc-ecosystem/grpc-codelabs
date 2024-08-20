@@ -18,24 +18,12 @@ package(
     default_visibility = ["//visibility:public"],
 )
 
-cc_library(
-    name = "util",
-    srcs = ["util.cc"],
-    hdrs = ["util.h"],
-    defines = ["BAZEL_BUILD"],
-    deps = [
-        "//protos:helloworld",
-        "@com_github_grpc_grpc//:grpc++",
-        "@io_opentelemetry_cpp//sdk/src/metrics",
-    ],
-)
-
 cc_binary(
     name = "greeter_callback_client",
     srcs = ["greeter_callback_client.cc"],
     defines = ["BAZEL_BUILD"],
     deps = [
-        "util",
+        "//util:util",
         "@com_github_grpc_grpc//:grpc++",
         "@com_github_grpc_grpc//:grpcpp_otel_plugin",
         "@com_google_absl//absl/flags:flag",
@@ -50,39 +38,7 @@ cc_binary(
     srcs = ["greeter_callback_server.cc"],
     defines = ["BAZEL_BUILD"],
     deps = [
-        "util",
-        "@com_github_grpc_grpc//:grpc++",
-        "@com_github_grpc_grpc//:grpc++_reflection",
-        "@com_github_grpc_grpc//:grpcpp_otel_plugin",
-        "@com_google_absl//absl/flags:flag",
-        "@com_google_absl//absl/flags:parse",
-        "@com_google_absl//absl/strings:str_format",
-        "@io_opentelemetry_cpp//exporters/prometheus:prometheus_exporter",
-        "@io_opentelemetry_cpp//sdk/src/metrics",
-    ],
-)
-
-cc_binary(
-    name = "greeter_callback_client_solution",
-    srcs = ["greeter_callback_client_solution.cc"],
-    defines = ["BAZEL_BUILD"],
-    deps = [
-        "util",
-        "@com_github_grpc_grpc//:grpc++",
-        "@com_github_grpc_grpc//:grpcpp_otel_plugin",
-        "@com_google_absl//absl/flags:flag",
-        "@com_google_absl//absl/flags:parse",
-        "@io_opentelemetry_cpp//exporters/prometheus:prometheus_exporter",
-        "@io_opentelemetry_cpp//sdk/src/metrics",
-    ],
-)
-
-cc_binary(
-    name = "greeter_callback_server_solution",
-    srcs = ["greeter_callback_server_solution.cc"],
-    defines = ["BAZEL_BUILD"],
-    deps = [
-        "util",
+        "//util:util",
         "@com_github_grpc_grpc//:grpc++",
         "@com_github_grpc_grpc//:grpc++_reflection",
         "@com_github_grpc_grpc//:grpcpp_otel_plugin",

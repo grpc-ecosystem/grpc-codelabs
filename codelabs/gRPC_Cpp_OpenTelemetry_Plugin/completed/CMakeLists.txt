@@ -79,6 +79,7 @@ add_custom_command(
 # Include generated *.pb.h files
 include_directories("${CMAKE_CURRENT_BINARY_DIR}")
 include_directories("${CMAKE_SOURCE_DIR}")
+include_directories("${CMAKE_SOURCE_DIR}/../util")
 
 # hw_grpc_proto
 add_library(hw_grpc_proto
@@ -93,7 +94,7 @@ target_link_libraries(hw_grpc_proto
 
 # util
 add_library(util
-  "util.cc")
+  "../util/util.cc")
 target_link_libraries(util
   hw_grpc_proto
   opentelemetry-cpp::metrics
@@ -101,9 +102,9 @@ target_link_libraries(util
   ${_REFLECTION}
   ${_PROTOBUF_LIBPROTOBUF})
 
-# Targets greeter_callback_(client|server) greeter_callback_(client|server)_solution
+# Targets greeter_callback_(client|server)
 foreach(_target
-  greeter_callback_client greeter_callback_server greeter_callback_client_solution greeter_callback_server_solution)
+  greeter_callback_client greeter_callback_server)
   add_executable(${_target} "${_target}.cc")
   target_link_libraries(${_target}
     absl::flags

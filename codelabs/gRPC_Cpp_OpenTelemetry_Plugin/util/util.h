@@ -16,8 +16,8 @@
 //
 //
 
-#ifndef CODELABS_OTEL_CPP_UTIL_H
-#define CODELABS_OTEL_CPP_UTIL_H
+#ifndef CODELABS_GRPC_CPP_OPENTELEMETRY_PLUGIN_UTIL_H
+#define CODELABS_GRPC_CPP_OPENTELEMETRY_PLUGIN_UTIL_H
 
 #include <string>
 
@@ -28,4 +28,4 @@
 void AddLatencyView(opentelemetry::sdk::metrics::MeterProvider* provider,
                     const std::string& name, const std::string& unit);
 
-#endif  // CODELABS_OTEL_CPP_UTIL_H
+#endif  // CODELABS_GRPC_CPP_OPENTELEMETRY_PLUGIN_UTIL_H

@@ -39,8 +39,8 @@
 #include "opentelemetry/sdk/metrics/meter_provider.h"
 
 #ifdef BAZEL_BUILD
-#include "otel_cpp/util.h"
 #include "protos/helloworld.grpc.pb.h"
+#include "util/util.h"
 #else
 #include "helloworld.grpc.pb.h"
 #include "util.h"
@@ -69,7 +69,10 @@ class GreeterServiceImpl final : public Greeter::CallbackService {
     std::string prefix("Hello ");
     reply->set_message(prefix + request->name());
 
-    // CODELAB HINT: This sleep seems suspicious.
+    ///////////////////////////////////////////////////////////////////////////
+    // CODELAB HINT : This sleep seems suspicious.
+    ///////////////////////////////////////////////////////////////////////////
+
     std::this_thread::sleep_for(std::chrono::seconds(5));
 
     ServerUnaryReactor* reactor = context->DefaultReactor();
@@ -104,7 +107,9 @@ void RunServer(uint16_t port) {
 int main(int argc, char** argv) {
   absl::ParseCommandLine(argc, argv);
 
+  ///////////////////////////////////////////////////////////////////////////
   // CODELAB HINT : Add code to register gRPC OpenTelemetry plugin here.
+  ///////////////////////////////////////////////////////////////////////////
 
   RunServer(absl::GetFlag(FLAGS_port));
   return 0;

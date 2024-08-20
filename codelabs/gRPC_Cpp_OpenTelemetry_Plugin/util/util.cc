@@ -29,8 +29,8 @@
 #include "opentelemetry/sdk/metrics/view/view_factory.h"
 
 #ifdef BAZEL_BUILD
-#include "otel_cpp/util.h"
 #include "protos/helloworld.grpc.pb.h"
+#include "util/util.h"
 #else
 #include "helloworld.grpc.pb.h"
 #include "util.h"
