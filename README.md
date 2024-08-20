@@ -18,7 +18,7 @@ To get started with the gRPC codelabs, please follow the instructions below:
 
 Here is a list of available codelabs in this repository:
 
-- [Getting Started with gRPC-Go](codelabs/Getting%20Started%20with%20gRPC-Go)
+- [Getting Started with gRPC-Go](codelabs/Getting_Started_with_gRPC_Go)
 
 Please note that this list will keep updating as new codelabs are added to the
 repository. Make sure to check back regularly for new content!

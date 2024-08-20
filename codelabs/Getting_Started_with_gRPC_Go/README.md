@@ -20,5 +20,5 @@ Perfect for Go developers new to gRPC, those seeking a refresher, or anyone buil
 
 - [start_here](start_here/) directory serves as a starting point for the
 codelab. 
-- [ta_da](ta_da/) directory showcases the finished code, giving you a peak
-of how the final implementation should look like.
+- [completed](completed/) directory showcases the finished code, giving you a
+peak of how the final implementation should look like.
