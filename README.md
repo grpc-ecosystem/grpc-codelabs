@@ -18,12 +18,7 @@ To get started with the gRPC codelabs, please follow the instructions below:
 
 Here is a list of available codelabs in this repository:
 
-- Wow, such empty. 
-
-<!-- TODO: Add to this list when the codelabs examples are merged.
-- [Codelab 1: Getting Started with gRPC](codelabs/codelab1)
-- [Codelab 2: How to create Dark Matter using gRPC](codelabs/codelab2)
--->
+- [Getting Started with gRPC-Go](codelabs/Getting_Started_with_gRPC_Go)
 
 Please note that this list will keep updating as new codelabs are added to the
 repository. Make sure to check back regularly for new content!
