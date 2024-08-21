@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "io.grpc.examples.routeguide";
+option java_outer_classname = "RouteGuideProto";
+option objc_class_prefix = "RTG";
+
+package routeguide;
+
+// Interface exported by the server.
+service RouteGuide {
+  // A simple RPC.
+  //
+  // Obtains the feature at a given position.
+  //
+  // A feature with an empty name is returned if there's no feature at the given
+  // position.
+  rpc GetFeature(Point) returns (Feature) {}
+}
+
+// Points are represented as latitude-longitude pairs in the E7 representation
+// (degrees multiplied by 10**7 and rounded to the nearest integer).
+// Latitudes should be in the range +/- 90 degrees and longitude should be in
+// the range +/- 180 degrees (inclusive).
+message Point {
+  int32 latitude = 1;
+  int32 longitude = 2;
+}
+
+// A feature names something at a given point.
+//
+// If a feature could not be named, the name is empty.
+message Feature {
+  // The name of the feature.
+  string name = 1;
+
+  // The point where the feature is detected.
+  Point location = 2;
+}
+
+// Not used in the RPC.  Instead, this is here for the form serialized to disk.
+message FeatureDatabase {
+  repeated Feature feature = 1;
+}
+
+

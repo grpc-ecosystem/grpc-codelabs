@@ -280,7 +280,7 @@ public class RouteGuideClient {
       CountDownLatch finishLatch = client.routeChat();
 
       if (!finishLatch.await(1, TimeUnit.MINUTES)) {
-        client.warning("routeChat can not finish within 1 minutes");
+        client.warning("routeChat did not finish within 1 minutes");
       }
     } finally {
       channel.shutdownNow().awaitTermination(5, TimeUnit.SECONDS);
