@@ -24,6 +24,7 @@ _SERVER_PORT = "50051"
 
 
 def run():
+    # CODELAB HINT : Add code to register gRPC OpenTelemetry plugin here.
     with grpc.insecure_channel(target=f"localhost:{_SERVER_PORT}") as channel:
         stub = helloworld_pb2_grpc.GreeterStub(channel)
         # Continuously send RPCs.

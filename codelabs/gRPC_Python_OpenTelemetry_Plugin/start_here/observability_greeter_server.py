@@ -33,6 +33,7 @@ class Greeter(helloworld_pb2_grpc.GreeterServicer):
 
 
 def serve():
+    # CODELAB HINT : Add code to register gRPC OpenTelemetry plugin here.
     server = grpc.server(
         thread_pool=futures.ThreadPoolExecutor(max_workers=10),
     )
