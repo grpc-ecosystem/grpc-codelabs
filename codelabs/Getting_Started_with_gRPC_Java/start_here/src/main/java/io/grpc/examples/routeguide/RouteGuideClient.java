@@ -80,9 +80,8 @@ public class RouteGuideClient {
 
         /***************************************************************
          * Codelab Hint: create a channel using target defined above
-         *
-         ManagedChannel channel =
          ***************************************************************/
+     ManagedChannel channel = null; // Replace
 
     try {
       // Create a client instance
