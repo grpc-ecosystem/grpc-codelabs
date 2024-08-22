@@ -83,7 +83,7 @@ public class RouteGuideServer {
   }
 
   /**
-   * Main method.  This comment makes the linter happy.
+   * Main method.
    */
   public static void main(String[] args) throws Exception {
     RouteGuideServer server = new RouteGuideServer(8980);
