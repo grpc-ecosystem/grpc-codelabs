@@ -1,4 +1,4 @@
-// Package main implements a RouteGuide server.
+// Package main implements a RouteGuide client.
 package main
 
 import (
