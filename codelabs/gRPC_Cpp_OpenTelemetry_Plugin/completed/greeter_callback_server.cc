@@ -100,8 +100,8 @@ void RunServer(uint16_t port) {
 
 int main(int argc, char** argv) {
   absl::ParseCommandLine(argc, argv);
-  // Register a global gRPC OpenTelemetry plugin configured with a prometheus
-  // exporter.
+  // Codelab Solution: Register a global gRPC OpenTelemetry plugin configured
+  // with a prometheus exporter.
   opentelemetry::exporter::metrics::PrometheusExporterOptions opts;
   opts.url = absl::GetFlag(FLAGS_prometheus_endpoint);
   auto prometheus_exporter =

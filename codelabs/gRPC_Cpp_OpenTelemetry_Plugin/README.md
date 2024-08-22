@@ -15,4 +15,4 @@ Designed for developers already familiar with gRPC and wanting to learn how to i
 - [start_here](start_here/) directory serves as a starting point for the
 codelab. 
 - [completed](completed/) directory showcases the finished code, giving you a
-peak of how the final implementation should look like.
+peek of how the final implementation should look like.

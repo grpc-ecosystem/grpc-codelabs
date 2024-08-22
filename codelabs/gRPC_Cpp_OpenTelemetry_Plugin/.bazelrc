@@ -16,7 +16,7 @@ build:macos   --host_cxxopt='-std=c++14'
 build:freebsd   --cxxopt='-std=c++14'
 build:freebsd   --host_cxxopt='-std=c++14'
 
-# TODO(veblush): Remove these once upb is upgraded to 25.x or later
+# TODO(yashkt): Remove these once upb is upgraded to 25.x or later
 build:linux --copt=-Wno-typedef-redefinition
 build:linux --host_copt=-Wno-typedef-redefinition
 build:macos --copt=-Wno-typedef-redefinition
