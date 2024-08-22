@@ -40,6 +40,7 @@ def run():
         )
     else:
         print("Found no feature at %s" % format_point(feature.location))
+    channel.close()
 
 if __name__ == "__main__":
     logging.basicConfig()

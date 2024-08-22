@@ -20,6 +20,8 @@ Here is a list of available codelabs in this repository:
 
 - [Getting Started with gRPC-Go](codelabs/Getting_Started_with_gRPC_Go)
 - [Getting Started with gRPC-Go (Streaming)](codelabs/Getting_Started_with_gRPC_Go_Streaming)
+- [Getting Started with gRPC-Python](codelabs/Getting_Started_with_gRPC_Python)
+- [Getting Started with gRPC-Python (Streaming)](codelabs/Getting_Started_with_gRPC_Python_streaming)
 
 Please note that this list will keep updating as new codelabs are added to the
 repository. Make sure to check back regularly for new content!
