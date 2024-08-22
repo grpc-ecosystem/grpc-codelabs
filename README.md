@@ -24,6 +24,7 @@ Here is a list of available codelabs in this repository:
 - [Getting Started with gRPC-Java (Streaming)](codelabs/Getting_Started_with_gRPC_Java_Streaming)
 - [Setup Basic gRPC OpenTelemetry Plugin in gRPC C++](codelabs/gRPC_Cpp_OpenTelemetry_Plugin)
 - [Setup Basic gRPC OpenTelemetry Plugin in gRPC-Python](codelabs/gRPC_Python_OpenTelemetry_Plugin)
+- [Setup Basic gRPC OpenTelemetry Plugin in gRPC-Go](codelabs/Setup_Basic_OpenTelemetry_Plugin_in_gRPC_Go)
 
 Please note that this list will keep updating as new codelabs are added to the
 repository. Make sure to check back regularly for new content!
