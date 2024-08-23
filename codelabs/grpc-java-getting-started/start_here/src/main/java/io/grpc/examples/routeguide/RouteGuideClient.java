@@ -28,7 +28,7 @@ public class RouteGuideClient {
      * Codelab Hint: Create a blocking stub for your service
      * using the code generated from the proto file (RouteGuideGrpc)
      ****************************************************************/
-    blockingStub = null;
+    blockingStub = null; // Replace
   }
 
   /**
@@ -39,12 +39,12 @@ public class RouteGuideClient {
 
     Point request = Point.newBuilder().setLatitude(lat).setLongitude(lon).build();
 
-    Feature feature = null;
+    Feature feature;
     try {
       /****************************************************************
        * Codelab Hint: Use the blocking stub to make an RPC call to getFeature
-       *
        ****************************************************************/
+      feature = null; // Replace
 
     } catch (StatusRuntimeException e) {
       warning("RPC failed: {0}", e.getStatus());
