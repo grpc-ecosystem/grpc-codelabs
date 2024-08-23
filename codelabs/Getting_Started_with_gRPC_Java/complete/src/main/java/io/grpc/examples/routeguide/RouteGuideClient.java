@@ -30,7 +30,6 @@ import io.grpc.stub.StreamObserver;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Random;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
@@ -44,9 +43,7 @@ public class RouteGuideClient {
 
   private final RouteGuideBlockingStub blockingStub;
 
-  private Random random = new Random();
-
-  /** Construct client for accessing RouteGuide server using the existing channel. */
+  /** Construct client stub for accessing RouteGuide server using the existing channel. */
   public RouteGuideClient(Channel channel) {
     blockingStub = RouteGuideGrpc.newBlockingStub(channel);
   }
