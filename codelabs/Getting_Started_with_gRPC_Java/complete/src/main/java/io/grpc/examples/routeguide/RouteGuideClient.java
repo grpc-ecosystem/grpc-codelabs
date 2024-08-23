@@ -45,7 +45,6 @@ public class RouteGuideClient {
   private final RouteGuideBlockingStub blockingStub;
 
   private Random random = new Random();
-  private TestHelper testHelper;
 
   /** Construct client for accessing RouteGuide server using the existing channel. */
   public RouteGuideClient(Channel channel) {
@@ -63,14 +62,8 @@ public class RouteGuideClient {
     Feature feature;
     try {
       feature = blockingStub.getFeature(request);
-      if (testHelper != null) {
-        testHelper.onMessage(feature);
-      }
     } catch (StatusRuntimeException e) {
       warning("RPC failed: {0}", e.getStatus());
-      if (testHelper != null) {
-        testHelper.onRpcError(e);
-      }
       return;
     }
     if (RouteGuideUtil.exists(feature)) {
