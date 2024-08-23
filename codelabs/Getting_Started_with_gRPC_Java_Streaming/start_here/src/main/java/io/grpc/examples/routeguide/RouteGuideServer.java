@@ -1,13 +1,30 @@
 
 package io.grpc.examples.routeguide;
 
+import static java.lang.Math.atan2;
+import static java.lang.Math.cos;
+import static java.lang.Math.max;
+import static java.lang.Math.min;
+import static java.lang.Math.sin;
+import static java.lang.Math.sqrt;
+import static java.lang.Math.toRadians;
+import static java.util.concurrent.TimeUnit.NANOSECONDS;
+
 import io.grpc.Grpc;
 import io.grpc.InsecureServerCredentials;
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
+import io.grpc.stub.StreamObserver;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -266,6 +283,29 @@ public class RouteGuideServer {
       return Feature.newBuilder().setName("").setLocation(location).build();
     }
 
+    /**
+     * Calculate the distance between two points using the "haversine" formula.
+     * The formula is based on http://mathforum.org/library/drmath/view/51879.html.
+     *
+     * @param start The starting point
+     * @param end The end point
+     * @return The distance between the points in meters
+     */
+    private static int calcDistance(Point start, Point end) {
+      int r = 6371000; // earth radius in meters
+      double lat1 = toRadians(RouteGuideUtil.getLatitude(start));
+      double lat2 = toRadians(RouteGuideUtil.getLatitude(end));
+      double lon1 = toRadians(RouteGuideUtil.getLongitude(start));
+      double lon2 = toRadians(RouteGuideUtil.getLongitude(end));
+      double deltaLat = lat2 - lat1;
+      double deltaLon = lon2 - lon1;
+
+      double a = sin(deltaLat / 2) * sin(deltaLat / 2)
+          + cos(lat1) * cos(lat2) * sin(deltaLon / 2) * sin(deltaLon / 2);
+      double c = 2 * atan2(sqrt(a), sqrt(1 - a));
+
+      return (int) (r * c);
+    }
   }
 }
 
