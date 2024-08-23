@@ -6,3 +6,5 @@ pluginManagement {
         gradlePluginPortal()
     }
 }
+
+rootProject.name = 'start_here'
