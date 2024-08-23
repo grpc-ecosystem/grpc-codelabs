@@ -18,20 +18,20 @@ To get started with the gRPC codelabs, please follow the instructions below:
 
 Here is a list of available codelabs in this repository:
 
-- [Getting Started with gRPC-Go](codelabs/grpc-go-getting-started/)
-- [Getting Started with gRPC-Go (Streaming)](codelabs/grpc-go-streaming/)
-- [Getting Started with gRPC-Java](codelabs/grpc-java-getting-started/)
-- [Getting Started with gRPC-Java (Streaming)](codelabs/grpc-java-streaming/)
-- [Getting Started with gRPC-Python](codelabs/grpc-python-getting-started/)
-- [Getting Started with gRPC-Python (Streaming)](codelabs/grpc-python-streaming/)
-- [Setup Basic gRPC OpenTelemetry Plugin in gRPC C++](codelabs/grpc-cpp-opentelemetry/)
-- [Setup Basic gRPC OpenTelemetry Plugin in gRPC-Python](codelabs/grpc-python-opentelemetry/)
-- [Setup Basic gRPC OpenTelemetry Plugin in gRPC-Go](codelabs/grpc-go-opentelemetry/)
+- [Getting Started with gRPC-Go](https://github.com/grpc-ecosystem/grpc-codelabs/tree/main/codelabs/grpc-go-getting-started/)
+- [Getting Started with gRPC-Go (Streaming)](https://github.com/grpc-ecosystem/grpc-codelabs/tree/main/codelabs/grpc-go-streaming/)
+- [Getting Started with gRPC-Java](https://github.com/grpc-ecosystem/grpc-codelabs/tree/main/codelabs/grpc-java-getting-started/)
+- [Getting Started with gRPC-Java (Streaming)](https://github.com/grpc-ecosystem/grpc-codelabs/tree/main/codelabs/grpc-java-streaming/)
+- [Getting Started with gRPC-Python](https://github.com/grpc-ecosystem/grpc-codelabs/tree/main/codelabs/grpc-python-getting-started/)
+- [Getting Started with gRPC-Python (Streaming)](https://github.com/grpc-ecosystem/grpc-codelabs/tree/main/codelabs/grpc-python-streaming/)
+- [Setup Basic gRPC OpenTelemetry Plugin in gRPC C++](https://github.com/grpc-ecosystem/grpc-codelabs/tree/main/codelabs/grpc-cpp-opentelemetry/)
+- [Setup Basic gRPC OpenTelemetry Plugin in gRPC-Python](https://github.com/grpc-ecosystem/grpc-codelabs/tree/main/codelabs/grpc-python-opentelemetry/)
+- [Setup Basic gRPC OpenTelemetry Plugin in gRPC-Go](https://github.com/grpc-ecosystem/grpc-codelabs/tree/main/codelabs/grpc-go-opentelemetry/)
 
 Please note that this list will keep updating as new codelabs are added to the
 repository. Make sure to check back regularly for new content!
 
 ## License
 
-This repository is licensed under the [Apache License](LICENSE). Feel free to
+This repository is licensed under the [Apache License](https://github.com/grpc-ecosystem/grpc-codelabs/blob/main/LICENSE). Feel free to
 use the code and examples provided here for your own learning purposes.
