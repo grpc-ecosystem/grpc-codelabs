@@ -18,15 +18,15 @@ To get started with the gRPC codelabs, please follow the instructions below:
 
 Here is a list of available codelabs in this repository:
 
-- [Getting Started with gRPC-Go](codelabs/Getting_Started_with_gRPC_Go)
-- [Getting Started with gRPC-Go (Streaming)](codelabs/Getting_Started_with_gRPC_Go_Streaming)
-- [Getting Started with gRPC-Java](codelabs/Getting_Started_with_gRPC_Java)
-- [Getting Started with gRPC-Java (Streaming)](codelabs/Getting_Started_with_gRPC_Java_Streaming)
-- [Getting Started with gRPC-Python](codelabs/Getting_Started_with_gRPC_Python)
-- [Getting Started with gRPC-Python (Streaming)](codelabs/Getting_Started_with_gRPC_Python_streaming)
-- [Setup Basic gRPC OpenTelemetry Plugin in gRPC C++](codelabs/Setup_Basic_gRPC_OpenTelemetry_Plugin_in_gRPC_CPP)
-- [Setup Basic gRPC OpenTelemetry Plugin in gRPC-Python](codelabs/Setup_Basic_gRPC_OpenTelemetry_Plugin_in_gRPC_Python)
-- [Setup Basic gRPC OpenTelemetry Plugin in gRPC-Go](codelabs/Setup_Basic_gRPC_OpenTelemetry_Plugin_in_gRPC_Go/)
+- [Getting Started with gRPC-Go](codelabs/grpc-go-getting-started/)
+- [Getting Started with gRPC-Go (Streaming)](codelabs/grpc-go-streaming/)
+- [Getting Started with gRPC-Java](codelabs/grpc-java-getting-started/)
+- [Getting Started with gRPC-Java (Streaming)](codelabs/grpc-java-streaming/)
+- [Getting Started with gRPC-Python](codelabs/grpc-python-getting-started/)
+- [Getting Started with gRPC-Python (Streaming)](codelabs/grpc-python-streaming/)
+- [Setup Basic gRPC OpenTelemetry Plugin in gRPC C++](codelabs/grpc-cpp-opentelemetry/)
+- [Setup Basic gRPC OpenTelemetry Plugin in gRPC-Python](codelabs/grpc-python-opentelemetry/)
+- [Setup Basic gRPC OpenTelemetry Plugin in gRPC-Go](codelabs/grpc-go-opentelemetry/)
 
 Please note that this list will keep updating as new codelabs are added to the
 repository. Make sure to check back regularly for new content!
