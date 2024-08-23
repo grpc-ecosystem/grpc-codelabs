@@ -32,14 +32,8 @@ import io.grpc.ServerBuilder;
 import io.grpc.stub.StreamObserver;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -104,7 +98,7 @@ public class RouteGuideServer {
   }
 
   /**
-   * Main method.  This comment makes the linter happy.
+   * Main method.
    */
   public static void main(String[] args) throws Exception {
     RouteGuideServer server = new RouteGuideServer(8980);
@@ -128,7 +122,7 @@ public class RouteGuideServer {
      * Gets the {@link Feature} at the requested {@link Point}. If no feature at that location
      * exists, an unnamed feature is returned at the provided location.
      *
-     * @param request the requested location for the feature.
+     * @param request the specified location for the feature.
      * @param responseObserver the observer that will receive the feature at the requested point.
      */
     @Override

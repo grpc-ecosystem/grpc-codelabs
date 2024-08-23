@@ -8,8 +8,6 @@ import io.grpc.ManagedChannel;
 import io.grpc.Status;
 import io.grpc.StatusRuntimeException;
 import io.grpc.examples.routeguide.RouteGuideGrpc.RouteGuideBlockingStub;
-import io.grpc.examples.routeguide.RouteGuideGrpc.RouteGuideStub; // For Phase 2
-import io.grpc.stub.StreamObserver; 				  // For Phase 2
 import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
