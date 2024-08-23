@@ -76,10 +76,11 @@ public class RouteGuideClient {
       target = args[0];
     }
 
-        /***************************************************************
-         * Codelab Hint: create a channel using target defined above
-         ***************************************************************/
-     ManagedChannel channel = null; // Replace
+    /***************************************************************
+     * Codelab Hint: create a channel using target defined above
+      
+     ManagedChannel channel = ...
+     ***************************************************************/
 
     try {
       // Create a client instance
@@ -91,7 +92,11 @@ public class RouteGuideClient {
       // Feature missing.
       client.getFeature(0, 0);
     } finally {
-      channel.shutdownNow().awaitTermination(5, TimeUnit.SECONDS);
+      try {
+        channel.shutdown().awaitTermination(5, TimeUnit.SECONDS);
+      } catch (InterruptedException e) {
+        Thread.currentThread().interrupt();
+      }
     }
   }
 
