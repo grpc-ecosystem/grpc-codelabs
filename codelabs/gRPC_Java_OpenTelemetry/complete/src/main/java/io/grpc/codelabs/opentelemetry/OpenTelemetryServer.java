@@ -91,9 +91,12 @@ public class OpenTelemetryServer {
 
     // Adds a PrometheusHttpServer to convert OpenTelemetry metrics to Prometheus format and
     // expose these via a HttpServer exporter to the SdkMeterProvider.
+    PrometheusHttpServer prometheusExporter = PrometheusHttpServer.builder()
+        .setPort(prometheusPort)
+        .build();
+
     SdkMeterProvider sdkMeterProvider = SdkMeterProvider.builder()
-        .registerMetricReader(
-            PrometheusHttpServer.builder().setPort(prometheusPort).build())
+        .registerMetricReader(prometheusExporter)
         .build();
 
     // Initialize OpenTelemetry SDK with MeterProvider configured with Prometheus metrics exporter
@@ -101,7 +104,7 @@ public class OpenTelemetryServer {
         OpenTelemetrySdk.builder().setMeterProvider(sdkMeterProvider).build();
 
     // Initialize gRPC OpenTelemetry.
-    // Following client metrics are enabled by default :
+    // Following server metrics are enabled by default :
     //     1. grpc.server.call.started
     //     2. grpc.server.call.sent_total_compressed_message_size
     //     3. grpc.server.call.rcvd_total_compressed_message_size

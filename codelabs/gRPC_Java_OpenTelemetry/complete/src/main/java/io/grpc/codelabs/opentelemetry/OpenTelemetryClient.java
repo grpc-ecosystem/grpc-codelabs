@@ -115,9 +115,12 @@ public class OpenTelemetryClient {
 
     // Adds a PrometheusHttpServer to convert OpenTelemetry metrics to Prometheus format and
     // expose these via a HttpServer exporter to the SdkMeterProvider.
+    PrometheusHttpServer prometheusExporter = PrometheusHttpServer.builder()
+        .setPort(prometheusPort)
+        .build();
+
     SdkMeterProvider sdkMeterProvider = SdkMeterProvider.builder()
-        .registerMetricReader(
-            PrometheusHttpServer.builder().setPort(prometheusPort).build())
+        .registerMetricReader(prometheusExporter)
         .build();
 
     // Initialize OpenTelemetry SDK with MeterProvider configured with Prometeheus.
@@ -152,7 +155,7 @@ public class OpenTelemetryClient {
     } finally {
       channel.shutdownNow().awaitTermination(5, TimeUnit.SECONDS);
       ///////////////////////////////////////////////////////////////////////////
-      // CODELAB HINT : Add code to shutdown OpenTelemetry SDK.
+      // CODELAB SOLUTION : Add code to shutdown OpenTelemetry SDK.
       ///////////////////////////////////////////////////////////////////////////
       openTelemetrySdk.close();
     }
