@@ -27,9 +27,8 @@ public class RouteGuideClient {
     /****************************************************************
      * Codelab Hint: Create a blocking stub for your service
      * using the code generated from the proto file (RouteGuideGrpc)
-     *
-     blockingStub =
      ****************************************************************/
+    blockingStub = null; // Replace
   }
 
   /**
@@ -44,8 +43,8 @@ public class RouteGuideClient {
     try {
       /****************************************************************
        * Codelab Hint: Use the blocking stub to make an RPC call to getFeature
-       *
        ****************************************************************/
+      feature = null; // Replace
 
     } catch (StatusRuntimeException e) {
       warning("RPC failed: {0}", e.getStatus());
@@ -64,7 +63,7 @@ public class RouteGuideClient {
   }
 
   /** Issues several different requests and then exits. */
-  public static void main(String[] args)  {
+  public static void main(String[] args) throws InterruptedException {
     String target = "localhost:8980";
     if (args.length > 0) {
       if ("--help".equals(args[0])) {
@@ -76,9 +75,9 @@ public class RouteGuideClient {
       target = args[0];
     }
 
-        /***************************************************************
-         * Codelab Hint: create a channel using target defined above
-         ***************************************************************/
+     /***************************************************************
+      * Codelab Hint: create a channel using target defined above
+      ***************************************************************/
      ManagedChannel channel = null; // Replace
 
     try {

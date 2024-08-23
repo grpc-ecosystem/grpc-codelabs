@@ -44,21 +44,20 @@ public class RouteGuideServer {
     this.port = port;
     /****************************************************************
      * Codelab Hint: Create a server object using the passed in serverBuilder
-     *
-    server =
      ****************************************************************/
+    server = null;
   }
 
   /** Start serving requests. */
   public void start() throws IOException {
 
-  /****************************************************************
-   * Codelab Hint: Start the server
-   ****************************************************************/
+    /****************************************************************
+     * Codelab Hint: Start the server
+     ****************************************************************/
 
     logger.info("Server started, listening on " + port);
 
-// Always configure a shutdown hook so that you can cleanly stop your server
+    // Always configure a shutdown hook so that you can cleanly stop your server
     Runtime.getRuntime().addShutdownHook(new Thread() {
       @Override
       public void run() {
@@ -86,9 +85,9 @@ public class RouteGuideServer {
    */
   private void blockUntilShutdown() throws InterruptedException {
     if (server != null) {
-  /****************************************************************
-   * Codelab Hint: wait for server termination
-   ****************************************************************/
+      /****************************************************************
+       * Codelab Hint: wait for server termination
+       ****************************************************************/
     }
   }
 
@@ -122,11 +121,10 @@ public class RouteGuideServer {
      */
     @Override
     public void getFeature(Point request, StreamObserver<Feature> responseObserver) {
-  /****************************************************************
-   * Codelab Hint: use checkFeature so send an appropriate response
-   * and mark the RPC complete
-   ****************************************************************/
-
+      /****************************************************************
+       * Codelab Hint: use checkFeature so send an appropriate response
+       * and mark the RPC complete
+       ****************************************************************/
     }
 
     /**
