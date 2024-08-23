@@ -27,6 +27,14 @@ public class RouteGuideServer {
 
   /** Create a RouteGuide server listening on {@code port} using {@code featureFile} database. */
   public RouteGuideServer(int port, URL featureFile) throws IOException {
+    /****************************************************************
+     * Codelab Hint: Create a ServerBuilder object and pass it to the other constructor
+     * Use RouteGuideUtil.parseFeatures(featureFile) to load the features
+     *
+     this(<create ServerBuilder>,
+     port, RouteGuideUtil.parseFeatures(featureFile));
+     ****************************************************************/
+
     this(Grpc.newServerBuilderForPort(port, InsecureServerCredentials.create()),
         port, RouteGuideUtil.parseFeatures(featureFile));
   }
