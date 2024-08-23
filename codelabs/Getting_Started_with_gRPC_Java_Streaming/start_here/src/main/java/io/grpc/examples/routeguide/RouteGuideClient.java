@@ -8,10 +8,13 @@ import io.grpc.ManagedChannel;
 import io.grpc.Status;
 import io.grpc.StatusRuntimeException;
 import io.grpc.examples.routeguide.RouteGuideGrpc.RouteGuideBlockingStub;
-import io.grpc.examples.routeguide.RouteGuideGrpc.RouteGuideStub; // For Phase 2
-import io.grpc.stub.StreamObserver; 				  // For Phase 2
+import io.grpc.examples.routeguide.RouteGuideGrpc.RouteGuideStub;
+import io.grpc.stub.StreamObserver;
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,6 +27,7 @@ public class RouteGuideClient {
 
   private final RouteGuideBlockingStub blockingStub;
   private final RouteGuideStub asyncStub;
+  private Random random = new Random();
 
   /** Construct client stub for accessing RouteGuide server using the existing channel. */
   public RouteGuideClient(Channel channel) {
@@ -133,8 +137,8 @@ public class RouteGuideClient {
      * Codelab Hint: Start the recordRoute RPC using the asyncStub
      *   - Put the return value into requestObserver
      *
-     StreamObserver<Point> requestObserver =
      ****************************************************************/
+    StreamObserver<Point> requestObserver = null; // ***** TODO Replace null ******
     try {
       // Send numPoints points randomly selected from the features list.
       for (int i = 0; i < numPoints; ++i) {
@@ -277,6 +281,11 @@ public class RouteGuideClient {
 
   private void warning(String msg, Object... params) {
     logger.log(Level.WARNING, msg, params);
+  }
+
+  private RouteNote newNote(String message, int lat, int lon) {
+    return RouteNote.newBuilder().setMessage(message)
+        .setLocation(Point.newBuilder().setLatitude(lat).setLongitude(lon).build()).build();
   }
 
 }
