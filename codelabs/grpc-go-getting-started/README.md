@@ -11,7 +11,9 @@ peak of how the final implementation should look like.
 
 ### What you’ll learn
 
-* Get hands-on with gRPC for Go in this interactive codelab\! Perfect for Go developers new to gRPC, those seeking a refresher, or anyone building distributed systems. No prior gRPC experience needed\!
+* Get hands-on with gRPC for Go in this interactive codelab\! Perfect for Go
+  developers new to gRPC, those seeking a refresher, or anyone building
+  distributed systems. No prior gRPC experience needed\!
 * Build a complete gRPC service from scratch, learning:
   * Protocol Buffers (protobuf): Define service contracts & data.
   * gRPC Code Generation: Auto-generate Go code.
@@ -67,8 +69,6 @@ export PATH="$PATH:$(go env GOPATH)/bin"
 
 * Use [this as a starting point](https://download-directory.github.io/?url=https%3A%2F%2Fgithub.com%2Fgrpc-ecosystem%2Fgrpc-codelabs%2Ftree%2Fmain%2Fcodelabs%2FGetting\_Started\_with\_gRPC\_Go) for this codelab.
 
----
-
 ## Defining protobuf messages and services
 
 Our first step is to define the gRPC *service* and the method *request* and
@@ -92,7 +92,8 @@ message Point {
 }
 ```
 
-Let’s also define the `Feature` message type. A `Feature` names something at a given point using a `string` field.
+Let’s also define the `Feature` message type. A `Feature` names something at a
+given point using a `string` field.
 
 ```proto
 message Feature {
@@ -130,8 +131,7 @@ rpc GetFeature(Point) returns (Feature) {}
 ```
 
 > [!TIP]
->  For the complete .proto file, see [routeguide/route\_guide.proto.](https://github.com/grpc-ecosystem/codelabs/blob/main/codelabs/Getting\_Started\_with\_gRPC\_Go/completed/routeguide/route\_guide.proto)
-
+>  For the complete .proto file, see [routeguide/route_guide.proto](/completed/routeguide/route_guide.proto).
 
 ## Generating client and server code
 
@@ -157,10 +157,7 @@ Running this command generates the following files in the [routeguide](start_her
   * An interface type for servers to implement, also with the methods defined in
     the `RouteGuide` service.
 
----
-
 ## Creating the server
-
 
 First let’s look at how we create a `RouteGuide` server. There are two parts to
 making our `RouteGuide` service do its job:
@@ -257,11 +254,10 @@ To build and start a server, we:
 
 ## Creating the client
 
-
 In this section, we’ll look at creating a Go client for our RouteGuide service.
 
 > [!TIP]
->  For the complete server implementation, see [client.go](https://github.com/grpc-ecosystem/codelabs/tree/d6c5bf098cc4ba1d28f8be90935c0988cf9fe3f1/codelabs/Getting\_Started\_with\_gRPC\_Go/completed/client)
+>  For the complete server implementation, see [client.go](completed/client/client.go)
 
 ### Creating a stub
 
@@ -271,6 +267,7 @@ with the server. We create this by passing the server address and port number to
 
 > [!NOTE]
 >  serverAddr can be configured by passing in `addr` flag. Defaults to `localhost:50051`
+
 ```go
 conn, err := grpc.NewClient("dns:///"+*serverAddr, grpc.WithTransportCredentials(insecure.NewCredentials()))
 if err != nil {
@@ -319,10 +316,7 @@ server from the first return value.
 log.Println(feature)
 ```
 
----
-
 ## Try it out
-
 
 Execute the following commands from the working directory:
 
@@ -350,8 +344,6 @@ location:<>
 ```
 > [!NOTE]
 > We’ve omitted timestamps from the client and server trace output shown in this page
-
----
 
 ## What’s next
 
