@@ -110,8 +110,26 @@ public class OpenTelemetryClient {
     });
 
     ///////////////////////////////////////////////////////////////////////////
-    // CODELAB HINT : Add code to register GrpcOpenTelemetry here.
+    // CODELAB HINT : Add code to create Prometheus exporter here. The default
+    // port has been initialized for you in a variable i.e prometheusPort.
+    // Please use that while configuring teh exporter.
     ///////////////////////////////////////////////////////////////////////////
+
+    ///////////////////////////////////////////////////////////////////////////
+    // CODELAB HINT : Add code for the following tasks here:
+    // 1. After creating PrometheusHttpServer instance, use that
+    // as a MetricReader to create SdkMeterProvider.
+    // 2. Use newly created SdkMeterProvider to initialize an OpenTelemetrySdk
+    // instance.
+    ///////////////////////////////////////////////////////////////////////////
+
+    ///////////////////////////////////////////////////////////////////////////
+    // CODELAB HINT : Add code for the following tasks here:
+    // 1. Add code to create a GrpcOpenTelemetry instance and
+    // provide the above created OpenTelemetrySdk instance.
+    // 2. Register GrpcOpenTelemetry isntance globally.
+    ///////////////////////////////////////////////////////////////////////////
+
 
     // Create a communication channel to the server, known as a Channel.
     ManagedChannel channel = Grpc.newChannelBuilder(target, InsecureChannelCredentials.create())
