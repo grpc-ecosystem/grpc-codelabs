@@ -328,7 +328,7 @@ Similarly, for the server side metrics
 curl localhost:9464/metrics
 ```
 
-## Viewing metrics on Prometheus {#viewing-metrics-on-prometheus}
+## Viewing metrics on Prometheus
 
 Here, we will setup a prometheus instance that will scrape our gRPC codelab 
 client and server that are exporting metrics using prometheus.
@@ -378,7 +378,7 @@ Rate of queries:
 increase(grpc_client_attempt_duration_seconds_bucket[1m])
 ```
 
-### (Optional) Exercise for User 
+## (Optional) Exercise for User 
 
 In the prometheus dashboards, you’ll notice that the QPS is low. See if you spot some suspicious code in the example that is limiting the QPS.
 
