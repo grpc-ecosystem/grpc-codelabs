@@ -109,7 +109,7 @@ servers will be instrumented with OpenTelemetry.
 
 ### **Setup instrumentation on the server**
 
-Similarly, let’s add the OpenTelemetry plugin to the server as well. Open `codelabs/gRPC_Python_OpenTelemetry_Plugin/start_here/observability_greeter_server.py` and change dependencies and macros to this
+Similarly, let’s add the OpenTelemetry plugin to the server as well. Open `codelabs/grpc-python-opentelemetry/start_here/observability_greeter_server.py` and change dependencies and macros to this
 
 ```python
 from concurrent import futures
