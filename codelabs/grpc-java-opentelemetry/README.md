@@ -6,29 +6,17 @@ Designed for developers already familiar with gRPC and wanting to learn how to i
 
 #### You'll learn how to:
 
-- setup gRPC's OpenTelemetry API in gRPC Java.
-- setup Prometheus exporter with OpenTelemetry.
-- explore collected metrics using Prometheus.
+- How to setup OpenTelemetry for existing gRPC Java application.
+- Setup Prometheus exporter with Prometheus and export metrics to Prometheus.
+- Explore collected metrics using Prometheus.
 
 ## How to use this directory
 
 - [start_here](start_here/) directory serves as a starting point for the
   codelab.
-- [complete](complete/) directory showcases the finished code, giving you a
-  peek of how the final implementation should look like.
+- [complete](complete/) directory showcases the finished code.
 
 ## Before you Begin
-
-### What you’ll learn
-
-* How to setup OpenTelemetry for existing gRPC Java application
-* Running a local Prometheus instance
-* Exporting metrics to Prometheus
-* View metrics from Prometheus dashboard
-
-### What you’ll need
-
-* A computer with internet connection
 
 ### Prerequisites
 
@@ -108,7 +96,8 @@ openTelemetrySdk.close();
 
 ## Setup instrumentation on the server
 
-Similarly, let’s add the GrpcOpenTelemetry to the server as well. Open [`codelabs/grpc-java-opentelemetry/start_here/src/main/java/io/grpc/codelabs/opentelemetry/OpenTelemetryServer.java`](https://github.com/grpc-ecosystem/grpc-codelabs/blob/main/codelabs/grpc-java-opentelemetry/start\_here/src/main/java/io/grpc/codelabs/opentelemetry/OpenTelemetryServer.java) and add code to intiaize GrpcOpenTelemetry.
+Similarly, let’s add the GrpcOpenTelemetry to the server as well. 
+Open [`codelabs/grpc-java-opentelemetry/start_here/src/main/java/io/grpc/codelabs/opentelemetry/OpenTelemetryServer.java`](https://github.com/grpc-ecosystem/grpc-codelabs/blob/main/codelabs/grpc-java-opentelemetry/start\_here/src/main/java/io/grpc/codelabs/opentelemetry/OpenTelemetryServer.java) and add code to initiaize GrpcOpenTelemetry.
 
 ### Create a new Prometheus exporter
 
@@ -339,7 +328,7 @@ Similarly, for the server side metrics
 curl localhost:9464/metrics
 ```
 
-# Viewing metrics on Prometheus {#viewing-metrics-on-prometheus}
+## Viewing metrics on Prometheus {#viewing-metrics-on-prometheus}
 
 Here, we will setup a prometheus instance that will scrape our gRPC codelab 
 client and server that are exporting metrics using prometheus.
