@@ -34,7 +34,7 @@ Open [`codelabs/grpc-java-opentelemetry/start_here/src/main/java/io/grpc/codelab
 
 Then modify `main` to add code to setup the gRPC Java OpenTelemetry API.
 
-### Create a new Prometheus exporter
+### Create Prometheus exporter
 
 Create a PrometheusHttpServer to convert OpenTelemetry metrics to Prometheus format and  
 expose these via a HttpServer. The following code snippet creates a new [Prometheus Exporter](https://javadoc.io/doc/io.opentelemetry/opentelemetry-exporter-prometheus/latest/io/opentelemetry/exporter/prometheus/PrometheusHttpServer.html).
@@ -159,7 +159,7 @@ INFO: Server started, listening on 50051
 While, the server is running, on another terminal start client by running:
 
 ```java
-$ ./build/install/complete/bin/opentelemetry-client world
+$ ./build/install/start_here/bin/opentelemetry-client world
 ```
 
 A successful run will look like \-
