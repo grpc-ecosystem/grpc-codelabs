@@ -27,6 +27,7 @@ Here is a list of available codelabs in this repository:
 - [Setup Basic gRPC OpenTelemetry Plugin in gRPC C++](https://github.com/grpc-ecosystem/grpc-codelabs/tree/main/codelabs/grpc-cpp-opentelemetry/)
 - [Setup Basic gRPC OpenTelemetry Plugin in gRPC-Python](https://github.com/grpc-ecosystem/grpc-codelabs/tree/main/codelabs/grpc-python-opentelemetry/)
 - [Setup Basic gRPC OpenTelemetry Plugin in gRPC-Go](https://github.com/grpc-ecosystem/grpc-codelabs/tree/main/codelabs/grpc-go-opentelemetry/)
+- [Setup Basic gRPC OpenTelemetry Plugin in gRPC-Java](https://github.com/grpc-ecosystem/grpc-codelabs/tree/main/codelabs/grpc-java-opentelemetry/)
 
 Please note that this list will keep updating as new codelabs are added to the
 repository. Make sure to check back regularly for new content!
