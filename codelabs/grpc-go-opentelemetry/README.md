@@ -2,13 +2,16 @@
 
 # Before you Begin 
 
+Get hands-on with gRPC's OpenTelemetry plugin for gRPC-Go in this interactive codelab! <!-- TODO(arvindbr8): Insert link once codelab is published. -->  
+Designed for developers already familiar with gRPC and wanting to learn how to instrument their gRPC usage with OpenTelemetry.
+
 ## **Prerequisites** 
 
 * [**Go**](https://golang.org/), any one of the **two latest major** [releases of Go](https://golang.org/doc/devel/release.html).  
   For installation instructions, see Go’s [Getting Started](https://golang.org/doc/install) guide.  
 * [**Protocol buffer**](https://developers.google.com/protocol-buffers) **compiler**, `protoc`, [version 3](https://protobuf.dev/programming-guides/proto3).  
   For installation instructions, see [Protocol Buffer Compiler Installation](https://grpc.io/docs/protoc-installation/).  
-* Use [this as a starting point](https://github.com/grpc-ecosystem/codelabs/tree/main/codelabs/Setup\_Basic\_OpenTelemetry\_Plugin\_In\_gRPC\_Go) for this codelab.
+* Use [this as a starting point](start_here/) for this codelab.
 
 ## **What you’ll learn**
 
