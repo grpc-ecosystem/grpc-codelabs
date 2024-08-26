@@ -54,7 +54,7 @@ The client and server uses a simple gRPC HelloWorld example that we will instrum
 
 ### **Setup instrumentation on the client**
 
-Open `codelabs/gRPC_Python_OpenTelemetry_Plugin/start_here/observability_greeter_client.py` with your favorite editor, first add related dependencies and macros:
+Open `codelabs/grpc-python-opentelemetry/start_here/observability_greeter_client.py` with your favorite editor, first add related dependencies and macros:
 
 ```python
 import logging
