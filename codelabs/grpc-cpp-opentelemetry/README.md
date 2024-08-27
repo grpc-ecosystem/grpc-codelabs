@@ -2,6 +2,8 @@
 
 # Before you Begin 
 
+Get hands-on with gRPC's OpenTelemetry plugin for C++ in this interactive codelab! <!-- TODO(arvindbr8): Insert link once codelab is published. -->
+
 ## **Prerequisites** 
 
 * Basic understanding of gRPC and gRPC C++  
