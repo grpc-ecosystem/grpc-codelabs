@@ -1,8 +1,8 @@
 # Getting Started with gRPC-Python (Streaming)
 
-Get hands-on with gRPC for Python in this interactive codelab\! 
+Get hands-on with gRPC for Python in this interactive codelab! 
 
-Perfect for Python developers new to gRPC, those seeking a refresher, or anyone building distributed systems. No prior gRPC experience needed\!
+Perfect for Python developers new to gRPC, those seeking a refresher, or anyone building distributed systems. No prior gRPC experience needed!
 
 **Build a complete gRPC service from scratch, learning:**
 
@@ -19,12 +19,12 @@ Perfect for Python developers new to gRPC, those seeking a refresher, or anyone 
 
 ### How to use this directory
 
-- [start\_here](http://start\_here/) directory serves as a starting point for the codelab.  
+- [start_here](http://start_here/) directory serves as a starting point for the codelab.  
 - [completed](http://completed/) directory showcases the finished code, giving you a peak of how the final implementation should look like.
 
 ## Prerequisites
 
-If you are here after completing Getting Started with gRPC-Python codelab, you can skip this step 
+If you are here after completing Getting Started with gRPC-Python codelab, you can skip this step.
 
 ### This codelab
 
@@ -41,7 +41,7 @@ System-specific instructions can be found in Python documentation: [Python Setup
 
 ### Pip3
 
-We recommend using the latest pip, see [Installation \- pip](https://pip.pypa.io/en/stable/installation/).  
+We recommend using the latest pip, see [Installation - pip](https://pip.pypa.io/en/stable/installation/).  
 In some OS distributions, `ensurepip` is not available out-of-box. On Debian/Ubuntu, you may need to run.
 
 ```
@@ -78,7 +78,8 @@ sudo apt-get install python3-venv
 Once `venv` is installed, create a virtual environment:
 
 ```
-cd codelabs/grpc-python-streamingpython3 -m venv .venv
+cd codelabs/grpc-python-streaming
+python3 -m venv .venv
 ```
 
 #### Activate virtual environment
@@ -104,7 +105,7 @@ Let’s create a `route_guide.proto` file.
 
 ### Define proto Message
 
-Our `.proto` file contains protocol buffer message type definitions for all the request and response types used in our service methods \- let’s define the Point message type:
+Our `.proto` file contains protocol buffer message type definitions for all the request and response types used in our service methods - let’s define the Point message type:
 
 ```
 message Point {
@@ -211,7 +212,7 @@ This is exactly the kind of use case for *bidirectional streaming*. A bidirectio
 rpc RouteChat(stream RouteNote) returns (stream RouteNote) {}
 ```
 
-| Hint: For the complete .proto file, see [completed/protos/route\_guide.proto](https://github.com/grpc-ecosystem/grpc-codelabs/blob/main/codelabs/grpc-python-streaming/completed/protos/route\_guide.proto) |
+| Hint: For the complete .proto file, see [completed/protos/route_guide.proto](https://github.com/grpc-ecosystem/grpc-codelabs/blob/main/codelabs/grpc-python-streaming/completed/protos/route_guide.proto) |
 | :---- |
 
 ## Generating client and server code 
@@ -224,7 +225,7 @@ First, install the grpcio-tools package:
 pip install --require-virtualenv grpcio-tools
 ```
 
-If you see `ERROR: Could not find an activated virtualenv (required)`, please follow the section [activate virtual environment](https://docs.google.com/document/d/12oMqscjN\_UA6GSpdr09EUJ1vPYGntXbZiZQI96lyvT4/edit?resourcekey=0-GbVLembJB-Bz4x2hsgpioQ\&tab=t.0\#heading=h.dks8uqsprozy), then cd into `start_here`.
+If you see `ERROR: Could not find an activated virtualenv (required)`, please follow the section [activate virtual environment](https://docs.google.com/document/d/12oMqscjN_UA6GSpdr09EUJ1vPYGntXbZiZQI96lyvT4/edit?resourcekey=0-GbVLembJB-Bz4x2hsgpioQ\&tab=t.0\#heading=h.dks8uqsprozy), then cd into `start_here`.
 
 Use the following command to generate the Python code:
 
@@ -255,7 +256,7 @@ First let’s look at how you create a RouteGuide server. Creating and running a
 * Implementing the servicer interface generated from our service definition with functions that perform the actual “work” of the service.  
 * Running a gRPC server to listen for requests from clients and transmit responses.
 
-You can find the initial `RouteGuide` server in [`start_here/route_guide_server.py`](https://github.com/grpc-ecosystem/grpc-codelabs/blob/main/codelabs/grpc-python-streaming/start\_here/route\_guide\_server.py).
+You can find the initial `RouteGuide` server in [`start_here/route_guide_server.py`](https://github.com/grpc-ecosystem/grpc-codelabs/blob/main/codelabs/grpc-python-streaming/start_here/route_guide_server.py).
 
 ### Implementing RouteGuide
 
@@ -335,7 +336,7 @@ def RouteChat(self, request_iterator, context):
 
 This method’s semantics are a combination of those of the request-streaming method and the response-streaming method. It is passed an iterator of request values and is itself an iterator of response values.
 
-| Hint: For the completed route guide server, see [completed/route\_guide\_server.py](https://github.com/grpc-ecosystem/grpc-codelabs/blob/main/codelabs/grpc-python-streaming/completed/route\_guide\_server.py).  |
+| Hint: For the completed route guide server, see [completed/route_guide_server.py](https://github.com/grpc-ecosystem/grpc-codelabs/blob/main/codelabs/grpc-python-streaming/completed/route_guide_server.py).  |
 | :---- |
 
 ## Starting the server
@@ -357,14 +358,14 @@ def serve():
 
 The server `start()` method is non-blocking. A new thread will be instantiated to handle requests. The thread calling `server.start()` will often not have any other work to do in the meantime. In this case, you can call `server.wait_for_termination()` to cleanly block the calling thread until the server terminates.
 
-| Hint: For the completed route guide server, see [completed/route\_guide\_server.py](https://github.com/grpc-ecosystem/grpc-codelabs/blob/main/codelabs/grpc-python-streaming/completed/route\_guide\_server.py).  |
+| Hint: For the completed route guide server, see [completed/route_guide_server.py](https://github.com/grpc-ecosystem/grpc-codelabs/blob/main/codelabs/grpc-python-streaming/completed/route_guide_server.py).  |
 | :---- |
 
 ## Creating the client
 
 Duration: 5:00
 
-In this section, we’ll look at creating a client for our RouteGuide service. You can see the initial client code in [`start_here/route_guide_client.py`](https://github.com/grpc-ecosystem/grpc-codelabs/blob/main/codelabs/grpc-python-streaming/start\_here/route\_guide\_client.py).
+In this section, we’ll look at creating a client for our RouteGuide service. You can see the initial client code in [`start_here/route_guide_client.py`](https://github.com/grpc-ecosystem/grpc-codelabs/blob/main/codelabs/grpc-python-streaming/start_here/route_guide_client.py).
 
 ### Creating a stub 
 
@@ -453,7 +454,7 @@ print("-------------- RouteChat --------------")
 guide_route_chat(stub)
 ```
 
-## Try it out\! 
+## Try it out! 
 
 Duration: 2:00
 
@@ -463,7 +464,7 @@ Run the server:
 python route_guide_server.py
 ```
 
-From a different terminal, [activate virtual environment](https://docs.google.com/document/d/12oMqscjN\_UA6GSpdr09EUJ1vPYGntXbZiZQI96lyvT4/edit?resourcekey=0-GbVLembJB-Bz4x2hsgpioQ\&tab=t.0\#heading=h.dks8uqsprozy), then run the client:
+From a different terminal, [activate virtual environment](https://docs.google.com/document/d/12oMqscjN_UA6GSpdr09EUJ1vPYGntXbZiZQI96lyvT4/edit?resourcekey=0-GbVLembJB-Bz4x2hsgpioQ\&tab=t.0\#heading=h.dks8uqsprozy), then run the client:
 
 ```
 python route_guide_client.py
