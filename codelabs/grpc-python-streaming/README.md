@@ -111,7 +111,7 @@ Our first step is to define the gRPC *service* and the method *request* and *res
 
 Let’s create a `route_guide.proto` file.
 
-### Define proto Message
+### Define Proto Messages
 
 Our `.proto` file contains protocol buffer message type definitions for all the request and response
 types used in our service methods - let’s define the Point message type:
@@ -180,7 +180,7 @@ message RouteSummary {
 }
 ```
 
-### Define Route Guide service
+### Define Route Guide Service
 
 To define a service, you specify a named `service` in your `.proto` file:
 
@@ -246,7 +246,7 @@ rpc RouteChat(stream RouteNote) returns (stream RouteNote) {}
 
 > [!TIP]
 > For the complete .proto file, see
-> [`completed/protos/route_guide.proto`](https://github.com/grpc-ecosystem/grpc-codelabs/blob/main/codelabs/grpc-python-streaming/completed/protos/route_guide.proto
+> [`completed/protos/route_guide.proto`](https://github.com/grpc-ecosystem/grpc-codelabs/blob/main/codelabs/grpc-python-streaming/completed/protos/route_guide.proto)
 
 ## Generating client and server code 
 
@@ -334,9 +334,8 @@ Here the request message is a `route_guide_pb2.Rectangle` within which the clien
 
 ### Client-side streaming RPC 
 
-The request-streaming method `RecordRoute` uses an [iterator]
-(https://docs.python.org/3/library/stdtypes.html#iterator-types) of request values and returns a
-single response value.
+The request-streaming method `RecordRoute` uses an [iterator](https://docs.python.org/3/library/stdtypes.html#iterator-types)
+of request values and returns a single response value.
 
 ```py
 def RecordRoute(self, request_iterator, context):

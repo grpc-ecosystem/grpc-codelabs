@@ -108,7 +108,7 @@ Our first step is to define the gRPC *service* and the method *request* and *res
 
 Let’s start by defining the messages and service in `route_guide.proto`.
 
-### Define proto messages
+### Define Proto Messages
 
 Our `.proto` file contains protocol buffer message type definitions for all the request and response
 types used in our service methods.
@@ -134,7 +134,7 @@ message Feature {
 }
 ```
 
-### Define RouteGuide service
+### Define RouteGuide Service
 
 To define a service, you specify a named `service` in your `.proto` file:
 
