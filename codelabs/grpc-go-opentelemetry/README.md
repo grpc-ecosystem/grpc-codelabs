@@ -30,7 +30,7 @@ The client and server uses a simple gRPC HelloWorld example that we will instrum
 
 ## **Setup instrumentation on the client**
 
-Open `codelabs/Setup_Basic_OpenTelemetry_Plugin_in_gRPC_Go/start_here/client/client.go` with your favorite editor
+Open `codelabs/grpc-go-opentelemetry/start_here/client/client.go` with your favorite editor
 
 Then modify `main` to add code to setup the gRPC Go Otel plugin. 
 
@@ -74,7 +74,7 @@ This MeterProvider is provided to gRPC’s OpenTelemetry plugin as configuration
 
 ## **Setup instrumentation on the server**
 
-Similarly, let’s add the OpenTelemetry plugin to the server as well. Open `codelabs/Setup_Basic_OpenTelemetry_Plugin_in_gRPC_Go/start_here/server/server.go` and code to setup the gRPC Go Otel plugin
+Similarly, let’s add the OpenTelemetry plugin to the server as well. Open `codelabs/grpc-go-opentelemetry/start_here/server/server.go` and code to setup the gRPC Go Otel plugin
 
 ### **Create a new Prometheus exporter**
 
