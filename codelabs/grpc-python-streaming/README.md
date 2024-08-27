@@ -246,7 +246,7 @@ rpc RouteChat(stream RouteNote) returns (stream RouteNote) {}
 
 > [!TIP]
 > For the complete .proto file, see
-> [completed/protos/route_guide.proto](https://github.com/grpc-ecosystem/grpc-codelabs/blob/main/codelabs/grpc-python-streaming/completed/protos/route_guide.proto
+> [`completed/protos/route_guide.proto`](https://github.com/grpc-ecosystem/grpc-codelabs/blob/main/codelabs/grpc-python-streaming/completed/protos/route_guide.proto
 
 ## Generating client and server code 
 
@@ -407,7 +407,7 @@ this case, you can call `server.wait_for_termination()` to cleanly block the cal
 the server terminates.
 
 > [!TIP]
-> For the completed route guide server, see [completed/route_guide_server.py](https://github.com/grpc-ecosystem/grpc-codelabs/blob/main/codelabs/grpc-python-streaming/completed/route_guide_server.py).
+> For the completed route guide server, see [`completed/route_guide_server.py`](https://github.com/grpc-ecosystem/grpc-codelabs/blob/main/codelabs/grpc-python-streaming/completed/route_guide_server.py).
 
 ## Creating the client
 

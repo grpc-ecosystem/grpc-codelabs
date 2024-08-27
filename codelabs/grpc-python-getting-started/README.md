@@ -159,7 +159,7 @@ rpc GetFeature(Point) returns (Feature) {}
 
 > [!TIP]
 > For the complete .proto file, see
-> [completed/protos/route_guide.proto](https://github.com/grpc-ecosystem/grpc-codelabs/blob/main/codelabs/grpc-python-getting-started/completed/protos/route_guide.proto)
+> [`completed/protos/route_guide.proto`](https://github.com/grpc-ecosystem/grpc-codelabs/blob/main/codelabs/grpc-python-getting-started/completed/protos/route_guide.proto)
 
 ## Generating client and server code 
 
