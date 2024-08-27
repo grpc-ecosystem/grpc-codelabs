@@ -49,7 +49,7 @@ to run.
 sudo apt-get install python3-pip
 ```
 
- If necessary, upgrade your version of pip:
+If necessary, upgrade your version of pip:
 
 ```sh
 python3 -m ensurepip --upgrade

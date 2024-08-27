@@ -2,7 +2,8 @@
 
 Get hands-on with gRPC for Python in this interactive codelab! 
 
-Perfect for Python developers new to gRPC, those seeking a refresher, or anyone building distributed systems. No prior gRPC experience needed!
+Perfect for Python developers new to gRPC, those seeking a refresher, or anyone building distributed
+systems. No prior gRPC experience needed!
 
 **Build a complete gRPC service from scratch, learning:**
 
@@ -19,8 +20,9 @@ Perfect for Python developers new to gRPC, those seeking a refresher, or anyone 
 
 ### How to use this directory
 
-- [start_here](http://start_here/) directory serves as a starting point for the codelab.  
-- [completed](http://completed/) directory showcases the finished code, giving you a peak of how the final implementation should look like.
+- [start_here](./start_here/) directory serves as a starting point for the codelab.  
+- [completed](./completed/) directory showcases the finished code, giving you a peak of how the
+  final implementation should look like.
 
 ## Prerequisites
 
@@ -37,24 +39,27 @@ cd grpc-codelabs/
 ### Python3
 
 For this codelab, we require python 3.9 or higher, but recommend python 3.11.  
-System-specific instructions can be found in Python documentation: [Python Setup and Usage](https://docs.python.org/3/using/index.html).
+System-specific instructions can be found in Python documentation:
+[Python Setup and Usage](https://docs.python.org/3/using/index.html).
 
 ### Pip3
 
-We recommend using the latest pip, see [Installation - pip](https://pip.pypa.io/en/stable/installation/).  
-In some OS distributions, `ensurepip` is not available out-of-box. On Debian/Ubuntu, you may need to run.
+We recommend using the latest pip, see [Installation - pip](https://pip.pypa.io/en/stable/installation/).
+In some OS distributions, `ensurepip` is not available out-of-box. On Debian/Ubuntu,
+you may need to run
 
 ```
 sudo apt-get install python3-pip
 ```
 
- If necessary, upgrade your version of pip:
+If necessary, upgrade your version of pip:
 
 ```
 python3 -m ensurepip --upgrade
 ```
 
-If your python installation is owned by the system, pip will be installed in the user directory. If you may see a warning like this, ensure the pip directory is in PATH:
+If your python installation is owned by the system, pip will be installed in the user directory. If
+you may see a warning like this, ensure the pip directory is in `$PATH`:
 
 ```
 WARNING: The scripts pip3 and pip3.9 are installed in '/Users/sergiitk/Library/Python/3.9/bin' which is not on PATH.
@@ -63,13 +68,16 @@ Consider adding this directory to PATH or, if you prefer to suppress this warnin
 
 ### Venv
 
-[venv](https://docs.python.org/3/library/venv.html) is a built-in tool to create python virtual environments. However, some OS distributions choose to exclude it. You can check if it's available on your system with
+[venv](https://docs.python.org/3/library/venv.html) is a built-in tool to create python virtual
+environments. However, some OS distributions choose to exclude it. You can check if it's available
+on your system with
 
 ```
 python3 -m venv --help
 ```
 
-In debian/ubuntu, this also will advise you on what package to install. You may need to run something like this:
+In debian/ubuntu, this also will advise you on what package to install. You may need to run
+something like this:
 
 ```
 sudo apt-get install python3-venv
@@ -93,19 +101,22 @@ source ./.venv/bin/activate
 
 Duration: 5:00
 
-Your working directory will be `codelabs/grpc-python-streaming/start_here`. Assuming you followed `venv` activation section, you can cd into the start folder with:
+Your working directory will be `codelabs/grpc-python-streaming/start_here`. Assuming you followed
+`venv` activation section, you can cd into the start folder with:
 
 ```
 cd start_here/
 ```
 
-Our first step is to define the gRPC *service* and the method *request* and *response* types using [protocol buffers](https://protobuf.dev/overview). 
+Our first step is to define the gRPC *service* and the method *request* and *response* types using
+[protocol buffers](https://protobuf.dev/overview). 
 
 Let’s create a `route_guide.proto` file.
 
 ### Define proto Message
 
-Our `.proto` file contains protocol buffer message type definitions for all the request and response types used in our service methods - let’s define the Point message type:
+Our `.proto` file contains protocol buffer message type definitions for all the request and response
+types used in our service methods - let’s define the Point message type:
 
 ```
 message Point {
@@ -150,7 +161,10 @@ message RouteNote {
 }
 ```
 
-We would also require a `RouteSummary` message.  This message is received in response to a `RecordRoute` rpc which is explained in the next section.  It contains the number of individual points received, the number of detected features, and the total distance covered as the cumulative sum of the distance between each point.
+We would also require a `RouteSummary` message.  This message is received in response to a
+`RecordRoute` rpc which is explained in the next section.  It contains the number of individual
+points received, the number of detected features, and the total distance covered as the cumulative
+sum of the distance between each point.
 
 ```
 message RouteSummary {
@@ -180,13 +194,20 @@ service RouteGuide {
 
 ### Define RPC Methods
 
-Then you define `rpc` methods inside your service definition, specifying their request and response types.  In this section of the codelab, let’s define:
+Then you define `rpc` methods inside your service definition, specifying their request and response
+types.  In this section of the codelab, let’s define:
 
 #### ListFeatures
 
-Obtains the Features available within the given Rectangle. Results are streamed rather than returned at once (e.g. in a response message with a repeated field), as the rectangle may cover a large area and contain a huge number of features.
+Obtains the Features available within the given Rectangle. Results are streamed rather than returned
+at once (e.g. in a response message with a repeated field), as the rectangle may cover a large area
+and contain a huge number of features.
 
-An appropriate type for this RPC is *server-side* streaming RPC. A server-side streaming RPC where the client sends a request to the server and gets a stream to read a sequence of messages back. The client reads from the returned stream until there are no more messages. As you can see in our example, you specify a server-side streaming method by placing the stream keyword before the response type.
+An appropriate type for this RPC is *server-side* streaming RPC. A server-side streaming RPC where
+the client sends a request to the server and gets a stream to read a sequence of messages back. The
+client reads from the returned stream until there are no more messages. As you can see in our
+example, you specify a server-side streaming method by placing the stream keyword before the
+response type.
 
 ```
 rpc ListFeatures(Rectangle) returns (stream Feature) {}
@@ -194,9 +215,15 @@ rpc ListFeatures(Rectangle) returns (stream Feature) {}
 
 #### RecordRoute
 
-Accepts a stream of Points on a route being traversed, returning a `RouteSummary` when traversal is completed.
+Accepts a stream of Points on a route being traversed, returning a `RouteSummary` when traversal is
+completed.
 
-A *client-side streaming* RPC seems appropriate in this case.  A client-side streaming RPC where the client writes a sequence of messages and sends them to the server, again using a provided stream. Once the client has finished writing the messages, it waits for the server to read them all and return its response. You specify a client-side streaming method by placing the stream keyword before the request type. `GetFeature` method that returns the named `Feature` for the given `Point.`
+A *client-side streaming* RPC seems appropriate in this case.  A client-side streaming RPC where the
+client writes a sequence of messages and sends them to the server, again using a provided stream.
+Once the client has finished writing the messages, it waits for the server to read them all and
+return its response. You specify a client-side streaming method by placing the stream keyword
+before the request type. `GetFeature` method that returns the named `Feature` for the given
+`Point.`
 
 ```
 rpc RecordRoute(stream Point) returns (RouteSummary) {}
@@ -204,9 +231,16 @@ rpc RecordRoute(stream Point) returns (RouteSummary) {}
 
 #### RouteChat
 
-Accepts a stream of `RouteNotes` sent while a route is being traversed, while receiving other `RouteNotes` (e.g. from other users).
+Accepts a stream of `RouteNotes` sent while a route is being traversed, while receiving other
+`RouteNotes` (e.g. from other users).
 
-This is exactly the kind of use case for *bidirectional streaming*. A bidirectional streaming RPC where both sides send a sequence of messages using a read-write stream. The two streams operate independently, so clients and servers can read and write in whatever order they like: for example, the server could wait to receive all the client messages before writing its responses, or it could alternately read a message then write a message, or some other combination of reads and writes. The order of messages in each stream is preserved. You specify this type of method by placing the stream keyword before both the request and the response.
+This is exactly the kind of use case for *bidirectional streaming*. A bidirectional streaming RPC
+where both sides send a sequence of messages using a read-write stream. The two streams operate
+independently, so clients and servers can read and write in whatever order they like: for example,
+the server could wait to receive all the client messages before writing its responses, or it could
+alternately read a message then write a message, or some other combination of reads and writes. The
+order of messages in each stream is preserved. You specify this type of method by placing the
+stream keyword before both the request and the response.
 
 ```
 rpc RouteChat(stream RouteNote) returns (stream RouteNote) {}
@@ -217,7 +251,8 @@ rpc RouteChat(stream RouteNote) returns (stream RouteNote) {}
 
 ## Generating client and server code 
 
-Next you need to generate the gRPC client and server interfaces from your `.proto` service definition.
+Next you need to generate the gRPC client and server interfaces from your `.proto` service
+definition.
 
 First, install the grpcio-tools package:
 
@@ -225,7 +260,8 @@ First, install the grpcio-tools package:
 pip install --require-virtualenv grpcio-tools
 ```
 
-If you see `ERROR: Could not find an activated virtualenv (required)`, please follow the section [activate virtual environment](https://docs.google.com/document/d/12oMqscjN_UA6GSpdr09EUJ1vPYGntXbZiZQI96lyvT4/edit?resourcekey=0-GbVLembJB-Bz4x2hsgpioQ\&tab=t.0\#heading=h.dks8uqsprozy), then cd into `start_here`.
+If you see `ERROR: Could not find an activated virtualenv (required)`, please 
+[activate virtual environment](#activate-virtual-environment), then cd into `start_here`.
 
 Use the following command to generate the Python code:
 
@@ -235,7 +271,9 @@ python -m grpc_tools.protoc --proto_path=./protos  \
  ./protos/route_guide.proto
 ```
 
-Note that as we’ve already provided a version of the generated code in the `completed` directory, running this command regenerates the appropriate file rather than creating a new one. The generated code files are called `route_guide_pb2.py` and `route_guide_pb2_grpc.py` and contain:
+Note that as we’ve already provided a version of the generated code in the `completed` directory,
+running this command regenerates the appropriate file rather than creating a new one. The generated
+code files are called `route_guide_pb2.py` and `route_guide_pb2_grpc.py` and contain:
 
 * classes for the messages defined in `route_guide.proto`  
 * classes for the service defined in `route_guide.proto`  
@@ -251,12 +289,15 @@ Note that as we’ve already provided a version of the generated code in the `co
 
 Duration: 5:00
 
-First let’s look at how you create a RouteGuide server. Creating and running a RouteGuide server breaks down into two work items:
+First let’s look at how you create a RouteGuide server. Creating and running a RouteGuide server
+breaks down into two work items:
 
-* Implementing the servicer interface generated from our service definition with functions that perform the actual “work” of the service.  
+* Implementing the servicer interface generated from our service definition with functions that
+  perform the actual “work” of the service.  
 * Running a gRPC server to listen for requests from clients and transmit responses.
 
-You can find the initial `RouteGuide` server in [`start_here/route_guide_server.py`](https://github.com/grpc-ecosystem/grpc-codelabs/blob/main/codelabs/grpc-python-streaming/start_here/route_guide_server.py).
+You can find the initial `RouteGuide` server in 
+[`start_here/route_guide_server.py`](https://github.com/grpc-ecosystem/grpc-codelabs/blob/main/codelabs/grpc-python-streaming/start_here/route_guide_server.py).
 
 ### Implementing RouteGuide
 
@@ -289,11 +330,14 @@ def ListFeatures(self, request, context):
             yield feature
 ```
 
-Here the request message is a `route_guide_pb2.Rectangle` within which the client wants to find `Feature`s. Instead of returning a single response the method yields zero or more responses.
+Here the request message is a `route_guide_pb2.Rectangle` within which the client wants to find
+`Feature`s. Instead of returning a single response the method yields zero or more responses.
 
 ### Client-side streaming RPC 
 
-The request-streaming method `RecordRoute` uses an [iterator](https://docs.python.org/3/library/stdtypes.html\#iterator-types) of request values and returns a single response value.
+The request-streaming method `RecordRoute` uses an [iterator]
+(https://docs.python.org/3/library/stdtypes.html#iterator-types) of request values and returns a
+single response value.
 
 ```py
 def RecordRoute(self, request_iterator, context):
@@ -334,7 +378,9 @@ def RouteChat(self, request_iterator, context):
         prev_notes.append(new_note)
 ```
 
-This method’s semantics are a combination of those of the request-streaming method and the response-streaming method. It is passed an iterator of request values and is itself an iterator of response values.
+This method’s semantics are a combination of those of the request-streaming method and the
+response-streaming method. It is passed an iterator of request values and is itself an iterator of
+response values.
 
 | Hint: For the completed route guide server, see [completed/route_guide_server.py](https://github.com/grpc-ecosystem/grpc-codelabs/blob/main/codelabs/grpc-python-streaming/completed/route_guide_server.py).  |
 | :---- |
@@ -343,7 +389,8 @@ This method’s semantics are a combination of those of the request-streaming me
 
 Duration: 5:00
 
-Once you have implemented all the `RouteGuide` methods, the next step is to start up a gRPC server so that clients can actually use your service:
+Once you have implemented all the `RouteGuide` methods, the next step is to start up a gRPC server
+so that clients can actually use your service:
 
 ```py
 def serve():
@@ -356,7 +403,10 @@ def serve():
     server.wait_for_termination()
 ```
 
-The server `start()` method is non-blocking. A new thread will be instantiated to handle requests. The thread calling `server.start()` will often not have any other work to do in the meantime. In this case, you can call `server.wait_for_termination()` to cleanly block the calling thread until the server terminates.
+The server `start()` method is non-blocking. A new thread will be instantiated to handle requests.
+The thread calling `server.start()` will often not have any other work to do in the meantime. In
+this case, you can call `server.wait_for_termination()` to cleanly block the calling thread until
+the server terminates.
 
 | Hint: For the completed route guide server, see [completed/route_guide_server.py](https://github.com/grpc-ecosystem/grpc-codelabs/blob/main/codelabs/grpc-python-streaming/completed/route_guide_server.py).  |
 | :---- |
@@ -365,24 +415,32 @@ The server `start()` method is non-blocking. A new thread will be instantiated t
 
 Duration: 5:00
 
-In this section, we’ll look at creating a client for our RouteGuide service. You can see the initial client code in [`start_here/route_guide_client.py`](https://github.com/grpc-ecosystem/grpc-codelabs/blob/main/codelabs/grpc-python-streaming/start_here/route_guide_client.py).
+In this section, we’ll look at creating a client for our RouteGuide service. You can see the initial
+client code in
+[`start_here/route_guide_client.py`](https://github.com/grpc-ecosystem/grpc-codelabs/blob/main/codelabs/grpc-python-streaming/start_here/route_guide_client.py).
 
 ### Creating a stub 
 
 To call service methods, we first need to create a *stub*.
 
-We instantiate the `RouteGuideStub` class of the `route_guide_pb2_grpc` module, generated from our `.proto.` In `run()` method:
+We instantiate the `RouteGuideStub` class of the `route_guide_pb2_grpc` module, generated from our
+`.proto.` In `run()` method:
 
 ```py
 with grpc.insecure_channel("localhost:50051") as channel:
     stub = route_guide_pb2_grpc.RouteGuideStub(channel)
 ```
 
-Note that here `channel` is used as a context manager, and will be automatically closed once the interpreter leaves the `with` block.
+Note that here `channel` is used as a context manager, and will be automatically closed once the
+interpreter leaves the `with` block.
 
 ### Calling service methods 
 
-For RPC methods that return a single response ("response-unary" methods), gRPC Python supports both synchronous (blocking) and asynchronous (non-blocking) control flow semantics. For response-streaming RPC methods, calls immediately return an iterator of response values. Calls to that iterator’s `next()` method block until the response to be yielded from the iterator becomes available.
+For RPC methods that return a single response ("response-unary" methods), gRPC Python supports both
+synchronous (blocking) and asynchronous (non-blocking) control flow semantics. For
+response-streaming RPC methods, calls immediately return an iterator of response values. Calls to
+that iterator’s `next()` method block until the response to be yielded from the iterator becomes
+available.
 
 ### Server-side streaming RPC 
 
@@ -406,7 +464,8 @@ def guide_list_features(stub):
 
 ### Client-side streaming RPC
 
-Calling the request-streaming `RecordRoute` is similar to passing an iterator to a local method. Like the simple RPC above that also returns a single response, it can be called synchronously:
+Calling the request-streaming `RecordRoute` is similar to passing an iterator to a local method.
+Like the simple RPC above that also returns a single response, it can be called synchronously:
 
 ```py
 def guide_record_route(stub):
@@ -422,7 +481,8 @@ def guide_record_route(stub):
 
 ### Bidirectional streaming RPC 
 
-Calling the bidirectionally-streaming RouteChat has (as is the case on the service-side) a combination of the request-streaming and response-streaming semantics:
+Calling the bidirectionally-streaming `RouteChat` has (as is the case on the service-side) a
+combination of the request-streaming and response-streaming semantics:
 
 ```py
 def make_route_note(message, latitude, longitude):
@@ -464,7 +524,8 @@ Run the server:
 python route_guide_server.py
 ```
 
-From a different terminal, [activate virtual environment](https://docs.google.com/document/d/12oMqscjN_UA6GSpdr09EUJ1vPYGntXbZiZQI96lyvT4/edit?resourcekey=0-GbVLembJB-Bz4x2hsgpioQ\&tab=t.0\#heading=h.dks8uqsprozy), then run the client:
+From a different terminal, [activate virtual environment](#activate-virtual-environment), then run
+the client:
 
 ```
 python route_guide_client.py
@@ -472,5 +533,6 @@ python route_guide_client.py
 
 ## What’s next
 
-* Learn how gRPC works in [Introduction to gRPC](https://grpc.io/docs/what-is-grpc/introduction/) and [Core concepts](https://grpc.io/docs/what-is-grpc/core-concepts/).  
-* Explore the [Python API reference](https://grpc.github.io/grpc/python/).
+* Learn how gRPC works in [Introduction to gRPC](https://grpc.io/docs/what-is-grpc/introduction/) 
+  and [Core concepts](https://grpc.io/docs/what-is-grpc/core-concepts/).  
+* Explore the [Python API reference](https://grpc.github.io/grpc/python/)
