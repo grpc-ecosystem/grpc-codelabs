@@ -13,14 +13,15 @@
 # limitations under the License.
 """The Python implementation of the gRPC route guide server."""
 
-from concurrent import futures
 import logging
+from concurrent import futures
 
 import grpc
-import route_guide_resources
 
 import route_guide_pb2
 import route_guide_pb2_grpc
+
+import route_guide_resources
 
 
 def get_feature(feature_db, point):
@@ -38,8 +39,7 @@ class RouteGuideServicer(route_guide_pb2_grpc.RouteGuideServicer):
         self.db = route_guide_resources.read_route_guide_database()
 
     def GetFeature(self, request, context):
-        # Codelab Hint: implement GetFeature using get_feature() here.
-        pass
+        """Codelab Hint: implement GetFeature using get_feature() here."""
 
 
 def serve():
@@ -50,7 +50,7 @@ def serve():
      2. register RouteGuideServicer to the server.
      3. start the server.
     """
-    pass
+
 
 if __name__ == "__main__":
     logging.basicConfig()

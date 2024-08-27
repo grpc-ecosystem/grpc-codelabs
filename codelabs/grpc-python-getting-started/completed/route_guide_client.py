@@ -16,31 +16,30 @@
 import logging
 
 import grpc
+
 import route_guide_pb2
 import route_guide_pb2_grpc
 
+
 def format_point(point):
-    # not delegating in point.__str__ because it is an empty string when its
+    # Not delegating in point.__str__ because it is an empty string when its
     # values are zero. In addition, it puts a newline between the fields.
-    return "latitude: %d, longitude: %d" % (point.latitude, point.longitude)
+    return f"latitude: {point.latitude}, longitude: {point.longitude}"
+
 
 def run():
-    point = route_guide_pb2.Point(latitude=409146138, longitude=-746188906)
-    channel = grpc.insecure_channel('localhost:50051')
+    point = route_guide_pb2.Point(latitude=412346009, longitude=-744026814)
+    channel = grpc.insecure_channel("localhost:50051")
     stub = route_guide_pb2_grpc.RouteGuideStub(channel)
-    feature = stub.GetFeature(point)
-    if not feature.location:
-        print("Server returned incomplete feature")
-        return
 
+    feature = stub.GetFeature(point)
     if feature.name:
-        print(
-            "Feature called %r at %s"
-            % (feature.name, format_point(feature.location))
-        )
+        print(f"Feature called '{feature.name}' at {format_point(feature.location)}")
     else:
-        print("Found no feature at %s" % format_point(feature.location))
+        print(f"Found no feature at at {format_point(feature.location)}")
+
     channel.close()
+
 
 if __name__ == "__main__":
     logging.basicConfig()
