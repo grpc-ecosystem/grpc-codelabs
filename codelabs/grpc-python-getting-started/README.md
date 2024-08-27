@@ -160,8 +160,9 @@ types.  In this section of the codelab, let’s define a Unary RPC method.
 rpc GetFeature(Point) returns (Feature) {}
 ```
 
-| Hint: For the complete .proto file, see [completed/protos/route_guide.proto](https://github.com/grpc-ecosystem/grpc-codelabs/blob/main/codelabs/grpc-python-getting-started/completed/protos/route_guide.proto) |
-| :---- |
+> [!TIP]
+> For the complete .proto file, see [completed/protos/route_guide.proto]
+  (https://github.com/grpc-ecosystem/grpc-codelabs/blob/main/codelabs/grpc-python-getting-started/completed/protos/route_guide.proto)
 
 ## Generating client and server code 
 
@@ -195,10 +196,11 @@ code files are called `route_guide_pb2.py` and `route_guide_pb2_grpc.py` and con
 * a function for the service defined in `route_guide.proto`  
   * `add_RouteGuideServicer_to_server`, which adds a RouteGuideServicer to a `grpc.Server`.
 
-| Note: The `2` in pb2 indicates that the generated code is following Protocol Buffers Python API version 2. Version 1 is obsolete. It has no relation to the Protocol Buffers Language version, which is the one indicated by `syntax = "proto3"` or `syntax = "proto2"` in a `.proto` file. |
-| :---- |
+> [!Note]
+> The `2` in pb2 indicates that the generated code is following Protocol Buffers Python API version
+> 2. Version 1 is obsolete. It has no relation to the Protocol Buffers Language version, which is
+> the one indicated by `syntax = "proto3"` or `syntax = "proto2"` in a `.proto` file.
 
-## 
 
 ## Creating the server
 
@@ -243,8 +245,9 @@ The method is passed a `route_guide_pb2.Point` request for the RPC, and a `grpc.
 object that provides RPC-specific information such as timeout limits. It returns a
 `route_guide_pb2.Feature` response.
 
-| Hint: For the completed route guide server, see [`completed/route_guide_server.py`](https://github.com/grpc-ecosystem/grpc-codelabs/blob/main/codelabs/grpc-python-getting-started/completed/route_guide_server.py).  |
-| :---- |
+> [!TIP]
+> For the completed route guide server, see [`completed/route_guide_server.py`]
+  (https://github.com/grpc-ecosystem/grpc-codelabs/blob/main/codelabs/grpc-python-getting-started/completed/route_guide_server.py).
 
 ## Starting the server
 
@@ -269,8 +272,9 @@ The thread calling `server.start()` will often not have any other work to do in 
 this case, you can call `server.wait_for_termination()` to cleanly block the calling thread until
 the server terminates.
 
-| Hint: For the completed route guide server, see [`completed/route_guide_server.py`](https://github.com/grpc-ecosystem/grpc-codelabs/blob/main/codelabs/grpc-python-getting-started/completed/route_guide_server.py).  |
-| :---- |
+> [!TIP]
+> For the completed route guide server, see [`completed/route_guide_server.py`]
+  (https://github.com/grpc-ecosystem/grpc-codelabs/blob/main/codelabs/grpc-python-getting-started/completed/route_guide_server.py).
 
 ## Creating the client
 
@@ -324,8 +328,9 @@ else:
     print(f"Found no feature at at {format_point(feature.location)}")
 ```
 
-| Hint: For the completed route guide client, see [`completed/route_guide_client.py`](https://github.com/grpc-ecosystem/grpc-codelabs/blob/main/codelabs/grpc-python-getting-started/completed/route_guide_client.py).  |
-| :---- |
+> [!TIP]
+> For the completed route guide client, see [`completed/route_guide_client.py`]
+  (https://github.com/grpc-ecosystem/grpc-codelabs/blob/main/codelabs/grpc-python-getting-started/completed/route_guide_client.py).
 
 ## Try it out! 
 
