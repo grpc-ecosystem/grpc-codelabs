@@ -304,7 +304,7 @@ the server to respond, and will either return a response or an error.
 Calling the simple RPC `GetFeature` is nearly as straightforward as calling a local method.
 
 ```go
-feature, err := client.GetFeature(context.Background(), &pb.Point{409146138, -746188906})
+feature, err := client.GetFeature(context.Background(), &pb.Point{Latitude: 409146138, Longitude: -746188906})
 if err != nil {
     ...
 }
