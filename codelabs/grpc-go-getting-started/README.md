@@ -63,7 +63,7 @@ and easy interface updating.
 go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
 
 # This command installs the plugin that generates code for the services and methods
-go install google.golang.org/protobuf/cmd/protoc-gen-go-grpc@latest
+go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
 ```
 
 * Update your PATH so that the protoc compiler can find the plugins:
