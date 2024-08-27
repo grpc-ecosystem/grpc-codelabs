@@ -30,7 +30,7 @@ If you are here after completing Getting Started with gRPC-Python codelab, you c
 
 ### This codelab
 
-```
+```sh
 cd ~/your-dev-dir
 git clone https://github.com/grpc-ecosystem/grpc-codelabs.git
 cd grpc-codelabs/
@@ -48,13 +48,13 @@ We recommend using the latest pip, see [Installation - pip](https://pip.pypa.io/
 In some OS distributions, `ensurepip` is not available out-of-box. On Debian/Ubuntu,
 you may need to run
 
-```
+```sh
 sudo apt-get install python3-pip
 ```
 
 If necessary, upgrade your version of pip:
 
-```
+```sh
 python3 -m ensurepip --upgrade
 ```
 
@@ -72,27 +72,27 @@ Consider adding this directory to PATH or, if you prefer to suppress this warnin
 environments. However, some OS distributions choose to exclude it. You can check if it's available
 on your system with
 
-```
+```sh
 python3 -m venv --help
 ```
 
 In debian/ubuntu, this also will advise you on what package to install. You may need to run
 something like this:
 
-```
+```sh
 sudo apt-get install python3-venv
 ```
 
 Once `venv` is installed, create a virtual environment:
 
-```
+```sh
 cd codelabs/grpc-python-streaming
 python3 -m venv .venv
 ```
 
 #### Activate virtual environment
 
-```
+```sh
 cd "$(git rev-parse --show-toplevel || echo .)" && cd codelabs/grpc-python-streaming
 source ./.venv/bin/activate
 ```
@@ -104,7 +104,7 @@ Duration: 5:00
 Your working directory will be `codelabs/grpc-python-streaming/start_here`. Assuming you followed
 `venv` activation section, you can cd into the start folder with:
 
-```
+```sh
 cd start_here/
 ```
 
@@ -118,7 +118,7 @@ Let’s create a `route_guide.proto` file.
 Our `.proto` file contains protocol buffer message type definitions for all the request and response
 types used in our service methods - let’s define the Point message type:
 
-```
+```proto
 message Point {
   int32 latitude = 1;
   int32 longitude = 2;
@@ -127,7 +127,7 @@ message Point {
 
 Let’s also define the `Feature` message type:
 
-```
+```proto
 message Feature {
   // The name of the feature.
   string name = 1;
@@ -139,7 +139,7 @@ message Feature {
 
 And `Rectangle` message type:
 
-```
+```proto
 message Rectangle {
   // One corner of the rectangle.
   Point lo = 1;
@@ -151,7 +151,7 @@ message Rectangle {
 
 Also a `RouteNote` message which represents a message sent while at a given point.
 
-```
+```proto
 message RouteNote {
   // The location from which the message is sent.
   Point location = 1;
@@ -166,7 +166,7 @@ We would also require a `RouteSummary` message.  This message is received in res
 points received, the number of detected features, and the total distance covered as the cumulative
 sum of the distance between each point.
 
-```
+```proto
 message RouteSummary {
   // The number of points received.
   int32 point_count = 1;
@@ -186,7 +186,7 @@ message RouteSummary {
 
 To define a service, you specify a named `service` in your `.proto` file:
 
-```
+```proto
 service RouteGuide {
   // Definition of the service goes here
 }
@@ -209,7 +209,7 @@ client reads from the returned stream until there are no more messages. As you c
 example, you specify a server-side streaming method by placing the stream keyword before the
 response type.
 
-```
+```proto
 rpc ListFeatures(Rectangle) returns (stream Feature) {}
 ```
 
@@ -225,7 +225,7 @@ return its response. You specify a client-side streaming method by placing the s
 before the request type. `GetFeature` method that returns the named `Feature` for the given
 `Point.`
 
-```
+```proto
 rpc RecordRoute(stream Point) returns (RouteSummary) {}
 ```
 
@@ -242,7 +242,7 @@ alternately read a message then write a message, or some other combination of re
 order of messages in each stream is preserved. You specify this type of method by placing the
 stream keyword before both the request and the response.
 
-```
+```proto
 rpc RouteChat(stream RouteNote) returns (stream RouteNote) {}
 ```
 
@@ -256,7 +256,7 @@ definition.
 
 First, install the grpcio-tools package:
 
-```
+```sh
 pip install --require-virtualenv grpcio-tools
 ```
 
@@ -265,7 +265,7 @@ If you see `ERROR: Could not find an activated virtualenv (required)`, please
 
 Use the following command to generate the Python code:
 
-```
+```sh
 python -m grpc_tools.protoc --proto_path=./protos  \
  --python_out=. --pyi_out=. --grpc_python_out=. \
  ./protos/route_guide.proto
