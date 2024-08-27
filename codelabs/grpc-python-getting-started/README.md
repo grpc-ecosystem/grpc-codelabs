@@ -2,7 +2,8 @@
 
 Get hands-on with gRPC for Python in this interactive codelab! 
 
-Perfect for Python developers new to gRPC, those seeking a refresher, or anyone building distributed systems. No prior gRPC experience needed!
+Perfect for Python developers new to gRPC, those seeking a refresher, or anyone building distributed
+systems. No prior gRPC experience needed!
 
 **Build a complete gRPC service from scratch, learning:**
 
@@ -20,7 +21,8 @@ Perfect for Python developers new to gRPC, those seeking a refresher, or anyone 
 ### How to use this directory
 
 - [start_here](./start_here/) directory serves as a starting point for the codelab.  
-- [completed](./completed/) directory showcases the finished code, giving you a peak of how the final implementation should look like.
+- [completed](./completed/) directory showcases the finished code, giving you a peak of how the
+  final implementation should look like.
 
 ## Prerequisites
 
@@ -34,13 +36,15 @@ cd grpc-codelabs/
 
 ### Python3
 
-For this codelab, we require python 3.9 or higher, but recommend python 3.11.  
-System-specific instructions can be found in Python documentation: [Python Setup and Usage](https://docs.python.org/3/using/index.html).
+For this codelab, we require python 3.9 or higher, but recommend python 3.11. System-specific
+instructions can be found in Python documentation: [Python Setup and Usage]
+(https://docs.python.org/3/using/index.html).
 
 ### Pip3
 
-We recommend using the latest pip, see [Installation - pip](https://pip.pypa.io/en/stable/installation/).  
-In some OS distributions, `ensurepip` is not available out-of-box. On Debian/Ubuntu, you may need to run.
+We recommend using the latest pip, see [Installation - pip]
+(https://pip.pypa.io/en/stable/installation/). In some OS distributions, `ensurepip` is not
+available out-of-box. On Debian/Ubuntu, you may need to run.
 
 ```
 sudo apt-get install python3-pip
@@ -52,7 +56,8 @@ sudo apt-get install python3-pip
 python3 -m ensurepip --upgrade
 ```
 
-If your python installation is owned by the system, pip will be installed in the user directory. If you may see a warning like this, ensure the pip directory is in PATH:
+If your python installation is owned by the system, pip will be installed in the user directory. If
+you may see a warning like this, ensure the pip directory is in PATH:
 
 ```
 WARNING: The scripts pip3 and pip3.9 are installed in '/Users/sergiitk/Library/Python/3.9/bin' which is not on PATH.
@@ -61,13 +66,16 @@ Consider adding this directory to PATH or, if you prefer to suppress this warnin
 
 ### Venv
 
-[venv](https://docs.python.org/3/library/venv.html) is a built-in tool to create python virtual environments. However, some OS distributions choose to exclude it. You can check if it's available on your system with
+[venv](https://docs.python.org/3/library/venv.html) is a built-in tool to create python virtual
+environments. However, some OS distributions choose to exclude it. You can check if it's available
+on your system with
 
 ```
 python3 -m venv --help
 ```
 
-In debian/ubuntu, this also will advise you on what package to install. You may need to run something like this:
+In debian/ubuntu, this also will advise you on what package to install. You may need to run
+something like this:
 
 ```
 sudo apt-get install python3-venv
@@ -91,19 +99,22 @@ source ./.venv/bin/activate
 
 Duration: 5:00
 
-Your working directory will be `codelabs/grpc-python-getting-started/start_here`. Assuming you followed `venv` activation section, you can cd into the start folder with:
+Your working directory will be `codelabs/grpc-python-getting-started/start_here`. Assuming you
+followed `venv` activation section, you can cd into the start folder with:
 
 ```
 cd start_here/
 ```
 
-Our first step is to define the gRPC *service* and the method *request* and *response* types using [protocol buffers](https://protobuf.dev/overview).  
+Our first step is to define the gRPC *service* and the method *request* and *response* types using
+[protocol buffers](https://protobuf.dev/overview).  
 
 Let’s start by defining the messages and service in `route_guide.proto`.
 
 ### Define proto messages
 
-Our `.proto` file contains protocol buffer message type definitions for all the request and response types used in our service methods.
+Our `.proto` file contains protocol buffer message type definitions for all the request and response
+types used in our service methods.
 
 Let’s define the `Point` message type:
 
@@ -138,9 +149,11 @@ service RouteGuide {
 
 ### Define RPC Method
 
-Then you define `rpc` methods inside your service definition, specifying their request and response types.  In this section of the codelab, let’s define a Unary RPC method.
+Then you define `rpc` methods inside your service definition, specifying their request and response
+types.  In this section of the codelab, let’s define a Unary RPC method.
 
-> Unary RPC method - A *simple RPC* where the client sends a request to the server using the stub and waits for a response to come back, just like a normal function call.
+> Unary RPC method - A *simple RPC* where the client sends a request to the server using the stub
+  and waits for a response to come back, just like a normal function call.
 
 ```
 // Obtains the feature at a given position.
@@ -160,7 +173,8 @@ First, install the grpcio-tools package:
 pip install --require-virtualenv grpcio-tools
 ```
 
-If you see `ERROR: Could not find an activated virtualenv (required)`, please follow the section [Activate virtual environment](#activate-virtual-environment), then cd into `start_here`.
+If you see `ERROR: Could not find an activated virtualenv (required)`, please follow the section
+[Activate virtual environment](#activate-virtual-environment), then cd into `start_here`.
 
 Use the following command to generate the Python code:
 
@@ -170,7 +184,9 @@ python -m grpc_tools.protoc --proto_path=./protos  \
  ./protos/route_guide.proto
 ```
 
-Note that as we’ve already provided a version of the generated code in the `completed` directory, running this command regenerates the appropriate file rather than creating a new one. The generated code files are called `route_guide_pb2.py` and `route_guide_pb2_grpc.py` and contain:
+Note that as we’ve already provided a version of the generated code in the `completed` directory,
+running this command regenerates the appropriate file rather than creating a new one. The generated
+code files are called `route_guide_pb2.py` and `route_guide_pb2_grpc.py` and contain:
 
 * classes for the messages defined in `route_guide.proto`  
 * classes for the service defined in `route_guide.proto`  
@@ -188,16 +204,20 @@ Note that as we’ve already provided a version of the generated code in the `co
 
 Duration: 5:00
 
-First let’s look at how you create a `RouteGuide` server. Creating and running a `RouteGuide` server breaks down into two work items:
+First let’s look at how you create a `RouteGuide` server. Creating and running a `RouteGuide` server
+breaks down into two work items:
 
-* Implementing the servicer interface generated from our service definition with functions that perform the actual “work” of the service.  
+* Implementing the servicer interface generated from our service definition with functions that
+  perform the actual “work” of the service.  
 * Running a gRPC server to listen for requests from clients and transmit responses.
 
-You can find the initial `RouteGuide` server in [`start_here/route_guide_server.py`](https://github.com/grpc-ecosystem/grpc-codelabs/blob/main/codelabs/grpc-python-getting-started/start_here/route_guide_server.py).
+You can find the initial `RouteGuide` server in [`start_here/route_guide_server.py`]
+(https://github.com/grpc-ecosystem/grpc-codelabs/blob/main/codelabs/grpc-python-getting-started/start_here/route_guide_server.py).
 
 ### Implementing RouteGuide
 
-`route_guide_server.py` has a `RouteGuideServicer` class that subclasses the generated class `route_guide_pb2_grpc.RouteGuideServicer`:
+`route_guide_server.py` has a `RouteGuideServicer` class that subclasses the generated class
+`route_guide_pb2_grpc.RouteGuideServicer`:
 
 ```py
 # RouteGuideServicer provides an implementation
@@ -207,8 +227,8 @@ class RouteGuideServicer(route_guide_pb2_grpc.RouteGuideServicer):
 
 `RouteGuideServicer` implements all the `RouteGuide` service methods.
 
-Let us look into a simple RPC implementation in detail.  
-Method `GetFeature` gets a `Point` from the client and returns the corresponding feature information from its database in `Feature`.
+Let us look into a simple RPC implementation in detail.  Method `GetFeature` gets a `Point` from the
+client and returns the corresponding feature information from its database in `Feature`.
 
 ```py
 def GetFeature(self, request, context):
@@ -219,7 +239,9 @@ def GetFeature(self, request, context):
         return feature
 ```
 
-The method is passed a `route_guide_pb2.Point` request for the RPC, and a `grpc.ServicerContext` object that provides RPC-specific information such as timeout limits. It returns a `route_guide_pb2.Feature` response.
+The method is passed a `route_guide_pb2.Point` request for the RPC, and a `grpc.ServicerContext`
+object that provides RPC-specific information such as timeout limits. It returns a
+`route_guide_pb2.Feature` response.
 
 | Hint: For the completed route guide server, see [`completed/route_guide_server.py`](https://github.com/grpc-ecosystem/grpc-codelabs/blob/main/codelabs/grpc-python-getting-started/completed/route_guide_server.py).  |
 | :---- |
@@ -228,7 +250,8 @@ The method is passed a `route_guide_pb2.Point` request for the RPC, and a `grpc.
 
 Duration: 5:00
 
-Once you have implemented all the `RouteGuide` methods, the next step is to start up a gRPC server so that clients can actually use your service:
+Once you have implemented all the `RouteGuide` methods, the next step is to start up a gRPC server
+so that clients can actually use your service:
 
 ```py
 def serve():
@@ -241,7 +264,10 @@ def serve():
     server.wait_for_termination()
 ```
 
-The server `start()` method is non-blocking. A new thread will be instantiated to handle requests. The thread calling `server.start()` will often not have any other work to do in the meantime. In this case, you can call `server.wait_for_termination()` to cleanly block the calling thread until the server terminates.
+The server `start()` method is non-blocking. A new thread will be instantiated to handle requests.
+The thread calling `server.start()` will often not have any other work to do in the meantime. In
+this case, you can call `server.wait_for_termination()` to cleanly block the calling thread until
+the server terminates.
 
 | Hint: For the completed route guide server, see [`completed/route_guide_server.py`](https://github.com/grpc-ecosystem/grpc-codelabs/blob/main/codelabs/grpc-python-getting-started/completed/route_guide_server.py).  |
 | :---- |
@@ -250,13 +276,16 @@ The server `start()` method is non-blocking. A new thread will be instantiated t
 
 Duration: 5:00
 
-In this section, we’ll look at creating a client for our `RouteGuide` service. You can see the initial client code in [`start_here/route_guide_client.py`](https://github.com/grpc-ecosystem/grpc-codelabs/blob/main/codelabs/grpc-python-getting-started/start_here/route_guide_client.py).
+In this section, we’ll look at creating a client for our `RouteGuide` service. You can see the
+initial client code in [`start_here/route_guide_client.py`]
+(https://github.com/grpc-ecosystem/grpc-codelabs/blob/main/codelabs/grpc-python-getting-started/start_here/route_guide_client.py).
 
 ### Creating a stub 
 
 To call service methods, we first need to create a *stub*.
 
-We instantiate the `RouteGuideStub` class of the `route_guide_pb2_grpc` module, generated from our `.proto` inside of the `route_guide_client.py` file.
+We instantiate the `RouteGuideStub` class of the `route_guide_pb2_grpc` module, generated from our
+`.proto` inside of the `route_guide_client.py` file.
 
 ```py
 channel = grpc.insecure_channel('localhost:50051')
@@ -265,17 +294,21 @@ stub = route_guide_pb2_grpc.RouteGuideStub(channel)
 
 ### Calling service methods 
 
-For RPC methods that return a single response (“response-unary” methods), gRPC Python supports both synchronous (blocking) and asynchronous (non-blocking) control flow semantics.
+For RPC methods that return a single response (“response-unary” methods), gRPC Python supports both
+synchronous (blocking) and asynchronous (non-blocking) control flow semantics.
 
 ### Simple RPC 
 
-First, let's define a `Point` to call the service with. This should be as simple as instantiating an object from the `route_guide_pb2` package with some properties:
+First, let's define a `Point` to call the service with. This should be as simple as instantiating an
+object from the `route_guide_pb2` package with some properties:
 
 ```py
 point = route_guide_pb2.Point(latitude=412346009, longitude=-744026814)
 ```
 
-A synchronous call to the simple RPC `GetFeature` is nearly as straightforward as calling a local method. The RPC call waits for the server to respond, and will either return a response or raise an exception. We can call the method and see the response like this:
+A synchronous call to the simple RPC `GetFeature` is nearly as straightforward as calling a local
+method. The RPC call waits for the server to respond, and will either return a response or raise an
+exception. We can call the method and see the response like this:
 
 ```py
 feature = stub.GetFeature(point)
@@ -304,7 +337,8 @@ Run the server:
 python route_guide_server.py
 ```
 
-From a different terminal, [Activate virtual environment](#activate-virtual-environment), then run the client:
+From a different terminal, [Activate virtual environment](#activate-virtual-environment), then run
+the client:
 
 ```
 python route_guide_client.py
@@ -312,5 +346,7 @@ python route_guide_client.py
 
 ## What’s next
 
-* Learn how gRPC works in [Introduction to gRPC](https://grpc.io/docs/what-is-grpc/introduction/) and [Core concepts](https://grpc.io/docs/what-is-grpc/core-concepts/).  
+* Learn how gRPC works in [Introduction to gRPC]
+  (https://grpc.io/docs/what-is-grpc/introduction/) and [Core concepts]
+  (https://grpc.io/docs/what-is-grpc/core-concepts/).  
 * Explore the [Python API reference](https://grpc.github.io/grpc/python/).
