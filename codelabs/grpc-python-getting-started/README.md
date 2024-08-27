@@ -1,8 +1,8 @@
 # Getting Started with gRPC-Python
 
-Get hands-on with gRPC for Python in this interactive codelab\! 
+Get hands-on with gRPC for Python in this interactive codelab! 
 
-Perfect for Python developers new to gRPC, those seeking a refresher, or anyone building distributed systems. No prior gRPC experience needed\!
+Perfect for Python developers new to gRPC, those seeking a refresher, or anyone building distributed systems. No prior gRPC experience needed!
 
 **Build a complete gRPC service from scratch, learning:**
 
@@ -19,8 +19,8 @@ Perfect for Python developers new to gRPC, those seeking a refresher, or anyone 
 
 ### How to use this directory
 
-- [start\_here](http://start\_here/) directory serves as a starting point for the codelab.  
-- [completed](http://completed/) directory showcases the finished code, giving you a peak of how the final implementation should look like.
+- [start_here](./start_here/) directory serves as a starting point for the codelab.  
+- [completed](./completed/) directory showcases the finished code, giving you a peak of how the final implementation should look like.
 
 ## Prerequisites
 
@@ -39,7 +39,7 @@ System-specific instructions can be found in Python documentation: [Python Setup
 
 ### Pip3
 
-We recommend using the latest pip, see [Installation \- pip](https://pip.pypa.io/en/stable/installation/).  
+We recommend using the latest pip, see [Installation - pip](https://pip.pypa.io/en/stable/installation/).  
 In some OS distributions, `ensurepip` is not available out-of-box. On Debian/Ubuntu, you may need to run.
 
 ```
@@ -76,10 +76,11 @@ sudo apt-get install python3-venv
 Once `venv` is installed, create a virtual environment:
 
 ```
-cd codelabs/grpc-python-getting-startedpython3 -m venv .venv
+cd codelabs/grpc-python-getting-started
+python3 -m venv .venv
 ```
 
-#### Activate virtual environment {#activate-virtual-environment}
+#### Activate virtual environment
 
 ```
 cd "$(git rev-parse --show-toplevel || echo .)" && cd codelabs/grpc-python-getting-started
@@ -139,14 +140,14 @@ service RouteGuide {
 
 Then you define `rpc` methods inside your service definition, specifying their request and response types.  In this section of the codelab, let’s define a Unary RPC method.
 
-\> Unary RPC method \- A *simple RPC* where the client sends a request to the server using the stub and waits for a response to come back, just like a normal function call.
+> Unary RPC method - A *simple RPC* where the client sends a request to the server using the stub and waits for a response to come back, just like a normal function call.
 
 ```
 // Obtains the feature at a given position.
 rpc GetFeature(Point) returns (Feature) {}
 ```
 
-| Hint: For the complete .proto file, see [completed/protos/route\_guide.proto](https://github.com/grpc-ecosystem/grpc-codelabs/blob/main/codelabs/grpc-python-getting-started/completed/protos/route\_guide.proto) |
+| Hint: For the complete .proto file, see [completed/protos/route_guide.proto](https://github.com/grpc-ecosystem/grpc-codelabs/blob/main/codelabs/grpc-python-getting-started/completed/protos/route_guide.proto) |
 | :---- |
 
 ## Generating client and server code 
@@ -159,7 +160,7 @@ First, install the grpcio-tools package:
 pip install --require-virtualenv grpcio-tools
 ```
 
-If you see `ERROR: Could not find an activated virtualenv (required)`, please follow the section [Activate virtual environment](\#activate-virtual-environment), then cd into `start_here`.
+If you see `ERROR: Could not find an activated virtualenv (required)`, please follow the section [Activate virtual environment](#activate-virtual-environment), then cd into `start_here`.
 
 Use the following command to generate the Python code:
 
@@ -178,7 +179,7 @@ Note that as we’ve already provided a version of the generated code in the `co
 * a function for the service defined in `route_guide.proto`  
   * `add_RouteGuideServicer_to_server`, which adds a RouteGuideServicer to a `grpc.Server`.
 
-| Note: The `2` in pb2 indicates that the generated code is following Protocol Buffers Python API version 2\. Version 1 is obsolete. It has no relation to the Protocol Buffers Language version, which is the one indicated by `syntax = "proto3"` or `syntax = "proto2"` in a `.proto` file. |
+| Note: The `2` in pb2 indicates that the generated code is following Protocol Buffers Python API version 2. Version 1 is obsolete. It has no relation to the Protocol Buffers Language version, which is the one indicated by `syntax = "proto3"` or `syntax = "proto2"` in a `.proto` file. |
 | :---- |
 
 ## 
@@ -192,7 +193,7 @@ First let’s look at how you create a `RouteGuide` server. Creating and running
 * Implementing the servicer interface generated from our service definition with functions that perform the actual “work” of the service.  
 * Running a gRPC server to listen for requests from clients and transmit responses.
 
-You can find the initial `RouteGuide` server in [start\_here/route\_guide\_server.py](https://github.com/grpc-ecosystem/grpc-codelabs/blob/main/codelabs/grpc-python-getting-started/start\_here/route\_guide\_server.py).
+You can find the initial `RouteGuide` server in [`start_here/route_guide_server.py`](https://github.com/grpc-ecosystem/grpc-codelabs/blob/main/codelabs/grpc-python-getting-started/start_here/route_guide_server.py).
 
 ### Implementing RouteGuide
 
@@ -220,7 +221,7 @@ def GetFeature(self, request, context):
 
 The method is passed a `route_guide_pb2.Point` request for the RPC, and a `grpc.ServicerContext` object that provides RPC-specific information such as timeout limits. It returns a `route_guide_pb2.Feature` response.
 
-| Hint: For the completed route guide server, see [completed/route\_guide\_server.py](https://github.com/grpc-ecosystem/grpc-codelabs/blob/main/codelabs/grpc-python-getting-started/completed/route\_guide\_server.py).  |
+| Hint: For the completed route guide server, see [`completed/route_guide_server.py`](https://github.com/grpc-ecosystem/grpc-codelabs/blob/main/codelabs/grpc-python-getting-started/completed/route_guide_server.py).  |
 | :---- |
 
 ## Starting the server
@@ -242,14 +243,14 @@ def serve():
 
 The server `start()` method is non-blocking. A new thread will be instantiated to handle requests. The thread calling `server.start()` will often not have any other work to do in the meantime. In this case, you can call `server.wait_for_termination()` to cleanly block the calling thread until the server terminates.
 
-| Hint: For the completed route guide server, see [completed/route\_guide\_server.py](https://github.com/grpc-ecosystem/grpc-codelabs/blob/main/codelabs/grpc-python-getting-started/completed/route\_guide\_server.py).  |
+| Hint: For the completed route guide server, see [`completed/route_guide_server.py`](https://github.com/grpc-ecosystem/grpc-codelabs/blob/main/codelabs/grpc-python-getting-started/completed/route_guide_server.py).  |
 | :---- |
 
 ## Creating the client
 
 Duration: 5:00
 
-In this section, we’ll look at creating a client for our `RouteGuide` service. You can see the initial client code in [start\_here/route\_guide\_client.py](https://github.com/grpc-ecosystem/grpc-codelabs/blob/main/codelabs/grpc-python-getting-started/start\_here/route\_guide\_client.py).
+In this section, we’ll look at creating a client for our `RouteGuide` service. You can see the initial client code in [`start_here/route_guide_client.py`](https://github.com/grpc-ecosystem/grpc-codelabs/blob/main/codelabs/grpc-python-getting-started/start_here/route_guide_client.py).
 
 ### Creating a stub 
 
@@ -290,10 +291,10 @@ else:
     print(f"Found no feature at at {format_point(feature.location)}")
 ```
 
-| Hint: For the completed route guide client, see [completed/route\_guide\_client.py](https://github.com/grpc-ecosystem/grpc-codelabs/blob/main/codelabs/grpc-python-getting-started/completed/route\_guide\_client.py).  |
+| Hint: For the completed route guide client, see [`completed/route_guide_client.py`](https://github.com/grpc-ecosystem/grpc-codelabs/blob/main/codelabs/grpc-python-getting-started/completed/route_guide_client.py).  |
 | :---- |
 
-## Try it out\! 
+## Try it out! 
 
 Duration: 2:00
 
@@ -303,7 +304,7 @@ Run the server:
 python route_guide_server.py
 ```
 
-From a different terminal, [Activate virtual environment](\#activate-virtual-environment), then run the client:
+From a different terminal, [Activate virtual environment](#activate-virtual-environment), then run the client:
 
 ```
 python route_guide_client.py
