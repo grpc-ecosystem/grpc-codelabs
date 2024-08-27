@@ -7,16 +7,16 @@
 
 [TOC] 
 
-# Before you begin {#before-you-begin}
+# Before you begin 
 
 If you are here after completing Getting Started with gRPC-Java codelab, you can skip this step
 
-## **Prerequisites** {#prerequisites}
+## **Prerequisites** 
 
 * [JDK](https://jdk.java.net/) version 7 or higher
 * Clone the [grpc codelab repo](https://github.com/grpc-ecosystem/grpc-codelabs.git)
 
-## **What you’ll learn** {#what-you’ll-learn}
+## **What you’ll learn** 
 
 * Get hands-on with gRPC for Java in this interactive codelab\! Perfect for Java developers new to gRPC, those seeking a refresher, or anyone building distributed systems. No prior gRPC experience needed\!
 * Build a complete gRPC service from scratch, learning:
@@ -30,7 +30,7 @@ If you are here after completing Getting Started with gRPC-Java codelab, you can
     * Skills to design, build, & test gRPC clients and servers.
     * A strong foundation in gRPC for real-world projects.
 
-## **What you’ll need** {#what-you’ll-need}
+## **What you’ll need** 
 
 * A computer with internet connection
 
@@ -50,7 +50,7 @@ Change directory to `codelabs/Getting_Started_with_gRPC_Java_Streaming/start_her
 
 Tip: For complete versions of each of the files we are editing, look in the `../complete` directory 
 
-# Define proto {#define-proto}
+# Define proto 
 
 Duration: 5:00
 
@@ -66,11 +66,11 @@ Since we’re generating Java code in this example, we’ve specified a `java_pa
 option java_package = "io.grpc.examples.routeguide";
 ```
 
-## **Define proto Message** {#define-proto-message}
+## **Define proto Message** 
 
 Our `.proto` file contains protocol buffer message type definitions for all the request and response types used in our service methods \- the message types have been specified for you as has the portion of the RouteGuide service from the [Getting\_Started\_with\_gRPC\_Java codelab](https://docs.google.com/document/d/1gevX49Yqnp-Ae2ukcJdGLpD33js\_OK9OokrrsM2vY7M/).
 
-## **Define RouteGuide service** {#define-routeguide-service}
+## **Define RouteGuide service** 
 
 To define a service, you specify a named service in your `.proto` file:
 
@@ -80,7 +80,7 @@ service RouteGuide {
 }
 ```
 
-## **Define RPC Method** {#define-rpc-method}
+## **Define RPC Method** 
 
 Then you define `rpc` methods inside your service definition, specifying their request and response types.  In this section of the codelab, let’s define
 
@@ -113,7 +113,7 @@ rpc RouteChat(stream RouteNote) returns (stream RouteNote) {}
 
 ---
 
-# Generating client and server code  {#generating-client-and-server-code}
+# Generating client and server code  
 
 Next we need to generate the gRPC client and server interfaces from our `.proto` service definition. We do this using the protocol buffer compiler `protoc` with a special gRPC Java plugin. You need to use the [proto3](https://github.com/google/protobuf/releases) compiler (which supports both proto2 and proto3 syntax) in order to generate gRPC services.
 
@@ -128,7 +128,7 @@ The following classes are generated from our service definition:
 
 ---
 
-# Creating the server {#creating-the-server}
+# Creating the server 
 
 Duration: 5:00
 
@@ -137,7 +137,7 @@ First let’s look at how we create a `RouteGuide` server. There are two parts t
 * Implementing the service interface generated from our service definition: doing the actual “work” of our service.
 * Running a gRPC server to listen for requests from clients and dispatch them to the right service implementation.
 
-## **Implementing RouteGuide** {#implementing-routeguide}
+## **Implementing RouteGuide** 
 
 We need to implement the generated `RouteGuideService` interface:
 
@@ -160,9 +160,9 @@ public StreamObserver<RouteNote> routeChat(final StreamObserver<RouteNote> respo
 
 Let us look into each RPC implementation in detail
 
-### **Server-side streaming RPC**  {#heading}
+### **Server-side streaming RPC**  
 
-###  {#heading}
+###  
 
 Next let’s look at one of our streaming RPCs. `ListFeatures` is a server-side streaming RPC, so we need to send back multiple `Features` to our client.
 
@@ -195,7 +195,7 @@ Like the simple RPC, this method gets a request object (the `Rectangle` in which
 
 This time, we get as many `Feature` objects as we need to return to the client (in this case, we select them from the service’s feature collection based on whether they’re inside our request `Rectangle`), and write them each in turn to the response observer using its `onNext()` method. Finally, as in our simple RPC, we use the response observer’s `onCompleted()` method to tell gRPC that we’ve finished writing responses.
 
-### **Client-side streaming RPC**  {#client-side-streaming-rpc}
+### **Client-side streaming RPC**  
 
 Now let’s look at something a little more complicated: the client-side streaming method `RecordRoute()`, where we get a stream of `Points` from the client and return a single `RouteSummary` with information about their trip.
 
@@ -247,7 +247,7 @@ In the method body we instantiate an anonymous `StreamObserver` to return, in wh
 * Override the `onNext()` method to get features and other information each time the client writes a Point to the message stream.
 * Override the `onCompleted()` method (called when the *client* has finished writing messages) to populate and build our `RouteSummary`. We then call our method’s own response observer’s `onNext()` with our `RouteSummary`, and then call its `onCompleted()` method to finish the call from the server side.
 
-### **Bidirectional streaming RPC**  {#bidirectional-streaming-rpc}
+### **Bidirectional streaming RPC**  
 
 Finally, let’s look at our bidirectional streaming RPC `RouteChat()`.
 
@@ -285,7 +285,7 @@ As with our client-side streaming example, we both get and return a `StreamObser
 
 ---
 
-# Starting the server {#starting-the-server}
+# Starting the server 
 
 Duration: 5:00
 
@@ -323,13 +323,13 @@ Since the ServerBuilder already incorporates the port, the only reason we pass a
 
 ---
 
-# Creating the client {#creating-the-client}
+# Creating the client 
 
 Duration: 5:00
 
 In this section, we’ll look at creating a client for our `RouteGuide` service. You can see our complete example client code in `../complete/src/main/java/io/grpc/complete/routeguide/RouteGuideClient.java`.
 
-## **Instantiating a stub**  {#instantiating-a-stub}
+## **Instantiating a stub**  
 
 To call service methods, we first need to create a *stub*, or rather, two stubs:
 
@@ -362,11 +362,11 @@ asyncStub = RouteGuideGrpc.newStub(channel);
 
 Remember, if it’s not blocking, it’s async
 
-## **Calling service methods**  {#calling-service-methods}
+## **Calling service methods**  
 
 Now let’s look at how we call our service methods. Note that any RPCs created from the blocking stub will operate in a blocking/synchronous mode, which means that the RPC call waits for the server to respond, and will either return a response or an error.
 
-### **Server-side streaming RPC**  {#server-side-streaming-rpc}
+### **Server-side streaming RPC**  
 
 Next, let’s look at a server-side streaming call to `ListFeatures`, which returns a stream of geographical `Feature`:
 
@@ -386,7 +386,7 @@ try {
 
 As you can see, it’s very similar to the simple unary RPC we looked at in the Getting\_Started\_With\_gRPC\_Java codelab, except instead of returning a single `Feature`, the method returns an `Iterator` that the client can use to read all the returned `Features`.
 
-### **Client-side streaming RPC** {#client-side-streaming-rpc-1}
+### **Client-side streaming RPC** 
 
 Now for something a little more complicated: the client-side streaming method `RecordRoute`, where we send a stream of `Points` to the server and get back a single `RouteSummary`. For this method we need to use the **asynchronous** stub. If you’ve already read [Creating the server](https://grpc.io/docs/languages/java/basics/\#server), some of this may look very familiar \- asynchronous streaming RPCs are implemented in a similar way on both sides.
 
@@ -455,7 +455,7 @@ As you can see, to call this method we need to create a `StreamObserver`, which 
 
 We then pass the `StreamObserver` to the asynchronous stub’s `recordRoute()` method and get back our own `StreamObserver` request observer to write our `Points` to send to the server. Once we’ve finished writing points, we use the request observer’s `onCompleted()` method to tell gRPC that we’ve finished writing on the client side. Once we’re done, we check our `CountDownLatch` to see if the server has completed on its side.
 
-### **Bidirectional streaming RPC**  {#bidirectional-streaming-rpc-1}
+### **Bidirectional streaming RPC**  
 
 Finally, let’s look at our bidirectional streaming RPC `RouteChat()`.
 
@@ -513,7 +513,7 @@ As with our client-side streaming example, we both get and return a `StreamObser
 
 ---
 
-# Try it out\!  {#try-it-out!}
+# Try it out\!  
 
 Duration: 2:00
 
@@ -542,13 +542,13 @@ $ ./build/install/start_here/bin/route-guide-client
 
 ---
 
-# What’s next {#what’s-next}
+# What’s next 
 
 * Learn how gRPC works in [Introduction to gRPC](https://grpc.io/docs/what-is-grpc/introduction/) and [Core concepts](https://grpc.io/docs/what-is-grpc/core-concepts/).
 * Explore the [API reference](https://grpc.io/docs/languages/java/api).
 
 ---
 
-# Surveys {#surveys}
+# Surveys 
 
 Duration: 1:00  
