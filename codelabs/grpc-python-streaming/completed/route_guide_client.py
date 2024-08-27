@@ -17,6 +17,7 @@ import logging
 import random
 
 import grpc
+
 import route_guide_pb2
 import route_guide_pb2_grpc
 import route_guide_resources
@@ -30,9 +31,9 @@ def make_route_note(message, latitude, longitude):
 
 
 def format_point(point):
-    # not delegating in point.__str__ because it is an empty string when its
+    # Not delegating in point.__str__ because it is an empty string when its
     # values are zero. In addition, it puts a newline between the fields.
-    return "latitude: %d, longitude: %d" % (point.latitude, point.longitude)
+    return f"latitude: {point.latitude}, longitude: {point.longitude}"
 
 
 def guide_list_features(stub):
@@ -47,28 +48,25 @@ def guide_list_features(stub):
     features = stub.ListFeatures(rectangle)
 
     for feature in features:
-        print(
-            "Feature called %r at %s"
-            % (feature.name, format_point(feature.location))
-        )
+        print(f"Feature called '{feature.name}' at {format_point(feature.location)}")
 
 
 def generate_route(feature_list):
     for _ in range(0, 10):
         random_feature = random.choice(feature_list)
-        print("Visiting point %s" % format_point(random_feature.location))
+        print(f"Visiting point {format_point(random_feature.location)}")
         yield random_feature.location
 
 
 def guide_record_route(stub):
     feature_list = route_guide_resources.read_route_guide_database()
-
     route_iterator = generate_route(feature_list)
+
     route_summary = stub.RecordRoute(route_iterator)
-    print("Finished trip with %s points " % route_summary.point_count)
-    print("Passed %s features " % route_summary.feature_count)
-    print("Travelled %s meters " % route_summary.distance)
-    print("It took %s seconds " % route_summary.elapsed_time)
+    print(f"Finished trip with {route_summary.point_count} points")
+    print(f"Passed {route_summary.feature_count} features")
+    print(f"Traveled {route_summary.distance} meters")
+    print(f"It took {route_summary.elapsed_time} seconds")
 
 
 def generate_messages():
@@ -80,7 +78,7 @@ def generate_messages():
         make_route_note("Fifth message", 1, 0),
     ]
     for msg in messages:
-        print("Sending %s at %s" % (msg.message, format_point(msg.location)))
+        print(f"Sending {msg.message} at {format_point(msg.location)}")
         yield msg
 
 
@@ -88,8 +86,7 @@ def guide_route_chat(stub):
     responses = stub.RouteChat(generate_messages())
     for response in responses:
         print(
-            "Received message %s at %s"
-            % (response.message, format_point(response.location))
+            f"Received message {response.message} at {format_point(response.location)}"
         )
 
 
@@ -102,6 +99,7 @@ def run():
         guide_record_route(stub)
         print("-------------- RouteChat --------------")
         guide_route_chat(stub)
+
 
 if __name__ == "__main__":
     logging.basicConfig()
