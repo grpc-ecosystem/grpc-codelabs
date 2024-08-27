@@ -28,10 +28,10 @@ systems. No prior gRPC experience needed!
 
 ### This codelab
 
-```console
-$ cd ~/your-dev-dir
-$ git clone https://github.com/grpc-ecosystem/grpc-codelabs.git
-$ cd grpc-codelabs/
+```sh
+cd ~/your-dev-dir
+git clone https://github.com/grpc-ecosystem/grpc-codelabs.git
+cd grpc-codelabs/
 ```
 
 ### Python3
@@ -46,13 +46,13 @@ We recommend using the latest pip, see [Installation - pip]
 (https://pip.pypa.io/en/stable/installation/). In some OS distributions, `ensurepip` is not
 available out-of-box. On Debian/Ubuntu, you may need to run.
 
-```console
+```sh
 sudo apt-get install python3-pip
 ```
 
  If necessary, upgrade your version of pip:
 
-```console
+```sh
 python3 -m ensurepip --upgrade
 ```
 
@@ -70,27 +70,27 @@ Consider adding this directory to PATH or, if you prefer to suppress this warnin
 environments. However, some OS distributions choose to exclude it. You can check if it's available
 on your system with
 
-```console
+```sh
 python3 -m venv --help
 ```
 
 In debian/ubuntu, this also will advise you on what package to install. You may need to run
 something like this:
 
-```console
+```sh
 sudo apt-get install python3-venv
 ```
 
 Once `venv` is installed, create a virtual environment:
 
-```console
+```sh
 cd codelabs/grpc-python-getting-started
 python3 -m venv .venv
 ```
 
 #### Activate virtual environment
 
-```console
+```sh
 cd "$(git rev-parse --show-toplevel || echo .)" && cd codelabs/grpc-python-getting-started
 source ./.venv/bin/activate
 ```
@@ -102,7 +102,7 @@ Duration: 5:00
 Your working directory will be `codelabs/grpc-python-getting-started/start_here`. Assuming you
 followed `venv` activation section, you can cd into the start folder with:
 
-```console
+```sh
 cd start_here/
 ```
 
@@ -169,7 +169,7 @@ Next you need to generate the gRPC client and server interfaces from your .proto
 
 First, install the grpcio-tools package:
 
-```console
+```sh
 pip install --require-virtualenv grpcio-tools
 ```
 
@@ -178,7 +178,7 @@ If you see `ERROR: Could not find an activated virtualenv (required)`, please fo
 
 Use the following command to generate the Python code:
 
-```console
+```sh
 python -m grpc_tools.protoc --proto_path=./protos  \
  --python_out=. --pyi_out=. --grpc_python_out=. \
  ./protos/route_guide.proto
@@ -333,14 +333,14 @@ Duration: 2:00
 
 Run the server:
 
-```console
+```sh
 python route_guide_server.py
 ```
 
 From a different terminal, [Activate virtual environment](#activate-virtual-environment), then run
 the client:
 
-```console
+```sh
 python route_guide_client.py
 ```
 
