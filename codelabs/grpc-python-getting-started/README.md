@@ -37,27 +37,26 @@ cd grpc-codelabs/
 ### Python3
 
 For this codelab, we require python 3.9 or higher, but recommend python 3.11. System-specific
-instructions can be found in Python documentation: [Python Setup and Usage]
-(https://docs.python.org/3/using/index.html).
+instructions can be found in Python documentation: [Python Setup and Usage](https://docs.python.org/3/using/index.html).
 
 ### Pip3
 
-We recommend using the latest pip, see [Installation - pip]
-(https://pip.pypa.io/en/stable/installation/). In some OS distributions, `ensurepip` is not
-available out-of-box. On Debian/Ubuntu, you may need to run.
+We recommend using the latest pip, see [Installation - pip](https://pip.pypa.io/en/stable/installation/).
+In some OS distributions, `ensurepip` is not available out-of-box. On Debian/Ubuntu, you may need 
+to run.
 
 ```sh
 sudo apt-get install python3-pip
 ```
 
- If necessary, upgrade your version of pip:
+If necessary, upgrade your version of pip:
 
 ```sh
 python3 -m ensurepip --upgrade
 ```
 
 If your python installation is owned by the system, pip will be installed in the user directory. If
-you may see a warning like this, ensure the pip directory is in PATH:
+you may see a warning like this, ensure the pip directory is in `$PATH`:
 
 ```
 WARNING: The scripts pip3 and pip3.9 are installed in '/Users/sergiitk/Library/Python/3.9/bin' which is not on PATH.
@@ -109,7 +108,7 @@ Our first step is to define the gRPC *service* and the method *request* and *res
 
 Let’s start by defining the messages and service in `route_guide.proto`.
 
-### Define proto messages
+### Define Proto Messages
 
 Our `.proto` file contains protocol buffer message type definitions for all the request and response
 types used in our service methods.
@@ -135,7 +134,7 @@ message Feature {
 }
 ```
 
-### Define RouteGuide service
+### Define RouteGuide Service
 
 To define a service, you specify a named `service` in your `.proto` file:
 
@@ -160,7 +159,7 @@ rpc GetFeature(Point) returns (Feature) {}
 
 > [!TIP]
 > For the complete .proto file, see
-> [completed/protos/route_guide.proto](https://github.com/grpc-ecosystem/grpc-codelabs/blob/main/codelabs/grpc-python-getting-started/completed/protos/route_guide.proto)
+> [`completed/protos/route_guide.proto`](https://github.com/grpc-ecosystem/grpc-codelabs/blob/main/codelabs/grpc-python-getting-started/completed/protos/route_guide.proto)
 
 ## Generating client and server code 
 
@@ -172,8 +171,8 @@ First, install the grpcio-tools package:
 pip install --require-virtualenv grpcio-tools
 ```
 
-If you see `ERROR: Could not find an activated virtualenv (required)`, please follow the section
-[Activate virtual environment](#activate-virtual-environment), then cd into `start_here`.
+If you see `ERROR: Could not find an activated virtualenv (required)`, please 
+[activate virtual environment](#activate-virtual-environment), then cd into `start_here`.
 
 Use the following command to generate the Python code:
 
@@ -253,7 +252,7 @@ so that clients can actually use your service:
 def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     route_guide_pb2_grpc.add_RouteGuideServicer_to_server(RouteGuideServicer(), server)
-    listen_addr = "[::]:50051"
+    listen_addr = "localhost:50051"
     server.add_insecure_port(listen_addr)
     print(f"Starting server on {listen_addr}")
     server.start()
@@ -330,7 +329,7 @@ Run the server:
 python route_guide_server.py
 ```
 
-From a different terminal, [Activate virtual environment](#activate-virtual-environment), then run
+From a different terminal, [activate virtual environment](#activate-virtual-environment), then run
 the client:
 
 ```sh
