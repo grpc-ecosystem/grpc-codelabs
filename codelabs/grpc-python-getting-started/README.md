@@ -159,8 +159,8 @@ rpc GetFeature(Point) returns (Feature) {}
 ```
 
 > [!TIP]
-> For the complete .proto file, see [completed/protos/route_guide.proto]
-  (https://github.com/grpc-ecosystem/grpc-codelabs/blob/main/codelabs/grpc-python-getting-started/completed/protos/route_guide.proto)
+> For the complete .proto file, see
+> [completed/protos/route_guide.proto](https://github.com/grpc-ecosystem/grpc-codelabs/blob/main/codelabs/grpc-python-getting-started/completed/protos/route_guide.proto)
 
 ## Generating client and server code 
 
@@ -209,8 +209,7 @@ breaks down into two work items:
   perform the actual “work” of the service.  
 * Running a gRPC server to listen for requests from clients and transmit responses.
 
-You can find the initial `RouteGuide` server in [`start_here/route_guide_server.py`]
-(https://github.com/grpc-ecosystem/grpc-codelabs/blob/main/codelabs/grpc-python-getting-started/start_here/route_guide_server.py).
+You can find the initial `RouteGuide` server in [`start_here/route_guide_server.py`](https://github.com/grpc-ecosystem/grpc-codelabs/blob/main/codelabs/grpc-python-getting-started/start_here/route_guide_server.py).
 
 ### Implementing RouteGuide
 
@@ -242,8 +241,8 @@ object that provides RPC-specific information such as timeout limits. It returns
 `route_guide_pb2.Feature` response.
 
 > [!TIP]
-> For the completed route guide server, see [`completed/route_guide_server.py`]
-  (https://github.com/grpc-ecosystem/grpc-codelabs/blob/main/codelabs/grpc-python-getting-started/completed/route_guide_server.py).
+> For the completed route guide server, see 
+> [`completed/route_guide_server.py`](https://github.com/grpc-ecosystem/grpc-codelabs/blob/main/codelabs/grpc-python-getting-started/completed/route_guide_server.py).
 
 ## Starting the server
 
@@ -267,14 +266,13 @@ this case, you can call `server.wait_for_termination()` to cleanly block the cal
 the server terminates.
 
 > [!TIP]
-> For the completed route guide server, see [`completed/route_guide_server.py`]
-  (https://github.com/grpc-ecosystem/grpc-codelabs/blob/main/codelabs/grpc-python-getting-started/completed/route_guide_server.py).
+> For the completed route guide server, see 
+> [`completed/route_guide_server.py`](https://github.com/grpc-ecosystem/grpc-codelabs/blob/main/codelabs/grpc-python-getting-started/completed/route_guide_server.py).
 
 ## Creating the client
 
 In this section, we’ll look at creating a client for our `RouteGuide` service. You can see the
-initial client code in [`start_here/route_guide_client.py`]
-(https://github.com/grpc-ecosystem/grpc-codelabs/blob/main/codelabs/grpc-python-getting-started/start_here/route_guide_client.py).
+initial client code in [`start_here/route_guide_client.py`](https://github.com/grpc-ecosystem/grpc-codelabs/blob/main/codelabs/grpc-python-getting-started/start_here/route_guide_client.py).
 
 ### Creating a stub 
 
@@ -321,8 +319,8 @@ else:
 ```
 
 > [!TIP]
-> For the completed route guide client, see [`completed/route_guide_client.py`]
-  (https://github.com/grpc-ecosystem/grpc-codelabs/blob/main/codelabs/grpc-python-getting-started/completed/route_guide_client.py).
+> For the completed route guide client, see
+> [`completed/route_guide_client.py`](https://github.com/grpc-ecosystem/grpc-codelabs/blob/main/codelabs/grpc-python-getting-started/completed/route_guide_client.py).
 
 ## Try it out! 
 
@@ -341,7 +339,6 @@ python route_guide_client.py
 
 ## What’s next
 
-* Learn how gRPC works in [Introduction to gRPC]
-  (https://grpc.io/docs/what-is-grpc/introduction/) and [Core concepts]
-  (https://grpc.io/docs/what-is-grpc/core-concepts/).  
+* Learn how gRPC works in [Introduction to gRPC](https://grpc.io/docs/what-is-grpc/introduction/) 
+  and [Core concepts](https://grpc.io/docs/what-is-grpc/core-concepts/).  
 * Explore the [Python API reference](https://grpc.github.io/grpc/python/).
