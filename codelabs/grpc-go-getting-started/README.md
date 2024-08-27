@@ -136,7 +136,7 @@ rpc GetFeature(Point) returns (Feature) {}
 ```
 
 > [!TIP]
->  For the complete .proto file, see [routeguide/route_guide.proto](/completed/routeguide/route_guide.proto).
+>  For the complete .proto file, see [routeguide/route_guide.proto](/grpc-go-getting-started/completed/routeguide/route_guide.proto).
 
 ## Generating client and server code
 
