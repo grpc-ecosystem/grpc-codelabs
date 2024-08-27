@@ -16,13 +16,16 @@
 import logging
 
 import grpc
+
 import route_guide_pb2
 import route_guide_pb2_grpc
 
+
 def format_point(point):
-    # not delegating in point.__str__ because it is an empty string when its
+    # Not delegating in point.__str__ because it is an empty string when its
     # values are zero. In addition, it puts a newline between the fields.
-    return "latitude: %d, longitude: %d" % (point.latitude, point.longitude)
+    return f"latitude: {point.latitude}, longitude: {point.longitude}"
+
 
 def run():
     """
@@ -31,6 +34,7 @@ def run():
      1. Create a connection to the gRPC server using grpc.insecure_channel()
      2. Call service methods on the client to interact with the server.
     """
+
 
 if __name__ == "__main__":
     logging.basicConfig()
