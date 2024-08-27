@@ -87,7 +87,7 @@ public class OpenTelemetryServer {
 
     ///////////////////////////////////////////////////////////////////////////
     // CODELAB HINT : Add code to create Prometheus exporter here. The default
-    // port has been initialized for you in a variable i.e prometheusPort.
+    // port has been initialized for you in a variable named prometheusPort.
     // Please use that while configuring teh exporter.
     ///////////////////////////////////////////////////////////////////////////
 
@@ -103,7 +103,7 @@ public class OpenTelemetryServer {
     // CODELAB HINT : Add code for the following tasks here:
     // 1. Add code to create a GrpcOpenTelemetry instance and
     // provide the above created OpenTelemetrySdk instance.
-    // 2. Register GrpcOpenTelemetry isntance globally.
+    // 2. Register GrpcOpenTelemetry instance globally.
     ///////////////////////////////////////////////////////////////////////////
 
     final OpenTelemetryServer server = new OpenTelemetryServer();

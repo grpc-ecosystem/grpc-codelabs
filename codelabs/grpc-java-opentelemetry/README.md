@@ -156,13 +156,13 @@ With a successful setup, you will see the following output for the server.
 INFO: Server started, listening on 50051
 ```
 
-While, the server is running, on another terminal start client by running:
+While, the server is running, on another terminal start client by running
 
 ```java
 $ ./build/install/start_here/bin/opentelemetry-client world
 ```
 
-A successful run will look like \-
+A successful run will look like
 
 ```
 [date and time]io.grpc.codelabs.opentelemetry.OpenTelemetryClient greet
@@ -176,7 +176,7 @@ INFO: Greeting: Hello world
 Since we have set-up gRPC OpenTelemetry to export metrics using Prometheus. 
 Those metrics will be available on localhost:9464 for server and localhost:9465 for client.
 
-To see client metrics:
+To see client metrics, run
 
 ```shell
 curl localhost:9465/metrics
@@ -340,7 +340,7 @@ tar xvfz prometheus-*.tar.gz
 cd prometheus-*
 ```
 
-Create a prometheus configuration file with the following \-
+Create a prometheus configuration file with the following
 
 ```shell
 cat > grpc_otel_java_prometheus.yml <<EOF
@@ -356,7 +356,7 @@ scrape_configs:
 EOF
 ```
 
-Start prometheus with the new configuration -
+Start prometheus with the new configuration
 
 ```shell
 ./prometheus --config.file=grpc_otel_java_prometheus.yml
