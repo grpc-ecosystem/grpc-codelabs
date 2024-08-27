@@ -28,10 +28,10 @@ systems. No prior gRPC experience needed!
 
 ### This codelab
 
-```
-cd ~/your-dev-dir
-git clone https://github.com/grpc-ecosystem/grpc-codelabs.git
-cd grpc-codelabs/
+```console
+$ cd ~/your-dev-dir
+$ git clone https://github.com/grpc-ecosystem/grpc-codelabs.git
+$ cd grpc-codelabs/
 ```
 
 ### Python3
@@ -46,13 +46,13 @@ We recommend using the latest pip, see [Installation - pip]
 (https://pip.pypa.io/en/stable/installation/). In some OS distributions, `ensurepip` is not
 available out-of-box. On Debian/Ubuntu, you may need to run.
 
-```
+```console
 sudo apt-get install python3-pip
 ```
 
  If necessary, upgrade your version of pip:
 
-```
+```console
 python3 -m ensurepip --upgrade
 ```
 
@@ -70,27 +70,27 @@ Consider adding this directory to PATH or, if you prefer to suppress this warnin
 environments. However, some OS distributions choose to exclude it. You can check if it's available
 on your system with
 
-```
+```console
 python3 -m venv --help
 ```
 
 In debian/ubuntu, this also will advise you on what package to install. You may need to run
 something like this:
 
-```
+```console
 sudo apt-get install python3-venv
 ```
 
 Once `venv` is installed, create a virtual environment:
 
-```
+```console
 cd codelabs/grpc-python-getting-started
 python3 -m venv .venv
 ```
 
 #### Activate virtual environment
 
-```
+```console
 cd "$(git rev-parse --show-toplevel || echo .)" && cd codelabs/grpc-python-getting-started
 source ./.venv/bin/activate
 ```
@@ -102,7 +102,7 @@ Duration: 5:00
 Your working directory will be `codelabs/grpc-python-getting-started/start_here`. Assuming you
 followed `venv` activation section, you can cd into the start folder with:
 
-```
+```console
 cd start_here/
 ```
 
@@ -118,7 +118,7 @@ types used in our service methods.
 
 Let’s define the `Point` message type:
 
-```
+```proto
 message Point {
   int32 latitude = 1;
   int32 longitude = 2;
@@ -127,7 +127,7 @@ message Point {
 
 Let’s also define the `Feature` message type:
 
-```
+```proto
 message Feature {
   // The name of the feature.
   string name = 1;
@@ -141,7 +141,7 @@ message Feature {
 
 To define a service, you specify a named `service` in your `.proto` file:
 
-```
+```proto
 service RouteGuide {
   // Definition of the service goes here
 }
@@ -155,7 +155,7 @@ types.  In this section of the codelab, let’s define a Unary RPC method.
 > Unary RPC method - A *simple RPC* where the client sends a request to the server using the stub
   and waits for a response to come back, just like a normal function call.
 
-```
+```proto
 // Obtains the feature at a given position.
 rpc GetFeature(Point) returns (Feature) {}
 ```
@@ -169,7 +169,7 @@ Next you need to generate the gRPC client and server interfaces from your .proto
 
 First, install the grpcio-tools package:
 
-```
+```console
 pip install --require-virtualenv grpcio-tools
 ```
 
@@ -178,7 +178,7 @@ If you see `ERROR: Could not find an activated virtualenv (required)`, please fo
 
 Use the following command to generate the Python code:
 
-```
+```console
 python -m grpc_tools.protoc --proto_path=./protos  \
  --python_out=. --pyi_out=. --grpc_python_out=. \
  ./protos/route_guide.proto
@@ -333,14 +333,14 @@ Duration: 2:00
 
 Run the server:
 
-```
+```console
 python route_guide_server.py
 ```
 
 From a different terminal, [Activate virtual environment](#activate-virtual-environment), then run
 the client:
 
-```
+```console
 python route_guide_client.py
 ```
 
