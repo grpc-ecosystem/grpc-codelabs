@@ -37,14 +37,13 @@ cd grpc-codelabs/
 ### Python3
 
 For this codelab, we require python 3.9 or higher, but recommend python 3.11. System-specific
-instructions can be found in Python documentation: [Python Setup and Usage]
-(https://docs.python.org/3/using/index.html).
+instructions can be found in Python documentation: [Python Setup and Usage](https://docs.python.org/3/using/index.html).
 
 ### Pip3
 
-We recommend using the latest pip, see [Installation - pip]
-(https://pip.pypa.io/en/stable/installation/). In some OS distributions, `ensurepip` is not
-available out-of-box. On Debian/Ubuntu, you may need to run.
+We recommend using the latest pip, see [Installation - pip](https://pip.pypa.io/en/stable/installation/).
+In some OS distributions, `ensurepip` is not available out-of-box. On Debian/Ubuntu, you may need 
+to run.
 
 ```sh
 sudo apt-get install python3-pip
@@ -57,7 +56,7 @@ python3 -m ensurepip --upgrade
 ```
 
 If your python installation is owned by the system, pip will be installed in the user directory. If
-you may see a warning like this, ensure the pip directory is in PATH:
+you may see a warning like this, ensure the pip directory is in `$PATH`:
 
 ```
 WARNING: The scripts pip3 and pip3.9 are installed in '/Users/sergiitk/Library/Python/3.9/bin' which is not on PATH.
@@ -172,8 +171,8 @@ First, install the grpcio-tools package:
 pip install --require-virtualenv grpcio-tools
 ```
 
-If you see `ERROR: Could not find an activated virtualenv (required)`, please follow the section
-[Activate virtual environment](#activate-virtual-environment), then cd into `start_here`.
+If you see `ERROR: Could not find an activated virtualenv (required)`, please 
+[activate virtual environment](#activate-virtual-environment), then cd into `start_here`.
 
 Use the following command to generate the Python code:
 
@@ -330,7 +329,7 @@ Run the server:
 python route_guide_server.py
 ```
 
-From a different terminal, [Activate virtual environment](#activate-virtual-environment), then run
+From a different terminal, [activate virtual environment](#activate-virtual-environment), then run
 the client:
 
 ```sh
