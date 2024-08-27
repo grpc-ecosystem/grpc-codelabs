@@ -97,8 +97,6 @@ source ./.venv/bin/activate
 
 ## Define proto
 
-Duration: 5:00
-
 Your working directory will be `codelabs/grpc-python-getting-started/start_here`. Assuming you
 followed `venv` activation section, you can cd into the start folder with:
 
@@ -204,8 +202,6 @@ code files are called `route_guide_pb2.py` and `route_guide_pb2_grpc.py` and con
 
 ## Creating the server
 
-Duration: 5:00
-
 First let’s look at how you create a `RouteGuide` server. Creating and running a `RouteGuide` server
 breaks down into two work items:
 
@@ -251,8 +247,6 @@ object that provides RPC-specific information such as timeout limits. It returns
 
 ## Starting the server
 
-Duration: 5:00
-
 Once you have implemented all the `RouteGuide` methods, the next step is to start up a gRPC server
 so that clients can actually use your service:
 
@@ -277,8 +271,6 @@ the server terminates.
   (https://github.com/grpc-ecosystem/grpc-codelabs/blob/main/codelabs/grpc-python-getting-started/completed/route_guide_server.py).
 
 ## Creating the client
-
-Duration: 5:00
 
 In this section, we’ll look at creating a client for our `RouteGuide` service. You can see the
 initial client code in [`start_here/route_guide_client.py`]
@@ -333,8 +325,6 @@ else:
   (https://github.com/grpc-ecosystem/grpc-codelabs/blob/main/codelabs/grpc-python-getting-started/completed/route_guide_client.py).
 
 ## Try it out! 
-
-Duration: 2:00
 
 Run the server:
 
