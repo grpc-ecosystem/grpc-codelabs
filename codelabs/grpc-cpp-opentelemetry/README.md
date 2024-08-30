@@ -38,6 +38,7 @@ $ cp bazelisk-linux-amd64 /usr/local/bin/bazel
 ### **What you’ll need**
 
 * A computer with internet connection
+* Ability to open three separate terminals.
 
 <!-- TODO(yashkt/arvindbright) : Add some additional boilerplate stuff over here if needed. -->
 
@@ -95,7 +96,7 @@ int main(int argc, char** argv) {
 ```
 
 > [!NOTE]
-> How a Prometheus Exporter is being set up on the OpenTelemetry Meter Provider.
+> A Prometheus Exporter is being set up on the OpenTelemetry Meter Provider.
 > (There are other ways to export the metrics as well. This codelab chooses the
 > prometheus exporter.) This MeterProvider is provided to gRPC’s OpenTelemetry
 > plugin as configuration. Once the OpenTelemetry plugin is registered globally
