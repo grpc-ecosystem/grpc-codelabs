@@ -33,7 +33,7 @@ $ python -m pip install --upgrade pip
 #### Install dependencies
 
 ```console
-$ cd codelabs/gRPC_Python_OpenTelemetry_Plugin/
+$ cd codelabs/grpc-python-opentelemetry/
 $ python -m pip install -r requirements.txt
 ```
 
@@ -47,6 +47,7 @@ $ python -m pip install -r requirements.txt
 ### **What you’ll need**
 
 * A computer with internet connection
+* Ability to open three separate terminals.
 
 ## Instrumenting applications with gRPC OpenTelemetry Plugin 
 
@@ -67,6 +68,9 @@ import helloworld_pb2_grpc
 from opentelemetry.exporter.prometheus import PrometheusMetricReader
 from opentelemetry.sdk.metrics import MeterProvider
 from prometheus_client import start_http_server
+
+_SERVER_PORT = "50051"
+_PROMETHEUS_PORT = 9465
 ```
 
 Then transform `run()` to look like
