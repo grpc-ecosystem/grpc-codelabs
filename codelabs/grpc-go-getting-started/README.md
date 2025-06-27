@@ -234,7 +234,7 @@ do this for our `RouteGuide` service:
 >  port can be configured by passing in `port` flag. Defaults to `50051`
 
 ```go
-lis, err := net.Listen("tcp", fmt.Sprintf("localhost:%d", port))
+lis, err := net.Listen("tcp", fmt.Sprintf("localhost:%d", *port))
 if err != nil {
   log.Fatalf("failed to listen: %v", err)
 }
@@ -243,7 +243,7 @@ grpcServer := grpc.NewServer(opts...)
 
 s := &routeGuideServer{}
 s.loadFeatures()
-pb.RegisterRouteGuideServer(grpcServer, newServer())
+pb.RegisterRouteGuideServer(grpcServer, s)
 grpcServer.Serve(lis)
 ```
 
