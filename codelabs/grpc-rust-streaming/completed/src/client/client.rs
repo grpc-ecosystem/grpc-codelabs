@@ -8,12 +8,21 @@ use tonic::transport::{Channel, Endpoint};
 use tonic::Request;
 use protobuf::proto;
 
-use routeguide::route_guide_client::RouteGuideClient;
-use routeguide::{Point, Rectangle, RouteNote};
-
-pub mod routeguide {
-    grpc::include_proto!("", "routeguide");
+mod grpc_pb {
+    // Include message code.
+    include!(concat!(
+        env!("CARGO_MANIFEST_DIR"),
+        "/generated/generated.rs"
+    ));
+    include!(concat!(
+        env!("CARGO_MANIFEST_DIR"),
+        "/generated/routeguide_grpc.pb.rs"
+    ));
 }
+
+use grpc_pb::route_guide_client::RouteGuideClient;
+use grpc_pb::{Point, Rectangle, RouteNote};
+
 
 async fn print_features(client: &mut RouteGuideClient<Channel>) -> Result<(), Box<dyn Error>> {
     let rectangle = proto!(Rectangle {
@@ -120,3 +129,4 @@ fn random_point(rng: &mut ThreadRng) -> Point {
         longitude: longitude
     })
 }
+

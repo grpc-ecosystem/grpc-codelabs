@@ -73,5 +73,4 @@ tracing = { version = "0.1.16", optional = true }
 tracing-subscriber = { version = "0.3", features = ["tracing-log", "fmt"], optional = true }
 
 [build-dependencies]
-tonic-protobuf-build = {git = "https://github.com/arjan-bal/tonic.git", branch = "grpc-codegen", package = "tonic-protobuf-build" }
-tonic-build = {git = "https://github.com/arjan-bal/tonic.git", branch = "grpc-codegen", package = "tonic-build" }
+protobuf-codegen = { version = "4.31.1-release"}
