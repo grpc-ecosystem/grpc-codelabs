@@ -47,16 +47,13 @@ impl RouteGuide for RouteGuideService {
         request: Request<tonic::Streaming<Point>>,
     ) -> Result<Response<RouteSummary>, Status> {
         println!("RecordRoute");
-
         let mut stream = request.into_inner();
-
         let mut summary = RouteSummary::default();
         let mut last_point = None;
         let now = Instant::now();
 
         while let Some(point) = stream.next().await {
             let point = point?;
-
             println!("  ==> Point = {point:?}");
 
             // Increment the point count
@@ -76,12 +73,9 @@ impl RouteGuide for RouteGuideService {
                 let new_dist = summary.distance() + calc_distance(last_point, &point);
                 summary.set_distance(new_dist);
             }
-
             last_point = Some(point);
         }
-
         summary.set_elapsed_time(now.elapsed().as_secs() as i32);
-
         Ok(Response::new(summary))
     }
 
@@ -97,19 +91,15 @@ impl RouteGuide for RouteGuideService {
         let output = async_stream::try_stream! {
             while let Some(note) = stream.next().await {
                 let note = note?;
-
                 let location = note.location();
                 let key = (location.latitude(), location.longitude());
-
                 let location_notes = notes.entry(key).or_insert(vec![]);
                 location_notes.push(note);
-
                 for note in location_notes {
                     yield note.clone();
                 }
             }
         };
-
         Ok(Response::new(Box::pin(output)))
     }
 }
