@@ -28,124 +28,16 @@ $ PLUGIN_PATH="$(pwd)/bazel-bin/src/protoc-gen-rust-grpc"
 export PATH="$(pwd)/bazel-bin/src/:$PATH"
 ```
 
-## Defining protobuf messages and services
-
-Our first step is to define the gRPC *service* and the method *request* and
-*response* types using [protocol buffers](https://protobuf.dev/overview).
-
-Let’s start by defining the messages and service in [this file](start_here/routeguide/route_guide.proto).
-
-### Define the proto Messages
-
-Our `.proto` file contains protocol buffer message type definitions for all the
-request and response types used in our service methods.
-
-Let’s define the `Point` message type.  `Point` are represented as
-latitude-longitude pairs in the E7 representation.  For the purpose of this
-codelabs, we will be using `integer` to define latitude and longitude.
-
-```proto
-message Point {
-  int32 latitude = 1;
-  int32 longitude = 2;
-}
-```
-
-Let’s also define the `Feature` message type. A `Feature` names something at a
-given point using a `string` field.
-
-```proto
-message Feature {
-  // The name of the feature.
-  string name = 1;
-
-  // The point where the feature is detected.
-  Point location = 2;
-}
-```
-
-### Define the RouteGuide service
-
-To define a service, you specify a named service in your `.proto` file:
-
-```proto
-service RouteGuide {
-  // Definition of the service goes here
-}
-```
-
-### Define the RPC method in the service
-
-Then you define `rpc` methods inside your service definition, specifying their
-request and response types.  In this section of the codelab, let’s define
-`GetFeature` method that returns the named `Feature` for the given `Point.`
-
-This would be Unary RPC method \- A *simple RPC* where the client sends a
-request to the server using the stub and waits for a response to come back, just
-like a normal function call.
-
-```proto
-// Obtains the feature at a given position.
-rpc GetFeature(Point) returns (Feature) {}
-```
-
-> [!TIP]
->  For the complete .proto file, see [routeguide/route_guide.proto](/grpc-go-getting-started/completed/routeguide/route_guide.proto).
-
 ## Generating client and server code
 
 Next we need to generate the gRPC client and server interfaces from our `.proto`
 service definition. 
 
 ### Dependencies
-Edit `Cargo.toml` and add all the dependencies we'll need for this example:
+Edit `Cargo.toml` and add the dependency we'll need for this example, which is tonic-protobuf-build:
 
-```toml
-[package]
-edition = "2021"
-license = "MIT"
-name = "getting-started"
-
-[[bin]]
-name = "routeguide-server"
-path = "src/server/server.rs"
-
-[[bin]]
-name = "routeguide-client"
-path = "src/client/client.rs"
-
-[features]
-routeguide = ["dep:async-stream", "dep:tokio-stream", "dep:rand", "dep:serde", "dep:serde_json"]
-full = ["routeguide"]
-default = ["full"]
-
-[dependencies]
-# Common dependencies
-tokio = { version = "1.0", features = ["rt-multi-thread", "macros"] }
-prost = "0.14"
-tonic = { git = "https://github.com/hyperium/tonic", branch="master"}
-tonic-protobuf = {git = "https://github.com/hyperium/tonic", branch = "master", package = "tonic-protobuf" }
-grpc = {git = "https://github.com/hyperium/tonic", branch = "master", package = "grpc"}
-tonic-prost = {git = "https://github.com/hyperium/tonic", branch = "master", package = "tonic-prost" }
-# Optional dependencies
-async-stream = { version = "0.3", optional = true }
-tokio-stream = { version = "0.1", optional = true }
-tokio-util = { version = "0.7.8", optional = true }
-tower = { version = "0.5", optional = true }
-rand = { version = "0.9", optional = true }
-serde = { version = "1.0", features = ["derive"], optional = true }
-serde_json = { version = "1.0", optional = true }
-prost-types = { version = "0.14", optional = true }
-http = { version = "1", optional = true }
-hyper = { version = "1", optional = true }
-hyper-util = { version = "0.1.4", optional = true }
-tokio-rustls = { version = "0.26.1", optional = true, features = ["ring", "tls12"], default-features = false }
-hyper-rustls = { version = "0.27.0", features = ["http2", "ring", "tls12"], optional = true, default-features = false }
-tower-http = { version = "0.6", optional = true }
-protobuf = { version = "4.31.1-release"}
-
-[build-dependencies]
-tonic-protobuf-build = {git = "https://github.com/hyperium/tonic.git", branch = "master", package = "tonic-protobuf-build" }
+```console
+cargo add tonic-protobuf-build
 ```
 
 ### Compiling and Building Proto  
