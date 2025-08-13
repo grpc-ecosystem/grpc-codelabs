@@ -1,6 +1,10 @@
-// use tonic::Request;
-// use tonic::transport::{Endpoint}; 
-// use protobuf::proto;
+use tonic::Request;
+use tonic::transport::{Endpoint}; 
+use protobuf::proto;
+
+// /////////////////////////////////////////////////////////////////////////
+// Codelab Hint: Bring the generated code into scope.
+// /////////////////////////////////////////////////////////////////////////
 
 #[tokio::main]
 async fn main() {
