@@ -47,7 +47,9 @@ def get_distance(start, end):
 
     # Formula is based on http://mathforum.org/library/drmath/view/51879.html
     a = pow(math.sin(delta_lat_rad / 2), 2) + (
-        math.cos(lat_rad_1) * math.cos(lat_rad_2) * pow(math.sin(delta_lon_rad / 2), 2)
+        math.cos(lat_rad_1)
+        * math.cos(lat_rad_2)
+        * pow(math.sin(delta_lon_rad / 2), 2)
     )
     c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
     R = 6371000
@@ -62,20 +64,18 @@ class RouteGuideServicer(route_guide_pb2_grpc.RouteGuideServicer):
         self.db = route_guide_resources.read_route_guide_database()
 
     def ListFeatures(self, request, context):
+        """List all features contained within the given Rectangle."""
         left = min(request.lo.longitude, request.hi.longitude)
         right = max(request.lo.longitude, request.hi.longitude)
         top = max(request.lo.latitude, request.hi.latitude)
         bottom = min(request.lo.latitude, request.hi.latitude)
         for feature in self.db:
-            if (
-                feature.location.longitude >= left
-                and feature.location.longitude <= right
-                and feature.location.latitude >= bottom
-                and feature.location.latitude <= top
-            ):
+            lat, lng = feature.location.latitude, feature.location.longitude
+            if left <= lng <= right and bottom <= lat <= top:
                 yield feature
 
     def RecordRoute(self, request_iterator, context):
+        """Calculate statistics about the trip composed of Points."""
         point_count = 0
         feature_count = 0
         distance = 0.0
@@ -99,6 +99,10 @@ class RouteGuideServicer(route_guide_pb2_grpc.RouteGuideServicer):
         )
 
     def RouteChat(self, request_iterator, context):
+        """
+        Receive a stream of message/location pairs, and responds with
+        a stream of all previous messages for the given location.
+        """
         prev_notes = []
         for new_note in request_iterator:
             for prev_note in prev_notes:
@@ -109,7 +113,10 @@ class RouteGuideServicer(route_guide_pb2_grpc.RouteGuideServicer):
 
 def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
-    route_guide_pb2_grpc.add_RouteGuideServicer_to_server(RouteGuideServicer(), server)
+    route_guide_pb2_grpc.add_RouteGuideServicer_to_server(
+        RouteGuideServicer(),
+        server,
+    )
     listen_addr = "localhost:50051"
     server.add_insecure_port(listen_addr)
     print(f"Starting server on {listen_addr}")
