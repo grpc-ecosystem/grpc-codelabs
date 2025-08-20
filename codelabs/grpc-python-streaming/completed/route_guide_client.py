@@ -15,6 +15,7 @@
 
 import logging
 import random
+import time
 
 import grpc
 
@@ -23,17 +24,19 @@ import route_guide_pb2_grpc
 import route_guide_resources
 
 
-def make_route_note(message, latitude, longitude):
-    return route_guide_pb2.RouteNote(
-        message=message,
-        location=route_guide_pb2.Point(latitude=latitude, longitude=longitude),
-    )
-
-
 def format_point(point):
-    # Not delegating in point.__str__ because it is an empty string when its
-    # values are zero. In addition, it puts a newline between the fields.
-    return f"latitude: {point.latitude}, longitude: {point.longitude}"
+    return f"(lat={point.latitude}, lng={point.longitude})"
+
+
+def make_route_note(message, point):
+    return route_guide_pb2.RouteNote(message=message, location=point)
+
+
+def generate_route(feature_list, count=10):
+    for _ in range(0, count):
+        random_feature = random.choice(feature_list)
+        print(f"Visiting point {format_point(random_feature.location)}")
+        yield random_feature.location
 
 
 def guide_list_features(stub):
@@ -46,16 +49,11 @@ def guide_list_features(stub):
     print("Looking for features between 40, -75 and 42, -73")
 
     features = stub.ListFeatures(rectangle)
-
     for feature in features:
-        print(f"Feature called '{feature.name}' at {format_point(feature.location)}")
-
-
-def generate_route(feature_list):
-    for _ in range(0, 10):
-        random_feature = random.choice(feature_list)
-        print(f"Visiting point {format_point(random_feature.location)}")
-        yield random_feature.location
+        print(
+            f"Feature called '{feature.name}'"
+            f" at {format_point(feature.location)}"
+        )
 
 
 def guide_record_route(stub):
@@ -69,24 +67,33 @@ def guide_record_route(stub):
     print(f"It took {route_summary.elapsed_time} seconds")
 
 
-def generate_messages():
-    messages = [
-        make_route_note("First message", 0, 0),
-        make_route_note("Second message", 0, 1),
-        make_route_note("Third message", 1, 0),
-        make_route_note("Fourth message", 0, 0),
-        make_route_note("Fifth message", 1, 0),
+def generate_notes():
+    home = route_guide_pb2.Point(latitude=1, longitude=1)
+    work = route_guide_pb2.Point(latitude=2, longitude=2)
+    notes = [
+        make_route_note("Departing from home", home),
+        make_route_note("Arrived at work", work),
+        make_route_note("Having lunch at work", work),
+        make_route_note("Departing from work", work),
+        make_route_note("Arrived home", home),
     ]
-    for msg in messages:
-        print(f"Sending {msg.message} at {format_point(msg.location)}")
-        yield msg
+    for note in notes:
+        print(
+            f"Sending RouteNote for {format_point(note.location)}:"
+            f" {note.message}"
+        )
+        yield note
+        # Sleep to simulate moving from one point to another.
+        # Only for demonstrating the order of the messages.
+        time.sleep(0.1)
 
 
 def guide_route_chat(stub):
-    responses = stub.RouteChat(generate_messages())
+    responses = stub.RouteChat(generate_notes())
     for response in responses:
         print(
-            f"Received message {response.message} at {format_point(response.location)}"
+            "< Found previous note at"
+            f" {format_point(response.location)}: {response.message}"
         )
 
 
