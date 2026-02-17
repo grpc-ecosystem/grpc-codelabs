@@ -7,11 +7,11 @@ plugins {
 }
 
 repositories {
+    mavenLocal()
     maven { // The google mirror is less flaky than mavenCentral()
         url "https://maven-central.storage-download.googleapis.com/maven2/"
     }
     mavenCentral()
-    mavenLocal()
 }
 
 java {
@@ -19,7 +19,7 @@ java {
     targetCompatibility = JavaVersion.VERSION_1_8
 }
 
-def grpcVersion = '1.66.0' // LATEST_GRPC_VERSION
+def grpcVersion = '1.80.0-OTEL-BAGGAGE-SNAPSHOT' // LATEST_GRPC_VERSION
 def protocVersion = '3.25.3'
 def openTelemetryVersion = '1.40.0'
 def openTelemetryPrometheusVersion = '1.40.0-alpha'
@@ -28,18 +28,21 @@ dependencies {
     implementation "io.grpc:grpc-protobuf:${grpcVersion}"
     implementation "io.grpc:grpc-stub:${grpcVersion}"
     implementation "io.grpc:grpc-opentelemetry:${grpcVersion}"
+    implementation "io.grpc:grpc-core:${grpcVersion}"
     implementation "io.opentelemetry:opentelemetry-sdk:${openTelemetryVersion}"
     implementation "io.opentelemetry:opentelemetry-sdk-metrics:${openTelemetryVersion}"
     implementation "io.opentelemetry:opentelemetry-exporter-logging:${openTelemetryVersion}"
     implementation "io.opentelemetry:opentelemetry-exporter-prometheus:${openTelemetryPrometheusVersion}"
     compileOnly "org.apache.tomcat:annotations-api:6.0.53"
     runtimeOnly "io.grpc:grpc-netty-shaded:${grpcVersion}"
+    compileOnly "com.google.auto.value:auto-value-annotations:1.10.4"
+    annotationProcessor "com.google.auto.value:auto-value:1.10.4"
 }
 
 protobuf {
     protoc { artifact = "com.google.protobuf:protoc:${protocVersion}" }
     plugins {
-        grpc { artifact = "io.grpc:protoc-gen-grpc-java:${grpcVersion}" }
+        grpc { artifact = "io.grpc:protoc-gen-grpc-java:1.68.0" }
     }
     generateProtoTasks {
         all()*.plugins { grpc {} }
