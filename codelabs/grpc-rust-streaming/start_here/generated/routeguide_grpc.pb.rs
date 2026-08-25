@@ -1,5 +1,12 @@
 /// Generated client implementations.
 pub mod route_guide_client {
+    #![allow(
+        unused_variables,
+        dead_code,
+        missing_docs,
+        clippy::wildcard_imports,
+        unused_imports,
+    )]
     use grpc::client::*;
     use grpc_protobuf::*;
 
