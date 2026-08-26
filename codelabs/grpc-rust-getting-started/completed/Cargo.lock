@@ -351,6 +351,7 @@ dependencies = [
 [[package]]
 name = "grpc"
 version = "0.10.0"
+source = "git+https://github.com/grpc/grpc-rust.git?rev=0761f5507a13540dbb509d47d7ca672d28b151e8#0761f5507a13540dbb509d47d7ca672d28b151e8"
 dependencies = [
  "base64",
  "bytes",
@@ -386,6 +387,7 @@ dependencies = [
 [[package]]
 name = "grpc-protobuf"
 version = "0.10.0"
+source = "git+https://github.com/grpc/grpc-rust.git?rev=0761f5507a13540dbb509d47d7ca672d28b151e8#0761f5507a13540dbb509d47d7ca672d28b151e8"
 dependencies = [
  "bytes",
  "grpc",
@@ -397,6 +399,7 @@ dependencies = [
 [[package]]
 name = "grpc-protobuf-build"
 version = "0.10.0"
+source = "git+https://github.com/grpc/grpc-rust.git?rev=0761f5507a13540dbb509d47d7ca672d28b151e8#0761f5507a13540dbb509d47d7ca672d28b151e8"
 dependencies = [
  "cmake",
  "prettyplease",
@@ -1077,6 +1080,7 @@ dependencies = [
 [[package]]
 name = "protoc-gen-rust-grpc"
 version = "0.10.0"
+source = "git+https://github.com/grpc/grpc-rust.git?rev=0761f5507a13540dbb509d47d7ca672d28b151e8#0761f5507a13540dbb509d47d7ca672d28b151e8"
 dependencies = [
  "cmake",
 ]
@@ -1566,6 +1570,7 @@ dependencies = [
 [[package]]
 name = "tonic"
 version = "0.14.6"
+source = "git+https://github.com/grpc/grpc-rust.git?rev=0761f5507a13540dbb509d47d7ca672d28b151e8#0761f5507a13540dbb509d47d7ca672d28b151e8"
 dependencies = [
  "async-trait",
  "axum",
@@ -1594,6 +1599,7 @@ dependencies = [
 [[package]]
 name = "tonic-protobuf"
 version = "0.14.0"
+source = "git+https://github.com/grpc/grpc-rust.git?rev=0761f5507a13540dbb509d47d7ca672d28b151e8#0761f5507a13540dbb509d47d7ca672d28b151e8"
 dependencies = [
  "bytes",
  "protobuf",

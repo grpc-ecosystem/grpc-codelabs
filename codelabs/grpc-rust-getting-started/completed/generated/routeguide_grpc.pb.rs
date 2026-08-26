@@ -1,6 +1,6 @@
 /// Generated client implementations.
 pub mod route_guide_client {
-    #![allow(dead_code, missing_docs, clippy::wildcard_imports)]
+    #![allow(unused_imports, dead_code, missing_docs, clippy::wildcard_imports)]
     use grpc::client::*;
     use grpc_protobuf::*;
     use grpc_protobuf::client::*;
