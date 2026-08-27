@@ -1,4 +1,3 @@
-use std::sync::Arc;
 use tonic::transport::Server;
 use tonic::{Request, Response, Status};
 use serde::Deserialize;

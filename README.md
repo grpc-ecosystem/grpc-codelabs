@@ -24,6 +24,8 @@ Here is a list of available codelabs in this repository:
 - [Getting Started with gRPC-Java (Streaming)](https://github.com/grpc-ecosystem/grpc-codelabs/tree/main/codelabs/grpc-java-streaming/)
 - [Getting Started with gRPC-Python](https://github.com/grpc-ecosystem/grpc-codelabs/tree/main/codelabs/grpc-python-getting-started/)
 - [Getting Started with gRPC-Python (Streaming)](https://github.com/grpc-ecosystem/grpc-codelabs/tree/main/codelabs/grpc-python-streaming/)
+- [Getting Started with gRPC-Rust](https://github.com/grpc-ecosystem/grpc-codelabs/tree/main/codelabs/grpc-rust-getting-started/)
+- [Getting Started with gRPC-Rust (Streaming)](https://github.com/grpc-ecosystem/grpc-codelabs/tree/main/codelabs/grpc-rust-streaming/)
 - [Setup Basic gRPC OpenTelemetry Plugin in gRPC C++](https://github.com/grpc-ecosystem/grpc-codelabs/tree/main/codelabs/grpc-cpp-opentelemetry/)
 - [Setup Basic gRPC OpenTelemetry Plugin in gRPC-Python](https://github.com/grpc-ecosystem/grpc-codelabs/tree/main/codelabs/grpc-python-opentelemetry/)
 - [Setup Basic gRPC OpenTelemetry Plugin in gRPC-Go](https://github.com/grpc-ecosystem/grpc-codelabs/tree/main/codelabs/grpc-go-opentelemetry/)
