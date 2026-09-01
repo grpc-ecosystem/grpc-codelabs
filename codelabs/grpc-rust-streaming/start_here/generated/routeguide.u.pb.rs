@@ -63,16 +63,6 @@ impl<'msg> PointView<'msg> {
     pub fn to_owned(&self) -> Point {
         ::protobuf::IntoProxied::into_proxied(*self, ::protobuf::__internal::Private)
     }
-    pub fn latitude(self) -> i32 {
-        unsafe {
-            self.inner.ptr().get_i32_at_index(0, (0i32).into()).try_into().unwrap()
-        }
-    }
-    pub fn longitude(self) -> i32 {
-        unsafe {
-            self.inner.ptr().get_i32_at_index(1, (0i32).into()).try_into().unwrap()
-        }
-    }
 }
 unsafe impl ::std::marker::Sync for PointView<'_> {}
 unsafe impl ::std::marker::Send for PointView<'_> {}
@@ -150,22 +140,6 @@ impl<'msg> PointMut<'msg> {
     pub fn to_owned(&self) -> Point {
         ::protobuf::AsView::as_view(self).to_owned()
     }
-    pub fn latitude(&self) -> i32 {
-        unsafe {
-            self.inner.ptr().get_i32_at_index(0, (0i32).into()).try_into().unwrap()
-        }
-    }
-    pub fn set_latitude(&mut self, val: i32) {
-        unsafe { self.inner.ptr_mut().set_base_field_i32_at_index(0, val.into()) }
-    }
-    pub fn longitude(&self) -> i32 {
-        unsafe {
-            self.inner.ptr().get_i32_at_index(1, (0i32).into()).try_into().unwrap()
-        }
-    }
-    pub fn set_longitude(&mut self, val: i32) {
-        unsafe { self.inner.ptr_mut().set_base_field_i32_at_index(1, val.into()) }
-    }
 }
 unsafe impl ::std::marker::Send for PointMut<'_> {}
 unsafe impl ::std::marker::Sync for PointMut<'_> {}
@@ -219,22 +193,6 @@ impl Point {
         ::protobuf::__internal::runtime::MessageMutInner::mut_of_owned(&mut self.inner)
             .into()
     }
-    pub fn latitude(&self) -> i32 {
-        unsafe {
-            self.inner.ptr().get_i32_at_index(0, (0i32).into()).try_into().unwrap()
-        }
-    }
-    pub fn set_latitude(&mut self, val: i32) {
-        unsafe { self.inner.ptr_mut().set_base_field_i32_at_index(0, val.into()) }
-    }
-    pub fn longitude(&self) -> i32 {
-        unsafe {
-            self.inner.ptr().get_i32_at_index(1, (0i32).into()).try_into().unwrap()
-        }
-    }
-    pub fn set_longitude(&mut self, val: i32) {
-        unsafe { self.inner.ptr_mut().set_base_field_i32_at_index(1, val.into()) }
-    }
 }
 impl ::std::ops::Drop for Point {
     #[inline]
@@ -266,7 +224,7 @@ unsafe impl ::protobuf::__internal::runtime::AssociatedMiniTable for Point {
             ONCE_LOCK
                 .get_or_init(|| {
                     super::routeguide__Point_msg_init.0 = ::protobuf::__internal::runtime::build_mini_table(
-                        "$(P(P",
+                        "$",
                     );
                     ::protobuf::__internal::runtime::link_mini_table(
                         super::routeguide__Point_msg_init.0,
@@ -404,24 +362,6 @@ impl<'msg> FeatureView<'msg> {
     pub fn to_owned(&self) -> Feature {
         ::protobuf::IntoProxied::into_proxied(*self, ::protobuf::__internal::Private)
     }
-    pub fn name(self) -> ::protobuf::View<'msg, ::protobuf::ProtoString> {
-        let str_view = unsafe { self.inner.ptr().get_string_at_index(0, (b"").into()) };
-        ::protobuf::ProtoStr::from_utf8_unchecked(unsafe { str_view.as_ref() })
-    }
-    pub fn has_location(self) -> bool {
-        unsafe { self.inner.ptr().has_field_at_index(1) }
-    }
-    pub fn location_opt(self) -> ::std::option::Option<super::PointView<'msg>> {
-        self.has_location().then(|| self.location())
-    }
-    pub fn location(self) -> super::PointView<'msg> {
-        let submsg = unsafe { self.inner.ptr().get_message_at_index(1) };
-        submsg
-            .map(|ptr| unsafe {
-                ::protobuf::__internal::runtime::MessageViewInner::wrap(ptr).into()
-            })
-            .unwrap_or(super::PointView::default())
-    }
 }
 unsafe impl ::std::marker::Sync for FeatureView<'_> {}
 unsafe impl ::std::marker::Send for FeatureView<'_> {}
@@ -499,63 +439,6 @@ impl<'msg> FeatureMut<'msg> {
     pub fn to_owned(&self) -> Feature {
         ::protobuf::AsView::as_view(self).to_owned()
     }
-    pub fn name(&self) -> ::protobuf::View<'_, ::protobuf::ProtoString> {
-        let str_view = unsafe { self.inner.ptr().get_string_at_index(0, (b"").into()) };
-        ::protobuf::ProtoStr::from_utf8_unchecked(unsafe { str_view.as_ref() })
-    }
-    pub fn set_name(
-        &mut self,
-        val: impl ::protobuf::IntoProxied<::protobuf::ProtoString>,
-    ) {
-        unsafe {
-            ::protobuf::__internal::runtime::message_set_string_field(
-                ::protobuf::AsMut::as_mut(self).inner,
-                0,
-                val,
-            );
-        }
-    }
-    pub fn has_location(&self) -> bool {
-        unsafe { self.inner.ptr().has_field_at_index(1) }
-    }
-    pub fn clear_location(&mut self) {
-        unsafe {
-            self.inner.ptr().clear_field_at_index(1);
-        }
-    }
-    pub fn location_opt(&self) -> ::std::option::Option<super::PointView<'_>> {
-        self.has_location().then(|| self.location())
-    }
-    pub fn location(&self) -> super::PointView<'_> {
-        let submsg = unsafe { self.inner.ptr().get_message_at_index(1) };
-        submsg
-            .map(|ptr| unsafe {
-                ::protobuf::__internal::runtime::MessageViewInner::wrap(ptr).into()
-            })
-            .unwrap_or(super::PointView::default())
-    }
-    pub fn location_mut(&mut self) -> super::PointMut<'_> {
-        let ptr = unsafe {
-            self.inner
-                .ptr_mut()
-                .get_or_create_mutable_message_at_index(1, self.inner.arena())
-                .unwrap()
-        };
-        ::protobuf::__internal::runtime::MessageMutInner::from_parent(
-                self.as_message_mut_inner(::protobuf::__internal::Private),
-                ptr,
-            )
-            .into()
-    }
-    pub fn set_location(&mut self, val: impl ::protobuf::IntoProxied<super::Point>) {
-        unsafe {
-            ::protobuf::__internal::runtime::message_set_sub_message(
-                ::protobuf::AsMut::as_mut(self).inner,
-                1,
-                val,
-            );
-        }
-    }
 }
 unsafe impl ::std::marker::Send for FeatureMut<'_> {}
 unsafe impl ::std::marker::Sync for FeatureMut<'_> {}
@@ -609,63 +492,6 @@ impl Feature {
         ::protobuf::__internal::runtime::MessageMutInner::mut_of_owned(&mut self.inner)
             .into()
     }
-    pub fn name(&self) -> ::protobuf::View<'_, ::protobuf::ProtoString> {
-        let str_view = unsafe { self.inner.ptr().get_string_at_index(0, (b"").into()) };
-        ::protobuf::ProtoStr::from_utf8_unchecked(unsafe { str_view.as_ref() })
-    }
-    pub fn set_name(
-        &mut self,
-        val: impl ::protobuf::IntoProxied<::protobuf::ProtoString>,
-    ) {
-        unsafe {
-            ::protobuf::__internal::runtime::message_set_string_field(
-                ::protobuf::AsMut::as_mut(self).inner,
-                0,
-                val,
-            );
-        }
-    }
-    pub fn has_location(&self) -> bool {
-        unsafe { self.inner.ptr().has_field_at_index(1) }
-    }
-    pub fn clear_location(&mut self) {
-        unsafe {
-            self.inner.ptr().clear_field_at_index(1);
-        }
-    }
-    pub fn location_opt(&self) -> ::std::option::Option<super::PointView<'_>> {
-        self.has_location().then(|| self.location())
-    }
-    pub fn location(&self) -> super::PointView<'_> {
-        let submsg = unsafe { self.inner.ptr().get_message_at_index(1) };
-        submsg
-            .map(|ptr| unsafe {
-                ::protobuf::__internal::runtime::MessageViewInner::wrap(ptr).into()
-            })
-            .unwrap_or(super::PointView::default())
-    }
-    pub fn location_mut(&mut self) -> super::PointMut<'_> {
-        let ptr = unsafe {
-            self.inner
-                .ptr_mut()
-                .get_or_create_mutable_message_at_index(1, self.inner.arena())
-                .unwrap()
-        };
-        ::protobuf::__internal::runtime::MessageMutInner::from_parent(
-                self.as_message_mut_inner(::protobuf::__internal::Private),
-                ptr,
-            )
-            .into()
-    }
-    pub fn set_location(&mut self, val: impl ::protobuf::IntoProxied<super::Point>) {
-        unsafe {
-            ::protobuf::__internal::runtime::message_set_sub_message(
-                ::protobuf::AsMut::as_mut(self).inner,
-                1,
-                val,
-            );
-        }
-    }
 }
 impl ::std::ops::Drop for Feature {
     #[inline]
@@ -697,13 +523,11 @@ unsafe impl ::protobuf::__internal::runtime::AssociatedMiniTable for Feature {
             ONCE_LOCK
                 .get_or_init(|| {
                     super::routeguide__Feature_msg_init.0 = ::protobuf::__internal::runtime::build_mini_table(
-                        "$1X3",
+                        "$",
                     );
                     ::protobuf::__internal::runtime::link_mini_table(
                         super::routeguide__Feature_msg_init.0,
-                        &[
-                            <super::Point as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table(),
-                        ],
+                        &[],
                         &[],
                     );
                     ::protobuf::__internal::runtime::MiniTableInitPtr(
@@ -837,34 +661,6 @@ impl<'msg> RectangleView<'msg> {
     pub fn to_owned(&self) -> Rectangle {
         ::protobuf::IntoProxied::into_proxied(*self, ::protobuf::__internal::Private)
     }
-    pub fn has_lo(self) -> bool {
-        unsafe { self.inner.ptr().has_field_at_index(0) }
-    }
-    pub fn lo_opt(self) -> ::std::option::Option<super::PointView<'msg>> {
-        self.has_lo().then(|| self.lo())
-    }
-    pub fn lo(self) -> super::PointView<'msg> {
-        let submsg = unsafe { self.inner.ptr().get_message_at_index(0) };
-        submsg
-            .map(|ptr| unsafe {
-                ::protobuf::__internal::runtime::MessageViewInner::wrap(ptr).into()
-            })
-            .unwrap_or(super::PointView::default())
-    }
-    pub fn has_hi(self) -> bool {
-        unsafe { self.inner.ptr().has_field_at_index(1) }
-    }
-    pub fn hi_opt(self) -> ::std::option::Option<super::PointView<'msg>> {
-        self.has_hi().then(|| self.hi())
-    }
-    pub fn hi(self) -> super::PointView<'msg> {
-        let submsg = unsafe { self.inner.ptr().get_message_at_index(1) };
-        submsg
-            .map(|ptr| unsafe {
-                ::protobuf::__internal::runtime::MessageViewInner::wrap(ptr).into()
-            })
-            .unwrap_or(super::PointView::default())
-    }
 }
 unsafe impl ::std::marker::Sync for RectangleView<'_> {}
 unsafe impl ::std::marker::Send for RectangleView<'_> {}
@@ -942,88 +738,6 @@ impl<'msg> RectangleMut<'msg> {
     pub fn to_owned(&self) -> Rectangle {
         ::protobuf::AsView::as_view(self).to_owned()
     }
-    pub fn has_lo(&self) -> bool {
-        unsafe { self.inner.ptr().has_field_at_index(0) }
-    }
-    pub fn clear_lo(&mut self) {
-        unsafe {
-            self.inner.ptr().clear_field_at_index(0);
-        }
-    }
-    pub fn lo_opt(&self) -> ::std::option::Option<super::PointView<'_>> {
-        self.has_lo().then(|| self.lo())
-    }
-    pub fn lo(&self) -> super::PointView<'_> {
-        let submsg = unsafe { self.inner.ptr().get_message_at_index(0) };
-        submsg
-            .map(|ptr| unsafe {
-                ::protobuf::__internal::runtime::MessageViewInner::wrap(ptr).into()
-            })
-            .unwrap_or(super::PointView::default())
-    }
-    pub fn lo_mut(&mut self) -> super::PointMut<'_> {
-        let ptr = unsafe {
-            self.inner
-                .ptr_mut()
-                .get_or_create_mutable_message_at_index(0, self.inner.arena())
-                .unwrap()
-        };
-        ::protobuf::__internal::runtime::MessageMutInner::from_parent(
-                self.as_message_mut_inner(::protobuf::__internal::Private),
-                ptr,
-            )
-            .into()
-    }
-    pub fn set_lo(&mut self, val: impl ::protobuf::IntoProxied<super::Point>) {
-        unsafe {
-            ::protobuf::__internal::runtime::message_set_sub_message(
-                ::protobuf::AsMut::as_mut(self).inner,
-                0,
-                val,
-            );
-        }
-    }
-    pub fn has_hi(&self) -> bool {
-        unsafe { self.inner.ptr().has_field_at_index(1) }
-    }
-    pub fn clear_hi(&mut self) {
-        unsafe {
-            self.inner.ptr().clear_field_at_index(1);
-        }
-    }
-    pub fn hi_opt(&self) -> ::std::option::Option<super::PointView<'_>> {
-        self.has_hi().then(|| self.hi())
-    }
-    pub fn hi(&self) -> super::PointView<'_> {
-        let submsg = unsafe { self.inner.ptr().get_message_at_index(1) };
-        submsg
-            .map(|ptr| unsafe {
-                ::protobuf::__internal::runtime::MessageViewInner::wrap(ptr).into()
-            })
-            .unwrap_or(super::PointView::default())
-    }
-    pub fn hi_mut(&mut self) -> super::PointMut<'_> {
-        let ptr = unsafe {
-            self.inner
-                .ptr_mut()
-                .get_or_create_mutable_message_at_index(1, self.inner.arena())
-                .unwrap()
-        };
-        ::protobuf::__internal::runtime::MessageMutInner::from_parent(
-                self.as_message_mut_inner(::protobuf::__internal::Private),
-                ptr,
-            )
-            .into()
-    }
-    pub fn set_hi(&mut self, val: impl ::protobuf::IntoProxied<super::Point>) {
-        unsafe {
-            ::protobuf::__internal::runtime::message_set_sub_message(
-                ::protobuf::AsMut::as_mut(self).inner,
-                1,
-                val,
-            );
-        }
-    }
 }
 unsafe impl ::std::marker::Send for RectangleMut<'_> {}
 unsafe impl ::std::marker::Sync for RectangleMut<'_> {}
@@ -1077,88 +791,6 @@ impl Rectangle {
         ::protobuf::__internal::runtime::MessageMutInner::mut_of_owned(&mut self.inner)
             .into()
     }
-    pub fn has_lo(&self) -> bool {
-        unsafe { self.inner.ptr().has_field_at_index(0) }
-    }
-    pub fn clear_lo(&mut self) {
-        unsafe {
-            self.inner.ptr().clear_field_at_index(0);
-        }
-    }
-    pub fn lo_opt(&self) -> ::std::option::Option<super::PointView<'_>> {
-        self.has_lo().then(|| self.lo())
-    }
-    pub fn lo(&self) -> super::PointView<'_> {
-        let submsg = unsafe { self.inner.ptr().get_message_at_index(0) };
-        submsg
-            .map(|ptr| unsafe {
-                ::protobuf::__internal::runtime::MessageViewInner::wrap(ptr).into()
-            })
-            .unwrap_or(super::PointView::default())
-    }
-    pub fn lo_mut(&mut self) -> super::PointMut<'_> {
-        let ptr = unsafe {
-            self.inner
-                .ptr_mut()
-                .get_or_create_mutable_message_at_index(0, self.inner.arena())
-                .unwrap()
-        };
-        ::protobuf::__internal::runtime::MessageMutInner::from_parent(
-                self.as_message_mut_inner(::protobuf::__internal::Private),
-                ptr,
-            )
-            .into()
-    }
-    pub fn set_lo(&mut self, val: impl ::protobuf::IntoProxied<super::Point>) {
-        unsafe {
-            ::protobuf::__internal::runtime::message_set_sub_message(
-                ::protobuf::AsMut::as_mut(self).inner,
-                0,
-                val,
-            );
-        }
-    }
-    pub fn has_hi(&self) -> bool {
-        unsafe { self.inner.ptr().has_field_at_index(1) }
-    }
-    pub fn clear_hi(&mut self) {
-        unsafe {
-            self.inner.ptr().clear_field_at_index(1);
-        }
-    }
-    pub fn hi_opt(&self) -> ::std::option::Option<super::PointView<'_>> {
-        self.has_hi().then(|| self.hi())
-    }
-    pub fn hi(&self) -> super::PointView<'_> {
-        let submsg = unsafe { self.inner.ptr().get_message_at_index(1) };
-        submsg
-            .map(|ptr| unsafe {
-                ::protobuf::__internal::runtime::MessageViewInner::wrap(ptr).into()
-            })
-            .unwrap_or(super::PointView::default())
-    }
-    pub fn hi_mut(&mut self) -> super::PointMut<'_> {
-        let ptr = unsafe {
-            self.inner
-                .ptr_mut()
-                .get_or_create_mutable_message_at_index(1, self.inner.arena())
-                .unwrap()
-        };
-        ::protobuf::__internal::runtime::MessageMutInner::from_parent(
-                self.as_message_mut_inner(::protobuf::__internal::Private),
-                ptr,
-            )
-            .into()
-    }
-    pub fn set_hi(&mut self, val: impl ::protobuf::IntoProxied<super::Point>) {
-        unsafe {
-            ::protobuf::__internal::runtime::message_set_sub_message(
-                ::protobuf::AsMut::as_mut(self).inner,
-                1,
-                val,
-            );
-        }
-    }
 }
 impl ::std::ops::Drop for Rectangle {
     #[inline]
@@ -1190,14 +822,11 @@ unsafe impl ::protobuf::__internal::runtime::AssociatedMiniTable for Rectangle {
             ONCE_LOCK
                 .get_or_init(|| {
                     super::routeguide__Rectangle_msg_init.0 = ::protobuf::__internal::runtime::build_mini_table(
-                        "$33",
+                        "$",
                     );
                     ::protobuf::__internal::runtime::link_mini_table(
                         super::routeguide__Rectangle_msg_init.0,
-                        &[
-                            <super::Point as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table(),
-                            <super::Point as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table(),
-                        ],
+                        &[],
                         &[],
                     );
                     ::protobuf::__internal::runtime::MiniTableInitPtr(
@@ -1331,24 +960,6 @@ impl<'msg> RouteNoteView<'msg> {
     pub fn to_owned(&self) -> RouteNote {
         ::protobuf::IntoProxied::into_proxied(*self, ::protobuf::__internal::Private)
     }
-    pub fn has_location(self) -> bool {
-        unsafe { self.inner.ptr().has_field_at_index(0) }
-    }
-    pub fn location_opt(self) -> ::std::option::Option<super::PointView<'msg>> {
-        self.has_location().then(|| self.location())
-    }
-    pub fn location(self) -> super::PointView<'msg> {
-        let submsg = unsafe { self.inner.ptr().get_message_at_index(0) };
-        submsg
-            .map(|ptr| unsafe {
-                ::protobuf::__internal::runtime::MessageViewInner::wrap(ptr).into()
-            })
-            .unwrap_or(super::PointView::default())
-    }
-    pub fn message(self) -> ::protobuf::View<'msg, ::protobuf::ProtoString> {
-        let str_view = unsafe { self.inner.ptr().get_string_at_index(1, (b"").into()) };
-        ::protobuf::ProtoStr::from_utf8_unchecked(unsafe { str_view.as_ref() })
-    }
 }
 unsafe impl ::std::marker::Sync for RouteNoteView<'_> {}
 unsafe impl ::std::marker::Send for RouteNoteView<'_> {}
@@ -1426,63 +1037,6 @@ impl<'msg> RouteNoteMut<'msg> {
     pub fn to_owned(&self) -> RouteNote {
         ::protobuf::AsView::as_view(self).to_owned()
     }
-    pub fn has_location(&self) -> bool {
-        unsafe { self.inner.ptr().has_field_at_index(0) }
-    }
-    pub fn clear_location(&mut self) {
-        unsafe {
-            self.inner.ptr().clear_field_at_index(0);
-        }
-    }
-    pub fn location_opt(&self) -> ::std::option::Option<super::PointView<'_>> {
-        self.has_location().then(|| self.location())
-    }
-    pub fn location(&self) -> super::PointView<'_> {
-        let submsg = unsafe { self.inner.ptr().get_message_at_index(0) };
-        submsg
-            .map(|ptr| unsafe {
-                ::protobuf::__internal::runtime::MessageViewInner::wrap(ptr).into()
-            })
-            .unwrap_or(super::PointView::default())
-    }
-    pub fn location_mut(&mut self) -> super::PointMut<'_> {
-        let ptr = unsafe {
-            self.inner
-                .ptr_mut()
-                .get_or_create_mutable_message_at_index(0, self.inner.arena())
-                .unwrap()
-        };
-        ::protobuf::__internal::runtime::MessageMutInner::from_parent(
-                self.as_message_mut_inner(::protobuf::__internal::Private),
-                ptr,
-            )
-            .into()
-    }
-    pub fn set_location(&mut self, val: impl ::protobuf::IntoProxied<super::Point>) {
-        unsafe {
-            ::protobuf::__internal::runtime::message_set_sub_message(
-                ::protobuf::AsMut::as_mut(self).inner,
-                0,
-                val,
-            );
-        }
-    }
-    pub fn message(&self) -> ::protobuf::View<'_, ::protobuf::ProtoString> {
-        let str_view = unsafe { self.inner.ptr().get_string_at_index(1, (b"").into()) };
-        ::protobuf::ProtoStr::from_utf8_unchecked(unsafe { str_view.as_ref() })
-    }
-    pub fn set_message(
-        &mut self,
-        val: impl ::protobuf::IntoProxied<::protobuf::ProtoString>,
-    ) {
-        unsafe {
-            ::protobuf::__internal::runtime::message_set_string_field(
-                ::protobuf::AsMut::as_mut(self).inner,
-                1,
-                val,
-            );
-        }
-    }
 }
 unsafe impl ::std::marker::Send for RouteNoteMut<'_> {}
 unsafe impl ::std::marker::Sync for RouteNoteMut<'_> {}
@@ -1536,63 +1090,6 @@ impl RouteNote {
         ::protobuf::__internal::runtime::MessageMutInner::mut_of_owned(&mut self.inner)
             .into()
     }
-    pub fn has_location(&self) -> bool {
-        unsafe { self.inner.ptr().has_field_at_index(0) }
-    }
-    pub fn clear_location(&mut self) {
-        unsafe {
-            self.inner.ptr().clear_field_at_index(0);
-        }
-    }
-    pub fn location_opt(&self) -> ::std::option::Option<super::PointView<'_>> {
-        self.has_location().then(|| self.location())
-    }
-    pub fn location(&self) -> super::PointView<'_> {
-        let submsg = unsafe { self.inner.ptr().get_message_at_index(0) };
-        submsg
-            .map(|ptr| unsafe {
-                ::protobuf::__internal::runtime::MessageViewInner::wrap(ptr).into()
-            })
-            .unwrap_or(super::PointView::default())
-    }
-    pub fn location_mut(&mut self) -> super::PointMut<'_> {
-        let ptr = unsafe {
-            self.inner
-                .ptr_mut()
-                .get_or_create_mutable_message_at_index(0, self.inner.arena())
-                .unwrap()
-        };
-        ::protobuf::__internal::runtime::MessageMutInner::from_parent(
-                self.as_message_mut_inner(::protobuf::__internal::Private),
-                ptr,
-            )
-            .into()
-    }
-    pub fn set_location(&mut self, val: impl ::protobuf::IntoProxied<super::Point>) {
-        unsafe {
-            ::protobuf::__internal::runtime::message_set_sub_message(
-                ::protobuf::AsMut::as_mut(self).inner,
-                0,
-                val,
-            );
-        }
-    }
-    pub fn message(&self) -> ::protobuf::View<'_, ::protobuf::ProtoString> {
-        let str_view = unsafe { self.inner.ptr().get_string_at_index(1, (b"").into()) };
-        ::protobuf::ProtoStr::from_utf8_unchecked(unsafe { str_view.as_ref() })
-    }
-    pub fn set_message(
-        &mut self,
-        val: impl ::protobuf::IntoProxied<::protobuf::ProtoString>,
-    ) {
-        unsafe {
-            ::protobuf::__internal::runtime::message_set_string_field(
-                ::protobuf::AsMut::as_mut(self).inner,
-                1,
-                val,
-            );
-        }
-    }
 }
 impl ::std::ops::Drop for RouteNote {
     #[inline]
@@ -1624,13 +1121,11 @@ unsafe impl ::protobuf::__internal::runtime::AssociatedMiniTable for RouteNote {
             ONCE_LOCK
                 .get_or_init(|| {
                     super::routeguide__RouteNote_msg_init.0 = ::protobuf::__internal::runtime::build_mini_table(
-                        "$31X",
+                        "$",
                     );
                     ::protobuf::__internal::runtime::link_mini_table(
                         super::routeguide__RouteNote_msg_init.0,
-                        &[
-                            <super::Point as ::protobuf::__internal::runtime::AssociatedMiniTable>::mini_table(),
-                        ],
+                        &[],
                         &[],
                     );
                     ::protobuf::__internal::runtime::MiniTableInitPtr(
@@ -1764,26 +1259,6 @@ impl<'msg> RouteSummaryView<'msg> {
     pub fn to_owned(&self) -> RouteSummary {
         ::protobuf::IntoProxied::into_proxied(*self, ::protobuf::__internal::Private)
     }
-    pub fn point_count(self) -> i32 {
-        unsafe {
-            self.inner.ptr().get_i32_at_index(0, (0i32).into()).try_into().unwrap()
-        }
-    }
-    pub fn feature_count(self) -> i32 {
-        unsafe {
-            self.inner.ptr().get_i32_at_index(1, (0i32).into()).try_into().unwrap()
-        }
-    }
-    pub fn distance(self) -> i32 {
-        unsafe {
-            self.inner.ptr().get_i32_at_index(2, (0i32).into()).try_into().unwrap()
-        }
-    }
-    pub fn elapsed_time(self) -> i32 {
-        unsafe {
-            self.inner.ptr().get_i32_at_index(3, (0i32).into()).try_into().unwrap()
-        }
-    }
 }
 unsafe impl ::std::marker::Sync for RouteSummaryView<'_> {}
 unsafe impl ::std::marker::Send for RouteSummaryView<'_> {}
@@ -1861,38 +1336,6 @@ impl<'msg> RouteSummaryMut<'msg> {
     pub fn to_owned(&self) -> RouteSummary {
         ::protobuf::AsView::as_view(self).to_owned()
     }
-    pub fn point_count(&self) -> i32 {
-        unsafe {
-            self.inner.ptr().get_i32_at_index(0, (0i32).into()).try_into().unwrap()
-        }
-    }
-    pub fn set_point_count(&mut self, val: i32) {
-        unsafe { self.inner.ptr_mut().set_base_field_i32_at_index(0, val.into()) }
-    }
-    pub fn feature_count(&self) -> i32 {
-        unsafe {
-            self.inner.ptr().get_i32_at_index(1, (0i32).into()).try_into().unwrap()
-        }
-    }
-    pub fn set_feature_count(&mut self, val: i32) {
-        unsafe { self.inner.ptr_mut().set_base_field_i32_at_index(1, val.into()) }
-    }
-    pub fn distance(&self) -> i32 {
-        unsafe {
-            self.inner.ptr().get_i32_at_index(2, (0i32).into()).try_into().unwrap()
-        }
-    }
-    pub fn set_distance(&mut self, val: i32) {
-        unsafe { self.inner.ptr_mut().set_base_field_i32_at_index(2, val.into()) }
-    }
-    pub fn elapsed_time(&self) -> i32 {
-        unsafe {
-            self.inner.ptr().get_i32_at_index(3, (0i32).into()).try_into().unwrap()
-        }
-    }
-    pub fn set_elapsed_time(&mut self, val: i32) {
-        unsafe { self.inner.ptr_mut().set_base_field_i32_at_index(3, val.into()) }
-    }
 }
 unsafe impl ::std::marker::Send for RouteSummaryMut<'_> {}
 unsafe impl ::std::marker::Sync for RouteSummaryMut<'_> {}
@@ -1946,38 +1389,6 @@ impl RouteSummary {
         ::protobuf::__internal::runtime::MessageMutInner::mut_of_owned(&mut self.inner)
             .into()
     }
-    pub fn point_count(&self) -> i32 {
-        unsafe {
-            self.inner.ptr().get_i32_at_index(0, (0i32).into()).try_into().unwrap()
-        }
-    }
-    pub fn set_point_count(&mut self, val: i32) {
-        unsafe { self.inner.ptr_mut().set_base_field_i32_at_index(0, val.into()) }
-    }
-    pub fn feature_count(&self) -> i32 {
-        unsafe {
-            self.inner.ptr().get_i32_at_index(1, (0i32).into()).try_into().unwrap()
-        }
-    }
-    pub fn set_feature_count(&mut self, val: i32) {
-        unsafe { self.inner.ptr_mut().set_base_field_i32_at_index(1, val.into()) }
-    }
-    pub fn distance(&self) -> i32 {
-        unsafe {
-            self.inner.ptr().get_i32_at_index(2, (0i32).into()).try_into().unwrap()
-        }
-    }
-    pub fn set_distance(&mut self, val: i32) {
-        unsafe { self.inner.ptr_mut().set_base_field_i32_at_index(2, val.into()) }
-    }
-    pub fn elapsed_time(&self) -> i32 {
-        unsafe {
-            self.inner.ptr().get_i32_at_index(3, (0i32).into()).try_into().unwrap()
-        }
-    }
-    pub fn set_elapsed_time(&mut self, val: i32) {
-        unsafe { self.inner.ptr_mut().set_base_field_i32_at_index(3, val.into()) }
-    }
 }
 impl ::std::ops::Drop for RouteSummary {
     #[inline]
@@ -2009,7 +1420,7 @@ unsafe impl ::protobuf::__internal::runtime::AssociatedMiniTable for RouteSummar
             ONCE_LOCK
                 .get_or_init(|| {
                     super::routeguide__RouteSummary_msg_init.0 = ::protobuf::__internal::runtime::build_mini_table(
-                        "$(P(P(P(P",
+                        "$",
                     );
                     ::protobuf::__internal::runtime::link_mini_table(
                         super::routeguide__RouteSummary_msg_init.0,
