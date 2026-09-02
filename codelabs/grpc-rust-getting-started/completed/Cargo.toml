@@ -25,4 +25,8 @@ serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
 
 [build-dependencies]
-grpc-protobuf-build = { git = "https://github.com/grpc/grpc-rust.git", rev = "0761f5507a13540dbb509d47d7ca672d28b151e8", package = "grpc-protobuf-build" }
+grpc-protobuf-build = { git = "https://github.com/grpc/grpc-rust.git", rev = "0761f5507a13540dbb509d47d7ca672d28b151e8", package = "grpc-protobuf-build", default-features = false }
+
+[features]
+regenerate_proto = ["grpc-protobuf-build/protoc-gen-rust-grpc"]
+
