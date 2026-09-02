@@ -16,6 +16,25 @@ pub mod route_guide_client {
         pub fn new(channel: T) -> Self {
             Self { channel }
         }
+        /// A simple RPC.
+        ///
+        /// Obtains the feature at a given position.
+        ///
+        /// A feature with an empty name is returned if there's no feature at the given
+        /// position.
+        pub fn get_feature<ReqMsgView>(
+            &self,
+            request: ReqMsgView,
+        ) -> UnaryCallBuilder<'_, &T, ReqMsgView, super::Feature>
+        where
+            ReqMsgView: protobuf::AsView<Proxied = super::Point> + Send + Sync,
+        {
+            UnaryCallBuilder::new(
+                &self.channel,
+                "/routeguide.RouteGuide/GetFeature",
+                request,
+            )
+        }
     }
 }
 /// Generated server implementations.
@@ -30,7 +49,20 @@ pub mod route_guide_server {
     use tonic::codegen::*;
     /// Generated trait containing gRPC methods that should be implemented for use with RouteGuideServer.
     #[async_trait]
-    pub trait RouteGuide: std::marker::Send + std::marker::Sync + 'static {}
+    pub trait RouteGuide: std::marker::Send + std::marker::Sync + 'static {
+        /// A simple RPC.
+        ///
+        /// Obtains the feature at a given position.
+        ///
+        /// A feature with an empty name is returned if there's no feature at the given
+        /// position.
+        async fn get_feature(
+            &self,
+            request: tonic::Request<super::Point>,
+        ) -> std::result::Result<tonic::Response<super::Feature>, tonic::Status> {
+            Err(tonic::Status::unimplemented("Not yet implemented"))
+        }
+    }
     /// Interface exported by the server.
     #[derive(Debug)]
     pub struct RouteGuideServer<T> {
@@ -108,6 +140,49 @@ pub mod route_guide_server {
         }
         fn call(&mut self, req: http::Request<B>) -> Self::Future {
             match req.uri().path() {
+                "/routeguide.RouteGuide/GetFeature" => {
+                    #[allow(non_camel_case_types)]
+                    struct get_featureSvc<T: RouteGuide>(pub Arc<T>);
+                    impl<T: RouteGuide> tonic::server::UnaryService<super::Point>
+                    for get_featureSvc<T> {
+                        type Response = super::Feature;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::Point>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as RouteGuide>::get_feature(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = get_featureSvc(inner);
+                        let codec = tonic_protobuf::ProtoCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
                 _ => {
                     Box::pin(async move {
                         let mut response = http::Response::new(
