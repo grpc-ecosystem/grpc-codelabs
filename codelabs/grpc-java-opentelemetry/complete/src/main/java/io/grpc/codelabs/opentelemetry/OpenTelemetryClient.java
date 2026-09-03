@@ -29,9 +29,39 @@ import io.grpc.opentelemetry.GrpcOpenTelemetry;
 import io.opentelemetry.exporter.prometheus.PrometheusHttpServer;
 import io.opentelemetry.sdk.OpenTelemetrySdk;
 import io.opentelemetry.sdk.metrics.SdkMeterProvider;
+import io.opentelemetry.api.baggage.Baggage;
+import io.opentelemetry.context.Context;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Executor;
+import io.grpc.Metadata;
+import io.grpc.ServerCall;
+import io.grpc.ServerCallHandler;
+import io.grpc.ServerInterceptor;
+import io.opentelemetry.api.baggage.Baggage;
+import io.opentelemetry.api.baggage.propagation.W3CBaggagePropagator;
+import io.opentelemetry.api.trace.propagation.W3CTraceContextPropagator;
+import io.opentelemetry.context.Context;
+import io.opentelemetry.context.propagation.ContextPropagators;
+import io.opentelemetry.context.propagation.TextMapPropagator;
+import io.opentelemetry.sdk.metrics.InstrumentSelector;
+import io.opentelemetry.sdk.metrics.View;
+import java.util.Set;
+import io.grpc.*;
+import io.opentelemetry.api.baggage.Baggage;
+import io.opentelemetry.api.baggage.propagation.W3CBaggagePropagator;
+import io.opentelemetry.api.trace.propagation.W3CTraceContextPropagator;
+import io.opentelemetry.context.Context;
+import io.opentelemetry.context.Scope;
+import io.opentelemetry.context.propagation.ContextPropagators;
+import io.opentelemetry.context.propagation.TextMapPropagator;
+import io.opentelemetry.sdk.metrics.InstrumentSelector;
+import io.opentelemetry.sdk.metrics.View;
+import java.util.Set;
+import java.util.concurrent.Executor;
 import java.util.logging.Logger;
 
 /**
@@ -40,26 +70,38 @@ import java.util.logging.Logger;
  */
 public class OpenTelemetryClient {
   private static final Logger logger = Logger.getLogger(OpenTelemetryClient.class.getName());
+  private static final Executor myClientExecutor = Executors.newCachedThreadPool();
+
 
   private final GreeterGrpc.GreeterBlockingStub blockingStub;
 
-  /** Construct client for accessing HelloWorld server using the existing channel. */
+  /**
+   * Construct client for accessing HelloWorld server using the existing channel.
+   */
   public OpenTelemetryClient(Channel channel) {
     blockingStub = GreeterGrpc.newBlockingStub(channel);
   }
 
-  /** Say hello to server. */
+  /**
+   * Say hello to server.
+   */
   public void greet(String name) {
     logger.info("Will try to greet " + name + " ...");
-    HelloRequest request = HelloRequest.newBuilder().setName(name).build();
-    HelloReply response;
-    try {
+    Baggage baggage = Baggage.builder()
+        .put("user_id", "Abhishek-123")
+        .put("waze_region", "APAC")
+        .build();
+
+    try (Scope scope = baggage.makeCurrent()) {
+      HelloRequest request = HelloRequest.newBuilder().setName(name).build();
+      HelloReply response;
       response = blockingStub.sayHello(request);
+      logger.info("Greeting: " + response.getMessage());
     } catch (StatusRuntimeException e) {
       logger.log(Level.WARNING, "RPC failed: {0}", e.getStatus());
       return;
     }
-    logger.info("Greeting: " + response.getMessage());
+
   }
 
   /**
@@ -118,14 +160,31 @@ public class OpenTelemetryClient {
     PrometheusHttpServer prometheusExporter = PrometheusHttpServer.builder()
         .setPort(prometheusPort)
         .build();
+// The keys you want to attach to your client-side metrics
+    Set<String> baggageKeys = Set.of("user_id", "waze_region");
 
+    View clientBaggageView = View.builder()
+        .build();
+
+// Use the Waze approach: link filtered baggage to the view
     SdkMeterProvider sdkMeterProvider = SdkMeterProvider.builder()
         .registerMetricReader(prometheusExporter)
+        .registerView(
+            InstrumentSelector.builder().setName("grpc.client.*").build(),
+            clientBaggageView
+        )
         .build();
+
+    ContextPropagators propagators = ContextPropagators.create(
+        TextMapPropagator.composite(
+            W3CTraceContextPropagator.getInstance(),
+            W3CBaggagePropagator.getInstance()
+        )
+    );
 
     // Initialize OpenTelemetry SDK with MeterProvider configured with Prometeheus.
     OpenTelemetrySdk openTelemetrySdk =
-        OpenTelemetrySdk.builder().setMeterProvider(sdkMeterProvider).build();
+        OpenTelemetrySdk.builder().setPropagators(propagators).setMeterProvider(sdkMeterProvider).build();
 
     // Initialize gRPC OpenTelemetry.
     // Following client metrics are enabled by default :
@@ -136,13 +195,27 @@ public class OpenTelemetryClient {
     //     5. grpc.client.call.duration
     GrpcOpenTelemetry grpcOpenTelmetry = GrpcOpenTelemetry.newBuilder()
         .sdk(openTelemetrySdk)
+        .enableMetrics(java.util.Arrays.asList(
+            "grpc.tcp.connections_created",
+            "grpc.tcp.connection_count",
+            "grpc.tcp.packets_retransmitted",
+            "grpc.tcp.recurring_retransmits",
+            "grpc.tcp.min_rtt"
+        ))
         .build();
     // Registers gRPC OpenTelemetry globally.
-    grpcOpenTelmetry.registerGlobal();
+    // grpcOpenTelmetry.registerGlobal();
 
     // Create a communication channel to the server, known as a Channel.
-    ManagedChannel channel = Grpc.newChannelBuilder(target, InsecureChannelCredentials.create())
-        .build();
+    Executor wrappedExecutor = Context.taskWrapping(myClientExecutor);
+
+    ManagedChannelBuilder<?> builder = ManagedChannelBuilder.forTarget("localhost:50051")
+        .executor(wrappedExecutor) // Ensures context moves to the callback threads
+        .usePlaintext();
+    
+    grpcOpenTelmetry.configureChannelBuilder(builder);
+
+    ManagedChannel channel = builder.build();
     OpenTelemetryClient client = new OpenTelemetryClient(channel);
 
     try {

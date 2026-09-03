@@ -27,22 +27,63 @@ import io.grpc.stub.StreamObserver;
 import io.opentelemetry.exporter.prometheus.PrometheusHttpServer;
 import io.opentelemetry.sdk.OpenTelemetrySdk;
 import io.opentelemetry.sdk.metrics.SdkMeterProvider;
+import io.opentelemetry.api.baggage.Baggage;
+import io.opentelemetry.context.Context;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
+import io.grpc.CallOptions;
+import io.grpc.Channel;
+import io.grpc.ClientCall;
+import io.grpc.ClientInterceptor;
+import io.grpc.ForwardingClientCall;
+import io.grpc.Metadata;
+import io.grpc.MethodDescriptor;
+import io.opentelemetry.api.baggage.Baggage;
+import io.opentelemetry.api.baggage.propagation.W3CBaggagePropagator;
+import io.opentelemetry.api.trace.propagation.W3CTraceContextPropagator;
+import io.opentelemetry.context.Context;
+import io.opentelemetry.context.Scope;
+import io.opentelemetry.context.propagation.ContextPropagators;
+import io.opentelemetry.context.propagation.TextMapPropagator;
+import io.opentelemetry.sdk.metrics.InstrumentSelector;
+import io.opentelemetry.sdk.metrics.View;
+// import io.opentelemetry.sdk.metrics.internal.view.SdkMeterProviderUtil;
+import java.util.Set;
+import java.util.concurrent.Executor;
+import io.grpc.*;
+import io.opentelemetry.api.baggage.Baggage;
+import io.opentelemetry.api.baggage.propagation.W3CBaggagePropagator;
+import io.opentelemetry.api.trace.propagation.W3CTraceContextPropagator;
+import io.opentelemetry.context.Context;
+import io.opentelemetry.context.propagation.ContextPropagators;
+import io.opentelemetry.context.propagation.TextMapPropagator;
+import io.opentelemetry.sdk.metrics.InstrumentSelector;
+import io.opentelemetry.sdk.metrics.View;
+// import io.opentelemetry.sdk.metrics.internal.view.SdkMeterProviderUtil;
+import java.util.Set;
 
 /**
  * gRPC server that manages startup/shutdown of a {@code Greeter} server and generates
  * gRPC OpenTelemetry metrics data based on the configuration.
  */
 public class OpenTelemetryServer {
+
+
   private static final Logger logger = Logger.getLogger(OpenTelemetryServer.class.getName());
 
+
   private Server server;
-  private void start(int port) throws IOException {
-    server = Grpc.newServerBuilderForPort(port, InsecureServerCredentials.create())
-        .addService(new GreeterImpl())
-        .build()
+
+  private void start(int port, GrpcOpenTelemetry grpcOpenTelemetry) throws IOException {
+
+    ServerBuilder<?> builder = Grpc.newServerBuilderForPort(port, InsecureServerCredentials.create())
+        .addService(new GreeterImpl());
+
+    grpcOpenTelemetry.configureServerBuilder(builder);
+
+
+    server = builder.build()
         .start();
     logger.info("Server started, listening on " + port);
   }
@@ -65,6 +106,7 @@ public class OpenTelemetryServer {
   /**
    * Main launches the server from the command line.
    */
+
   public static void main(String[] args) throws IOException, InterruptedException {
     // The port on which the server should run.
     int port = 50051;
@@ -94,14 +136,42 @@ public class OpenTelemetryServer {
     PrometheusHttpServer prometheusExporter = PrometheusHttpServer.builder()
         .setPort(prometheusPort)
         .build();
+// 1. Define your baggage filter
+    Set<String> allowedBaggage = Set.of("user_id", "waze_region");
+
+// 2. Build a View that appends this baggage to gRPC metrics
+    View baggageView = View.builder()
+        .build();
+
+    // Use the utility to link the baggage to this view
+    // Use the utility to link the baggage to this view
+/*
+    SdkMeterProviderUtil.appendFilteredBaggageAttributes(
+        baggageView.toBuilder(),
+        allowedBaggage::contains
+    );
+*/
 
     SdkMeterProvider sdkMeterProvider = SdkMeterProvider.builder()
         .registerMetricReader(prometheusExporter)
+        .registerView(
+            InstrumentSelector.builder().setName("grpc.server.*").build(),
+            baggageView
+        )
         .build();
+
+
+    ContextPropagators propagators = ContextPropagators.create(
+        TextMapPropagator.composite(
+            W3CTraceContextPropagator.getInstance(),
+            W3CBaggagePropagator.getInstance()
+        )
+    );
 
     // Initialize OpenTelemetry SDK with MeterProvider configured with Prometheus metrics exporter
     OpenTelemetrySdk openTelemetrySdk =
-        OpenTelemetrySdk.builder().setMeterProvider(sdkMeterProvider).build();
+        OpenTelemetrySdk.builder().setPropagators(propagators).setMeterProvider(sdkMeterProvider).build();
+
 
     // Initialize gRPC OpenTelemetry.
     // Following server metrics are enabled by default :
@@ -113,10 +183,11 @@ public class OpenTelemetryServer {
         .sdk(openTelemetrySdk)
         .build();
     // Registers gRPC OpenTelemetry globally.
-    grpcOpenTelmetry.registerGlobal();
+    // Registers gRPC OpenTelemetry globally.
+    // grpcOpenTelmetry.registerGlobal();
 
     final OpenTelemetryServer server = new OpenTelemetryServer();
-    server.start(port);
+    server.start(port, grpcOpenTelmetry);
 
     Runtime.getRuntime().addShutdownHook(new Thread() {
       @Override
